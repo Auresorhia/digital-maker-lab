@@ -1,1 +1,9 @@
-config/
+# Fichiers systèmes Mac (très utile pour tes camarades sous MAMP !)
+.DS_Store
+
+# Fichiers systèmes Windows
+Thumbs.db
+
+# Configurations personnelles des éditeurs de code (VS Code, PhpStorm...)
+.vscode/
+.idea/
