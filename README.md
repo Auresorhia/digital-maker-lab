@@ -18,7 +18,7 @@ Une architecture MVC est déjà en place pour vous simplifier la vie. Merci de r
 * `src/Controllers/` : Pour vos contrôleurs.
 * `src/Models/` : Pour faire vos requêtes à la base de données.
 * `src/Views/` : Pour vos fichiers d'affichage HTML.
-* `src/Core/`, `config/database.php` et `public/index.php`: ⛔ Touchez pas à ça ! (excepté le fichier src/core/Router.php)
+* `src/Core/`, `config/database.php` (sauf pour le mot de passe) et `public/index.php`: ⛔ Touchez pas à ça ! (excepté le fichier src/core/Router.php)
 
 ## ⚠️ Les règles d'or pour Git
 
