@@ -6,7 +6,7 @@ Ce site web a pour but de présenter les coulisses de la création digitale et d
 
 Ce projet est développé en **PHP Orienté Objet "from scratch"** et s'appuie sur une architecture MVC fait-maison.
 
----
+
 
 ## 👨🏻‍💻 Comment installer le projet en local chez vous? 
 
@@ -34,7 +34,7 @@ Pour faire tourner le site sur votre ordinateur, vous devez :
      ```
    - Ouvrez votre navigateur et rendez-vous sur [http://localhost:8000](http://localhost:8000).
 
----
+
 
 ## 🗃️ Organisation de l'Architecture (MVC)
 
@@ -46,7 +46,7 @@ Le projet est pré-structuré pour séparer la logique métier de l'affichage. V
 
 > ‼️ **ZONE INTERDITE :** Ne modifiez pas les fichiers de configuration généraux, le reste du dossier `src/Core/`, le fichier `public/index.php` ou la configuration globale de la base de données (config/) sans m'en parler.
 
----
+
 
 ## 🎟️ Gestion des Fonctionnalités (GitHub Issues) 
 
@@ -59,7 +59,7 @@ Pour que le développement reste fluide et sous contrôle, nous utilisons un sys
 * **Revue Technique :** Je vais relire votre ticket pour m'assurer que cette étape respecte bien notre architecture globale MVC et ne risque pas de bloquer les autres groupes ou la base de données.
 * **Le Feu Vert (Assignation) :** Une fois le ticket validé techniquement, je vous l'assignerai officiellement. Cette assignation est votre "GO" officiel pour créer votre branche `feature-` et commencer à coder !
 
----
+
 
 ## 🖥️ Les Espaces de Travail (Branches Git) 
 
@@ -70,7 +70,7 @@ Le dépôt est structuré en deux espaces principaux pour garantir la stabilité
 * 🟢 **La branche `main` (Production) :** C'est la vitrine officielle du projet. Le code présent sur cette branche doit être 100% fonctionnel et testé. **Il est strictement interdit de coder ou de pusher directement sur `main`.**
 
 
----
+
 
 ## 🤺 Le Workflow Git 
 
@@ -110,7 +110,7 @@ git push origin feature-nom-du-plugin
 
 C'est moi qui me chargerai de relire le code, de le tester et de valider la Pull Request pour l'intégrer au projet global !
 
----
+
 
 ## 🍡 Règle pour la Base de Données
 
@@ -118,7 +118,7 @@ Si votre fonctionnalité a besoin d'enregistrer des données (tables supplément
 * **Ne modifiez jamais** le fichier `sql/init_db.sql` directement pour éviter les conflits d'écrasement.
 * **La solution :** Créez un petit fichier SQL indépendant dans le dossier `sql/` contenant uniquement vos requêtes SQL. Mentionnez-le clairement dans votre Pull Request pour que je puisse mettre à jour la base globale.
 
----
+
 
 ## 🤝 Besoin d'aide ou bloqué ?
 
