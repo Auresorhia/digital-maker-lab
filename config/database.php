@@ -27,7 +27,7 @@ class Database {
                 die("Erreur de connexion à la base de données : " . $e->getMessage());
             }
         }
-        
+
         // On retourne la connexion prête
         return self::$instance;
     }
