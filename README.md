@@ -10,8 +10,6 @@ Ce projet est développé en **PHP Orienté Objet "from scratch"** et s'appuie s
 
 ## 👨🏻‍💻 Comment installer le projet en local chez vous? 
 
-Pour faire tourner le site sur votre ordinateur, vous devez :
-
 1. **Cloner le dépôt** sur votre ordinateur :
    ```bash
    git clone https://github.com/Auresorhia/digital-maker-lab
@@ -21,31 +19,32 @@ Pour faire tourner le site sur votre ordinateur, vous devez :
 2. **Configurer la base de données** :
    - Ouvrez votre outil de gestion de base de données.
    - Créez une nouvelle base de données nommée `digital_maker_lab`.
-   - Importez le fichier initial situé dans `sql/init_db.sql` pour générer la structure commune.
+   - Importez le fichier initial situé dans `sql/init_db.sql`, Magie ! vous êtes à jour sur la bdd.
 
 3. **Gérer les identifiants locaux** :
    - Les configurations de connexion se trouvent dans `config/database.php`.
-   - *Note pour les utilisateurs Mac (MAMP) :* Pensez à adapter les identifiants (comme le mot de passe `root`) dans le fichier `config/database.php` si nécessaire pour votre environnement local.
+   - *Note pour les utilisateurs Mac (MAMP) :* Pensez à adapter les identifiants (ex: le mdp `root`) pour votre environnement local.
 
 1. **Pour lancer le serveur local PHP** :
-   - Ouvrez votre terminal à la racine du projet et exécutez la commande suivante :
+   - Ouvrez votre terminal à la racine du projet et exécutez cette commande:
      ```bash
      php -S localhost:8000 -t public
      ```
-   - Ouvrez votre navigateur et rendez-vous sur [http://localhost:8000](http://localhost:8000).
+   - Allez sur [http://localhost:8000]
 
 
 
 ## 🗃️ Organisation de l'Architecture (MVC)
 
-Le projet est pré-structuré pour séparer la logique métier de l'affichage. Vous devez impérativement coder dans les dossiers dédiés à vos fonctionnalités :
+Le MVC sert à séparer la logique métier de l'affichage. Vous devez coder que dans les dossiers dédiés à vos fonctionnalités :
 
 * `src/Controllers/` : Pour placer vos contrôleurs (gestion de la logique de vos plugins).
 * `src/Models/` : Pour placer vos modèles et effectuer vos requêtes SQL à la base de données.
 * `src/Views/` : Pour intégrer vos fichiers d'affichage HTML (les morceaux de pages ou gabarits).
 
-> ‼️ **ZONE INTERDITE :** Ne modifiez pas les fichiers de configuration généraux, le reste du dossier `src/Core/`, le fichier `public/index.php` ou la configuration globale de la base de données (config/) sans m'en parler.
+* ⚠️ **RÈGLE POUR LES ROUTES (`src/Core/Router.php`) :** Le fichier `Router.php` centralise tous les accès aux pages du site. **Il est strictement interdit de modifier ce fichier directement**. Si votre fonctionnalité a besoin de créer une nouvelle page (et donc d'une nouvelle route), mentionnez-le obligatoirement dans votre ticket (Issue) et **envoyez-moi un message privé sur Discord** pour que nous configurions la route ensemble.
 
+> ‼️ **ZONE INTERDITE :** Ne modifiez pas le dossier `src/Core/`, le fichier `public/index.php` ou la configuration globale de la base de données (config/) sans m'en parler.
 
 
 ## 🎟️ Gestion des Fonctionnalités (GitHub Issues) 
@@ -54,10 +53,10 @@ Le projet est pré-structuré pour séparer la logique métier de l'affichage. V
 
 Pour que le développement reste fluide et sous contrôle, nous utilisons un système de validation par Tickets (/Tâches) :
 
-* **Règle d'or (Découpez vos tâches !) :** Ne créez pas un seul ticket géant pour une fonctionnalité énorme (ex: "Faire le mini CMS"). Découpez votre fonctionnalité en petites tâches et créez un ticket pour chacune (ex: Ticket 1 : "Créer la table SQL", Ticket 2 : "Faire la page de connexion", etc.). C'est plus clair pour vous, et plus facile à suivre pour moi.
+* **Règle d'or (Découpez vos tâches !) :** Ne créez pas un seul ticket géant pour une fonctionnalité énorme (ex: "Faire le mini CMS"). Découpez votre fonctionnalité en petites tâches et créez un ticket pour chacune (ex: Ticket 1 : "Créer la table SQL", Ticket 2 : "Faire la page de connexion"). C'est plus clair pour vous, et plus facile à suivre pour moi.
 * **Créez votre Tâche (Issue) :** Dans l'onglet *Issues* sur GitHub, cliquez sur **New Issue**. Prenez le modèle de ticket (Création de fonctionnalité) et remplissez juste les champs. **Faites-moi ensuite un petit message sur Discord pour me prévenir que le ticket est en attente.**
-* **Revue Technique :** Je vais relire votre ticket pour m'assurer que cette étape respecte bien notre architecture globale MVC et ne risque pas de bloquer les autres groupes ou la base de données.
-* **Le Feu Vert (Assignation) :** Une fois le ticket validé techniquement, je vous l'assignerai officiellement. Cette assignation est votre "GO" officiel pour créer votre branche `feature-` et commencer à coder !
+* **Revue Technique :** Je vais relire votre ticket pour m'assurer que cette étape respecte bien l'architecture et que ça ne casse pas la bdd.
+* **Le Feu Vert (Assignation) :** Une fois le ticket validé, je vous l'assignerai officiellement. Cette assignation est votre "GO" officiel pour créer votre branche `feature-` et commencer à coder !
 
 
 
