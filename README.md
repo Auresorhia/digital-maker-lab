@@ -54,10 +54,15 @@ Le MVC sert à séparer la logique métier de l'affichage. Vous devez coder que 
 Pour que le développement reste fluide et sous contrôle, nous utilisons un système de validation par Tickets (/Tâches) :
 
 * **Règle d'or (Découpez vos tâches !) :** Ne créez pas un seul ticket géant pour une fonctionnalité énorme (ex: "Faire le mini CMS"). Découpez votre fonctionnalité en petites tâches et créez un ticket pour chacune (ex: Ticket 1 : "Créer la table SQL", Ticket 2 : "Faire la page de connexion"). C'est plus clair pour vous, et plus facile à suivre pour moi.
-* **Créez votre Tâche (Issue) :** Dans l'onglet *Issues* sur GitHub, cliquez sur **New Issue**. Prenez le modèle de ticket (Création de fonctionnalité) et remplissez juste les champs. **Faites-moi ensuite un petit message sur Discord pour me prévenir que le ticket est en attente.**
+* **Créez votre Tâche (Issue) :** Dans l'onglet *Issues* sur GitHub, cliquez sur **New Issue**. Prenez le modèle de ticket "Création de fonctionnalité" et remplissez juste les champs. **Faites-moi ensuite un petit message sur Discord pour me prévenir que le ticket est en attente.**
+
+* **Le Tableau de Bord (GitHub Projects) :** Un tableau de suivi est disponible dans l'onglet **Projects** du dépôt. Dès que vous créez votre ticket, il se place **automatiquement** dans la colonne **À faire**. Cela permet à tout le monde (surtout à moi) de voir l'avancée globale de chaque fonctionnalité .
+ 
 * **Revue Technique :** Je vais relire votre ticket pour m'assurer que cette étape respecte bien l'architecture et que ça ne casse pas la bdd.
 * **Le Feu Vert (Assignation) :** Une fois le ticket validé, je vous l'assignerai officiellement. Cette assignation est votre "GO" officiel pour créer votre branche `feature-` et commencer à coder !
 
+* **Mise à jour et automatisation :** Le tableau vit tout seul. Le ticket passera automatiquement dans **En cours** puis dans **Terminé** au fil de vos Pull Requests. 
+  * ⚠️ **Règle de secours :** Si vous commencez à coder votre tâche avant d'avoir ouvert votre Pull Request sur GitHub, vous avez les droits d'écriture pour glisser vous-mêmes manuellement votre ticket dans la colonne **En cours** afin que l'on sache que vous êtes dessus.
 
 
 ## 🖥️ Les Espaces de Travail (Branches Git) 
