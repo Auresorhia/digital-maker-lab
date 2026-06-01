@@ -49,19 +49,33 @@ Le MVC sert à séparer la logique métier de l'affichage. Vous devez coder que 
 
 ## 🎟️ Gestion des Fonctionnalités (GitHub Issues) 
 
-**Rappel : Tâches = Tickets = Issues**
+**Rappel : Issues = Tickets (Tickets de Tâche + Tickets de Bug)**
 
-Pour que le développement reste fluide et sous contrôle, nous utilisons un système de validation par Tickets (/Tâches) :
+Pour que le développement reste fluide et sous contrôle, nous utilisons un système de validation par Tickets :
 
-* **Règle d'or (Découpez vos tâches !) :** Ne créez pas un seul ticket géant pour une fonctionnalité énorme (ex: "Faire le mini CMS"). Découpez votre fonctionnalité en petites tâches et créez un ticket pour chacune (ex: Ticket 1 : "Créer la table SQL", Ticket 2 : "Faire la page de connexion"). C'est plus clair pour vous, et plus facile à suivre pour moi.
-* **Créez votre Tâche (Issue) :** Dans l'onglet *Issues* sur GitHub, cliquez sur **New Issue**. Prenez le modèle de ticket "Création de fonctionnalité" et remplissez juste les champs. **Faites-moi ensuite un petit message sur Discord pour me prévenir que le ticket est en attente.**
+* **🪙 Règle d'or (Découpez vos tâches !) :** Ne créez pas un seul ticket géant pour une fonctionnalité énorme (ex: "Faire le mini CMS"). Découpez votre fonctionnalité en petits tickets de tâche et créez un ticket pour chacune (ex: Ticket 1 : "Créer la table SQL", Ticket 2 : "Faire la page de connexion"). C'est plus clair pour vous, et plus facile à suivre pour moi.
 
-* **Le Tableau de Bord (GitHub Projects) :** Un tableau de suivi est disponible dans l'onglet **Projects** du dépôt. Dès que vous créez votre ticket, il se place **automatiquement** dans la colonne **À faire**. Cela permet à tout le monde (surtout à moi) de voir l'avancée globale de chaque fonctionnalité .
+* **Créez votre Tâche (Issue) :** Dans l'onglet *Issues* sur GitHub, cliquez sur **New Issue**. Prenez le modèle de ticket "Création de fonctionnalité" et remplissez juste les champs. **Faites-moi ensuite un petit message sur Discord une fois le ticket **créé**.**
+
+* **🐛 Signalez un Bug (Issue) :** Le principe est exactement le même ! Si vous repérez une erreur, créez un ticket par problème en utilisant le modèle "Signalement de Bug". Ne faites surtout pas de listes groupées. Prévenez-moi aussi sur Discord une fois le ticket **créé**.
+
+* **Le Tableau de Bord (GitHub Projects) :** Un tableau de suivi est disponible dans l'onglet **Projects** du dépôt.
+  Un tableau de suivi est disponible dans l'onglet _Projects_ du dépôt pour voir l'avancée globale. Voici comment lire ses 3 colonnes :
+
+	* **⚪ À faire :** Le ticket est créé, validé par moi, et prêt à être codé
+	* **🟡 En cours :** Un développeur est en train d'écrire le code pour ce ticket
+	* **🟢 Terminé :** La tâche est finie, le code a été vérifié et je l'ai officiellement fusionné dans notre architecture de base
+
+   Dès que vous créez votre ticket, il se place **automatiquement** dans la colonne **À faire**. ça permet à tout le monde (surtout à moi) de voir l'avancée globale de chaque fonctionnalité .
  
-* **Revue Technique :** Je vais relire votre ticket pour m'assurer que cette étape respecte bien l'architecture et que ça ne casse pas la bdd.
-* **Le Feu Vert (Assignation) :** Une fois le ticket validé, je vous l'assignerai officiellement. Cette assignation est votre "GO" officiel pour créer votre branche `feature-` et commencer à coder !
+* **Revue Technique :** Je vais relire votre ticket pour m'assurer que cette étape respecte bien l'architecture et que ça ne casse pas la bdd. Puis je me charge d'ajouter des étiquettes de couleur ("bug", "base de données", etc.) pour bien catégoriser les issues.
 
-* **Mise à jour et automatisation :** Le tableau vit tout seul. Le ticket passera automatiquement dans **En cours** puis dans **Terminé** au fil de vos Pull Requests. 
+* ✅ **Le Feu Vert (Assignation) :** Une fois le ticket validé, je vous l'assignerai officiellement. Cette assignation est votre "GO" officiel pour créer votre branche `feature-` et commencer à coder !
+
+* ❌ En cas de refus : Si un ticket est incomplet, mal découpé, ou qu'il ne s'agit pas d'un vrai bug lié au socle commun du projet, je le fermerai avec un commentaire explicatif pour que vous puissiez le corriger.
+
+* **Mise à jour et automatisation :** Le tableau vit tout seul. Le ticket passera automatiquement dans **En cours** puis dans **Terminé** au fil de vos Pull Requests.
+  
   * ⚠️ **Règle de secours :** Si vous commencez à coder votre tâche avant d'avoir ouvert votre Pull Request sur GitHub, vous avez les droits d'écriture pour glisser vous-mêmes manuellement votre ticket dans la colonne **En cours** afin que l'on sache que vous êtes dessus.
 
 
@@ -69,9 +83,9 @@ Pour que le développement reste fluide et sous contrôle, nous utilisons un sys
 
 Le dépôt est structuré en deux espaces principaux pour garantir la stabilité du site en ligne :
 
-* 🔵 **La branche `dev` (Développement) :** C'est notre espace d'intégration. C'est ici que l'on rassemble toutes les fonctionnalités pour vérifier qu'elles fonctionnent ensemble. C'est votre branche de référence pour démarrer. Donc c'est là que vous allez faire vos Pull Request.
+* 💿 **La branche `dev` (Développement) :** C'est notre espace d'intégration. C'est ici que l'on rassemble toutes les fonctionnalités pour vérifier qu'elles fonctionnent ensemble. C'est votre branche de référence pour démarrer. Donc c'est là que vous allez faire vos Pull Request.
 
-* 🟢 **La branche `main` (Production) :** C'est la vitrine officielle du projet. Le code présent sur cette branche doit être 100% fonctionnel et testé. **Il est strictement interdit de coder ou de pusher directement sur `main`.**
+* 📀 **La branche `main` (Production) :** C'est la vitrine officielle du projet. Le code présent sur cette branche doit être 100% fonctionnel et testé. **Il est strictement interdit de coder ou de pusher directement sur `main`.**
 
 
 
