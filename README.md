@@ -74,7 +74,7 @@ Pour que le développement reste fluide et sous contrôle, nous utilisons un sys
 
 * ❌ En cas de refus : Si un ticket est incomplet, mal découpé, ou qu'il ne s'agit pas d'un vrai bug lié au socle commun du projet, je le fermerai avec un commentaire explicatif pour que vous puissiez le corriger.
 
-* **Mise à jour et automatisation :** Le tableau vit tout seul. Le ticket passera automatiquement dans **En cours** puis dans **Terminé** au fil de vos Pull Requests.
+* **Mise à jour et automatisation :** Le tableau vit tout seul. Vous devez relier votre ticket à votre Pull Request pour que le ticket passe automatiquement dans **En cours** (Pour savoir comment faire, aller dans la section "Le Workflow Git"). Puis il passera dans **Terminé** au fil de vos Pull Requests.
   
   * ⚠️ **Règle de secours :** Si vous commencez à coder votre tâche avant d'avoir ouvert votre Pull Request sur GitHub, vous avez les droits d'écriture pour glisser vous-mêmes manuellement votre ticket dans la colonne **En cours** afin que l'on sache que vous êtes dessus.
 
@@ -123,8 +123,17 @@ git push origin feature-nom-du-plugin
 
 ### Étape 5 : Ouvrir une Pull Request (PR)
 1. Sur la page GitHub du projet.Cliquez sur le bouton vert **Compare & pull request**
+   
 2. Configurez la demande pour fusionner votre branche **vers la branche `develop`** (et non vers `main`)
+   
 3. Décrivez brièvement ce que fait votre code
+   
+4. Reliez votre Pull Request à votre ticket:
+   * Trouvez la section Development (qui est à droite de votre écran) et cliquez sur la roue crantée (⚙️)
+   * Cliquez sur le ticket sur lequel vous avez travaillé
+ça déplacera automatiquement votre ticket dans la colonne "En cours" sur le tableau
+
+5. Validez la création de la Pull Request
 
 C'est moi qui me chargerai de relire le code, de le tester et de valider la Pull Request pour l'intégrer au projet global !
 
