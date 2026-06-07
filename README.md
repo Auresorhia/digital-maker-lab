@@ -61,9 +61,10 @@ Pour que le développement reste fluide et sous contrôle, nous utilisons un sys
 
 
 * **Le Tableau de Bord (GitHub Projects) :** Un tableau de suivi est disponible dans l'onglet **Projects** du dépôt.
-  Un tableau de suivi est disponible dans l'onglet _Projects_ du dépôt pour voir l'avancée globale. Voici comment lire ses 3 colonnes :
+  Un tableau de suivi est disponible dans l'onglet _Projects_ du dépôt pour voir l'avancée globale. Voici comment lire ses 4 colonnes :
 
-	* **⚪ À faire :** Le ticket est créé, validé par moi, et prêt à être codé **(Le ticket se mettra automatiquement dans "à faire")**
+	* **⚪ En cours :** Quand vous aurez crée votre, ticket il sera automatiquement dans cette colonne, soit ça veut dire que je ne l'ai pas encore vérifié, soit ça veut dire que je l'ai laissé en attente avec un commentaire.
+	* **🔵à faire :** Le ticket est créé, validé par moi, et prêt à être codé **(Le ticket se mettra automatiquement dans "à faire")**
 	* **🟡 En cours :** Un développeur est en train d'écrire le code pour ce ticket **(il faudra que vous déplaciez vous-même votre ticket dans "En cous" après avoir eu mon "Feu Vert")**
 	* **🟢 Terminé :** La tâche est finie, le code a été vérifié et je l'ai officiellement fusionné dans notre architecture de base **(mettra le ticket automatiquement dedans)**
 
