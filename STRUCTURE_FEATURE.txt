@@ -1,0 +1,216 @@
+digital-maker-lab/
+│
+├── 📂 src/
+│   ├── 📂 Controllers/
+│   │   ├── LoginController.php      ← Gestion login/logout
+│   │   └── AdminController.php      ← Gestion dashboard
+│   │
+│   ├── 📂 Models/
+│   │   └── AdminModel.php           ← Requêtes SQL admins
+│   │
+│   └── 📂 Views/
+│       ├── login.php                ← Page de connexion
+│       └── admin-dashboard.php      ← Dashboard admin
+│
+├── 📂 sql/
+│   └── feature_login_admin.sql      ← Table admins + compte test
+│
+└── 📂 Documentation/
+    ├── FEATURE_LOGIN_ADMIN.md       ← Doc complète
+    ├── ROUTES_A_AJOUTER.md          ← Routes à intégrer
+    ├── TEST_LOGIN.md                ← Guide de test
+    ├── PULL_REQUEST_TEMPLATE.md     ← Template PR
+    └── RESUME_BRANCHE.txt           ← Ce fichier
+
+
+═══════════════════════════════════════════════════════════════
+    FLUX D'UTILISATION
+═══════════════════════════════════════════════════════════════
+
+    1. Utilisateur accède à /login
+              ↓
+    2. LoginController::showLoginPage()
+              ↓
+    3. Affichage de login.php
+              ↓
+    4. Utilisateur soumet le formulaire
+              ↓
+    5. LoginController::handleLogin()
+              ↓
+    6. AdminModel::findByEmail()
+              ↓
+    7. Vérification du mot de passe
+              ↓
+    8. Création de la session
+              ↓
+    9. Redirection vers /admin/dashboard
+              ↓
+    10. AdminController::dashboard()
+              ↓
+    11. Affichage de admin-dashboard.php
+
+
+═══════════════════════════════════════════════════════════════
+    ARCHITECTURE MVC
+═══════════════════════════════════════════════════════════════
+
+    ┌─────────────────┐
+    │   UTILISATEUR   │
+    └────────┬────────┘
+             │
+             ↓
+    ┌─────────────────┐
+    │     ROUTER      │ ← Routes à ajouter
+    └────────┬────────┘
+             │
+             ↓
+    ┌─────────────────┐
+    │  CONTROLLER     │ ← LoginController, AdminController
+    │  (Logique)      │
+    └────────┬────────┘
+             │
+        ┌────┴────┐
+        ↓         ↓
+    ┌───────┐ ┌───────┐
+    │ MODEL │ │ VIEW  │
+    │ (BDD) │ │ (HTML)│
+    └───────┘ └───────┘
+        ↓         ↓
+    ┌───────┐ ┌───────┐
+    │ MySQL │ │Browser│
+    └───────┘ └───────┘
+
+
+═══════════════════════════════════════════════════════════════
+    SÉCURITÉ - FLUX DE CONNEXION
+═══════════════════════════════════════════════════════════════
+
+    Email + Password (en clair)
+              ↓
+    [Validation des champs]
+              ↓
+    [Requête préparée PDO] ← Protection SQL Injection
+              ↓
+    [Récupération du hash depuis BDD]
+              ↓
+    [password_verify()] ← Comparaison sécurisée
+              ↓
+    [Création session] ← Stockage sécurisé
+              ↓
+    [Redirection]
+
+
+═══════════════════════════════════════════════════════════════
+    BASE DE DONNÉES
+═══════════════════════════════════════════════════════════════
+
+    Table: admins
+    ┌──────────────┬──────────────┬──────────┐
+    │ Champ        │ Type         │ Attribut │
+    ├──────────────┼──────────────┼──────────┤
+    │ id           │ INT          │ PK, AI   │
+    │ email        │ VARCHAR(255) │ UNIQUE   │
+    │ password     │ VARCHAR(255) │ HASHED   │
+    │ name         │ VARCHAR(100) │          │
+    │ last_login   │ DATETIME     │ NULL     │
+    │ created_at   │ TIMESTAMP    │ DEFAULT  │
+    │ updated_at   │ TIMESTAMP    │ ON UPDATE│
+    └──────────────┴──────────────┴──────────┘
+
+
+═══════════════════════════════════════════════════════════════
+    ROUTES À CONFIGURER
+═══════════════════════════════════════════════════════════════
+
+    GET  /login              → LoginController::showLoginPage()
+    POST /login              → LoginController::handleLogin()
+    GET  /logout             → LoginController::logout()
+    GET  /admin/dashboard    → AdminController::dashboard()
+
+
+═══════════════════════════════════════════════════════════════
+    SESSIONS PHP
+═══════════════════════════════════════════════════════════════
+
+    $_SESSION['admin_id']     → ID de l'admin connecté
+    $_SESSION['admin_email']  → Email de l'admin
+    $_SESSION['admin_name']   → Nom de l'admin
+    $_SESSION['error']        → Message d'erreur temporaire
+    $_SESSION['success']      → Message de succès temporaire
+
+
+═══════════════════════════════════════════════════════════════
+    DÉPENDANCES
+═══════════════════════════════════════════════════════════════
+
+    ✅ PHP 8.0+
+    ✅ PDO (PHP Data Objects)
+    ✅ MySQL/MariaDB
+    ✅ Sessions PHP activées
+    ✅ Classe Database (Singleton) dans config/database.php
+
+
+═══════════════════════════════════════════════════════════════
+    COMPATIBILITÉ
+═══════════════════════════════════════════════════════════════
+
+    ✅ PHP 8.0, 8.1, 8.2, 8.3
+    ✅ MySQL 5.7+
+    ✅ MariaDB 10.2+
+    ✅ Navigateurs modernes (Chrome, Firefox, Safari, Edge)
+    ✅ Responsive (mobile, tablette, desktop)
+
+
+═══════════════════════════════════════════════════════════════
+    TAILLE TOTALE DU CODE
+═══════════════════════════════════════════════════════════════
+
+    Controllers  : ~2.6 KB  (2 fichiers)
+    Models       : ~2.4 KB  (1 fichier)
+    Views        : ~10.8 KB (2 fichiers)
+    SQL          : ~1.7 KB  (1 fichier)
+    ─────────────────────────
+    TOTAL        : ~17.5 KB (6 fichiers de code)
+
+    Documentation : ~25 KB  (5 fichiers)
+
+
+═══════════════════════════════════════════════════════════════
+    TEMPS DE DÉVELOPPEMENT ESTIMÉ
+═══════════════════════════════════════════════════════════════
+
+    Développement    : ~2h
+    Tests            : ~30min
+    Documentation    : ~1h
+    ─────────────────────────
+    TOTAL            : ~3h30
+
+
+═══════════════════════════════════════════════════════════════
+    PROCHAINES AMÉLIORATIONS POSSIBLES
+═══════════════════════════════════════════════════════════════
+
+    🔲 Système "Se souvenir de moi"
+    🔲 Réinitialisation de mot de passe
+    🔲 Limitation des tentatives (rate limiting)
+    🔲 Authentification 2FA
+    🔲 Logs de connexion
+    🔲 Gestion des rôles (admin, super-admin)
+    🔲 Gestion des permissions
+    🔲 Historique des connexions
+    🔲 Notifications par email
+    🔲 API REST pour mobile
+
+
+═══════════════════════════════════════════════════════════════
+    LICENCE & CRÉDITS
+═══════════════════════════════════════════════════════════════
+
+    Projet      : Digital Maker Lab
+    Branche     : feature/login-admin
+    Date        : 01/06/2026
+    Développeur : [Votre nom]
+    Licence     : [Licence du projet]
+
+
+═══════════════════════════════════════════════════════════════
