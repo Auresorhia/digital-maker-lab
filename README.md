@@ -93,12 +93,12 @@ Voici la routine à suivre à chaque fois que vous développez votre fonctionnal
 ### Étape 1 : Se mettre à jour
 Avant tout développement, récupérez la dernière version propre du code :
 ```bash
-git checkout develop
-git pull origin develop
+git checkout dev
+git pull origin dev
 ```
 
 ### Étape 2 : Créer sa branche locale
-Créez une branche dédiée à partir de `develop` en respectant la nomenclature professionnelle suivante : `feature-[nom-de-la-fonctionnalite]`
+Créez une branche dédiée à partir de `dev` en respectant la nomenclature professionnelle suivante : `feature-[nom-de-la-fonctionnalite]`
 ```bash
 git checkout -b feature-nom-du-plugin
 ```
