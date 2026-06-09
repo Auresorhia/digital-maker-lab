@@ -13,13 +13,14 @@ class Database {
         // Si la connexion n'existe pas encore, on la crée
         if (self::$instance === null) {
             try {
-                $host = 'localhost';
+                $host = '127.0.0.1';  // Utiliser 127.0.0.1 au lieu de localhost pour MAMP
+                $port = '8889';       // Port par défaut de MAMP (3306 si vous utilisez MAMP PRO)
                 $dbname = 'digital_maker_lab';
                 $username = 'root';
-                $password = ''; // ATTENTION : si vous êtes sur Mac (MAMP), remplacez le mot de passe vide par 'root'!
+                $password = 'root'; // ATTENTION : si vous êtes sur Mac (MAMP), remplacez le mot de passe vide par 'root'!
 
                 // Pour se connecter
-                self::$instance = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+                self::$instance = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);
                 
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//affiche les erreurs en cas...d'erreur
                 
