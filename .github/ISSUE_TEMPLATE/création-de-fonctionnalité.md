@@ -14,4 +14,7 @@ assignees: ''
 
 **Fichiers impactés :** [Ex: je vais crée un fichier chatbot.php dans `src/Controllers/`]
 
-**Base de données :** [ [Oui/Non] Oui UNIQUEMENT si CETTE tâche précise ajoute une table SQL et donc n'oubliez pas que vous devrez créer un fichier SQL séparé]
+**Besoin d'une nouvelle route (nouvelle page) ?**
+[Oui / Non] - Si Oui, décrivez l'URL souhaitée (ex: /contact) pour que je configure le Router.php et qu'on valide ensemble]
+
+**Base de données :** [ [Oui/Non] - Oui UNIQUEMENT si CETTE tâche précise ajoute une table SQL et donc n'oubliez pas que vous devrez créer un fichier SQL séparé]
