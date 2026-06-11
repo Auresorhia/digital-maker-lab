@@ -1,8 +1,13 @@
--- 1. On vide la table pour éviter les conflits d'ID (si MySQL bloque à cause des clés étrangères, utilise TRUNCATE)
-DELETE FROM `metiers`;
+-- 1. Création de la nouvelle table avec ton nom personnalisé
+CREATE TABLE IF NOT EXISTS `exemple_metiers` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `titre` VARCHAR(255) NOT NULL,
+    `description` TEXT NOT NULL,
+    `specialite` VARCHAR(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 2. On insère les 8 métiers du digital avec les ID exacts requis pour le quiz
-INSERT INTO `metiers` (`id`, `titre`, `description`, `specialite`) VALUES
+-- 2. Insertion des 8 métiers du quiz dedans
+INSERT INTO `exemple_metiers` (`titre`, `description`, `specialite`) VALUES
 ('Créateur d''entreprise', 'Pilote et donne vie à des projets innovants en partant de zéro.', 'marketing'),
 ('Responsable CRM', 'Expert de la data et de la stratégie de fidélisation client.', 'marketing'),
 ('Consultant SEO', 'Spécialiste du référencement naturel pour dominer les moteurs de recherche.', 'marketing'),

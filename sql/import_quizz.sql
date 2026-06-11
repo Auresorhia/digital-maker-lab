@@ -7,9 +7,9 @@ CREATE TABLE IF NOT EXISTS `quiz_metier_question` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `text_question` TEXT NOT NULL,
     `metier_id` INT NOT NULL,
-    `État` VARCHAR(50) NOT NULL, -- 'easy', 'medium', 'hard'
+    `Niveau` VARCHAR(50) NOT NULL, -- 'easy', 'medium', 'hard'
     CONSTRAINT `fk_questions_metiers` 
-        FOREIGN KEY (`metier_id`) REFERENCES `metiers`(`id`) 
+        FOREIGN KEY (`metier_id`) REFERENCES `exemple_metiers`(`id`) 
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
