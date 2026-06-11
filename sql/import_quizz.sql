@@ -1,20 +1,23 @@
 -- =========================================================================
--- 1. CRÉATION DES TABLES (STRUCTURE NOTION / AIRTABLE VALIDÉE)
+-- 1. NETTOYAGE & CRÉATION DES TABLES
 -- =========================================================================
 
+DROP TABLE IF EXISTS `quiz_metier_answer`;
+DROP TABLE IF EXISTS `quiz_metier_question`;
+
 -- Création de la table des questions
-CREATE TABLE IF NOT EXISTS `quiz_metier_question` (
+CREATE TABLE `quiz_metier_question` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `text_question` TEXT NOT NULL,
     `metier_id` INT NOT NULL,
-    `Niveau` VARCHAR(50) NOT NULL, -- 'easy', 'medium', 'hard'
+    `État` VARCHAR(50) NOT NULL, -- 'easy', 'medium', 'hard'
     CONSTRAINT `fk_questions_metiers` 
         FOREIGN KEY (`metier_id`) REFERENCES `exemple_metiers`(`id`) 
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Création de la table des réponses
-CREATE TABLE IF NOT EXISTS `quiz_metier_answer` (
+CREATE TABLE `quiz_metier_answer` (
     `id_answer` INT AUTO_INCREMENT PRIMARY KEY,
     `text_response` TEXT NOT NULL,
     `id_question` INT NOT NULL,
@@ -24,7 +27,6 @@ CREATE TABLE IF NOT EXISTS `quiz_metier_answer` (
         FOREIGN KEY (`id_question`) REFERENCES `quiz_metier_question`(`id`) 
         ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
 
 -- =========================================================================
 -- 2. INITIALISATION DES DONNÉES (SEEDING - 80 QUESTIONS VRAI/FAUX)
@@ -76,7 +78,7 @@ INSERT INTO `quiz_metier_question` (`id`, `text_question`, `metier_id`, `État`)
 (13, 'Le RGPD (Règlement Général sur la Protection des Données) a un impact direct sur son travail.', 2, 'medium'),
 (14, 'L''automatisation (Marketing Automation) est au cœur de son métier.', 2, 'easy'),
 (15, 'Le responsable CRM s''intéresse uniquement aux clients qui achètent beaucoup.', 2, 'medium'),
-(16, 'Le "taux de désabonnement" est un indicateur qu''il ne prend pas en compte.', 2, 'easy'),
+(16, 'Le "taux de désabonnement" est un indicator qu''il ne prend pas en compte.', 2, 'easy'),
 (17, 'Un outil CRM (comme Salesforce, HubSpot ou Brevo) est indispensable à sa mission.', 2, 'easy'),
 (18, 'Il est fréquent que le CRM gère des campagnes par SMS.', 2, 'medium'),
 (19, 'Le responsable CRM gère la création des campagnes publicitaires sur Meta Ads.', 2, 'hard'),
@@ -129,7 +131,7 @@ INSERT INTO `quiz_metier_answer` (`id_question`, `text_response`, `explication_r
 (24, 'Vrai', 'Plus des sites de confiance pointent vers le vôtre, plus Google considère votre site comme pertinent.', 'vrai'),
 (24, 'Faux', 'Le netlinking reste un critère majeur d''évaluation de la popularité d''un nom de domaine.', 'faux'),
 (25, 'Vrai', 'Le sur-optimisation sémantique est pénalisée par les algorithmes modernes au profit du confort de lecture.', 'faux'),
-(25, 'Faux', 'Le "Keyword Stuffing" (bourrage de mots-clés) est lourdement pénalisé par les algorithmes de Google aujourd''hui.', 'vrai'),
+(25, 'Faux', 'Le "Keyword Stuffing" (bourrage de mots-clés) lourdement pénalisé par les algorithmes de Google aujourd''hui.', 'vrai'),
 (26, 'Vrai', 'Cela lui permet de cibler des mots-clés que les internautes tapent réellement.', 'vrai'),
 (26, 'Faux', 'Se positionner sur des expressions dénuées de trafic n''apportera aucune visite au site.', 'faux'),
 (27, 'Vrai', 'C''est le titre cliquable bleu dans les résultats Google, essentiel pour la compréhension de la page par l''algorithme.', 'vrai'),
@@ -150,7 +152,7 @@ INSERT INTO `quiz_metier_question` (`id`, `text_question`, `metier_id`, `État`)
 (33, 'Il doit obligatoirement être un développeur expert et écrire tout le code du jeu.', 4, 'easy'),
 (34, 'La psychologie du joueur est un élément central de sa réflexion.', 4, 'easy'),
 (35, 'Il s''occupe de la gestion des campagnes publicitaires pour promouvoir le jeu.', 4, 'easy'),
-(36, 'Le "Level Design" (la création des parcours dans les niveaux) est une branche de son domaine.', 4, 'medium'),
+(36, 'Le "Level Design" (la création des parcours dans les Étatx) est une branche de son domaine.', 4, 'medium'),
 (37, 'Il rédige souvent un cahier des charges appelé "Game Design Document" (GDD).', 4, 'medium'),
 (38, 'La création du système de loot (récompenses) fait partie de ses attributions.', 4, 'hard'),
 (39, 'Le prototypage rapide est une perte de temps dans le cycle de production.', 4, 'medium'),
@@ -206,7 +208,7 @@ INSERT INTO `quiz_metier_answer` (`id_question`, `text_response`, `explication_r
 (45, 'Faux', 'Les phases de test (débogage) et de maintenance technique représentent une grande partie de son travail.', 'vrai'),
 (46, 'Vrai', 'Cela permet de sauvegarder l''historique du code et de travailler à plusieurs développeurs sur un même projet sans conflits.', 'vrai'),
 (46, 'Faux', 'Le contrôle de version est incontournable pour collaborer efficacement en équipe sans écraser le travail d''autrui.', 'faux'),
-(47, 'Vrai', 'La création et l''animation des contenus relèvent des équipes éditoriales ou marketing.', 'faux'),
+(47, 'Vrai', 'La création et l''animation des contenus relvèrent des équipes éditoriales ou marketing.', 'faux'),
 (47, 'Faux', 'La création de contenu éditorial est gérée par les équipes marketing, les rédacteurs ou les CM.', 'vrai'),
 (48, 'Vrai', 'Il doit écrire un code propre et minifier les ressources pour garantir des performances optimales.', 'vrai'),
 (48, 'Faux', 'Minifier le code et optimiser les requêtes serveur sont indispensables à la fluidité du site.', 'faux'),
@@ -315,13 +317,13 @@ INSERT INTO `quiz_metier_answer` (`id_question`, `text_response`, `explication_r
 (74, 'Faux', 'Son travail doit servir un objectif clair (vendre, informer, attirer l''attention). L''utilité et la lisibilité priment sur l''art pur.', 'vrai'),
 (75, 'Vrai', 'Contrairement aux images matricielles (pixels), le vectoriel est calculé mathématiquement (idéal pour les logos).', 'vrai'),
 (75, 'Faux', 'Le calcul vectoriel préserve la netteté absolue des tracés, quelle que soit la taille de sortie.', 'faux'),
-(76, 'Vrai', 'Il collabore étroitement avec les concepteurs-rédacteurs pour aligner la force du texte au design.', 'faux'),
-(76, 'Faux', 'Il travaille en synergie étroite avec les rédacteurs, les UX Designers et les Community Managers pour intégrer le message au visuel.', 'vrai'),
-(77, 'Vrai', 'Ils sont le standard de l''industrie pour la retouche photo, l''illustration vectorielle et la mise en page.', 'vrai'),
-(77, 'Faux', 'Ces outils constituent l''environnement logiciel de référence adopté par la majorité des studios.', 'faux'),
-(78, 'Vrai', 'Cela permet au client de visualiser à quoi ressemblera le logo sur un tee-shirt, un ordinateur ou une carte de visite.', 'vrai'),
-(78, 'Faux', 'Mettre en scène le design sur un support physique virtuel permet de valider le produit avant impression.', 'faux'),
-(79, 'Vrai', 'Le design interactif, les maquettes web et les supports pour les réseaux sociaux représentent aujourd''hui l''essentiel de la demande.', 'faux'),
-(79, 'Faux', 'Aujourd''hui, une grande majorité des besoins graphiques concerne le digital (réseaux sociaux, bannières web, interfaces).', 'vrai'),
-(80, 'Vrai', 'Les couleurs véhiculent des messages inconscients (le bleu pour la confiance, le vert pour la nature) qu''il utilise stratégiquement.', 'vrai'),
-(80, 'Faux', 'Chaque nuance chromatique possède une symbolique culturelle et psychologique qu''il exploite à des fins d''impact.', 'faux');
+(76, 'Vrai', 'Il collabore étroitement avec les concepteurs-rédacteurs pour aligner le visuel et le texte.', 'faux'),
+(76, 'Faux', 'Le design et le texte sont indissociables pour livrer un message clair et percutant.', 'vrai'),
+(77, 'Vrai', 'Ces outils restent le standard de l''industrie professionnelle de l''image et du design numérique.', 'vrai'),
+(77, 'Faux', 'Bien que Figma ou Canva gagnent du terrain, la suite Adobe demeure la référence incontournable du métier.', 'faux'),
+(78, 'Vrai', 'Il simule l''impression sur un support physique (t-shirt, packaging, affiche) ou l''affichage sur un écran.', 'vrai'),
+(78, 'Faux', 'C''est un outil indispensable pour aider le client à se projeter avant la production finale.', 'faux'),
+(79, 'Vrai', 'L''impression physique dépend du pôle imprimerie. Le graphiste gère uniquement la conception informatique des fichiers.', 'faux'),
+(79, 'Faux', 'C''est un métier purement numérique. Les impressions sont confiées à des imprimeurs professionnels.', 'vrai'),
+(80, 'Vrai', 'Chaque nuance évoque des émotions ou des codes culturels précis (ex: le bleu pour la confiance).', 'vrai'),
+(80, 'Faux', 'Le choix des teintes répond à des critères psychologiques précis pour influencer la perception de la marque.', 'faux');
