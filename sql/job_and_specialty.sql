@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : sam. 13 juin 2026 à 07:16
+-- Généré le : sam. 13 juin 2026 à 07:44
 -- Version du serveur : 8.0.35
 -- Version de PHP : 8.2.20
 
@@ -24,12 +24,15 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `specialty`
+-- Structure de la table `job_content`
 --
 
-CREATE TABLE `specialty` (
-  `id_specialty` int NOT NULL,
-  `specialty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+CREATE TABLE `job_content` (
+  `id_element` int NOT NULL,
+  `job_id` int DEFAULT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -37,20 +40,31 @@ CREATE TABLE `specialty` (
 --
 
 --
--- Index pour la table `specialty`
+-- Index pour la table `job_content`
 --
-ALTER TABLE `specialty`
-  ADD PRIMARY KEY (`id_specialty`);
+ALTER TABLE `job_content`
+  ADD PRIMARY KEY (`id_element`),
+  ADD KEY `FK` (`job_id`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT pour la table `specialty`
+-- AUTO_INCREMENT pour la table `job_content`
 --
-ALTER TABLE `specialty`
-  MODIFY `id_specialty` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `job_content`
+  MODIFY `id_element` int NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `job_content`
+--
+ALTER TABLE `job_content`
+  ADD CONSTRAINT `FK` FOREIGN KEY (`job_id`) REFERENCES `job` (`id_job`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
