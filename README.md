@@ -49,24 +49,39 @@ Le MVC sert à séparer la logique métier de l'affichage. Vous devez coder que 
 
 ## 🎟️ Gestion des Fonctionnalités (GitHub Issues) 
 
-**Rappel : Tâches = Tickets = Issues**
+**Rappel : Issues = Tickets (Tickets de Tâche + Tickets de Bug)**
 
-Pour que le développement reste fluide et sous contrôle, nous utilisons un système de validation par Tickets (/Tâches) :
+Pour que le développement reste fluide et sous contrôle, nous utilisons un système de validation par Tickets :
 
-* **Règle d'or (Découpez vos tâches !) :** Ne créez pas un seul ticket géant pour une fonctionnalité énorme (ex: "Faire le mini CMS"). Découpez votre fonctionnalité en petites tâches et créez un ticket pour chacune (ex: Ticket 1 : "Créer la table SQL", Ticket 2 : "Faire la page de connexion"). C'est plus clair pour vous, et plus facile à suivre pour moi.
-* **Créez votre Tâche (Issue) :** Dans l'onglet *Issues* sur GitHub, cliquez sur **New Issue**. Prenez le modèle de ticket (Création de fonctionnalité) et remplissez juste les champs. **Faites-moi ensuite un petit message sur Discord pour me prévenir que le ticket est en attente.**
-* **Revue Technique :** Je vais relire votre ticket pour m'assurer que cette étape respecte bien l'architecture et que ça ne casse pas la bdd.
-* **Le Feu Vert (Assignation) :** Une fois le ticket validé, je vous l'assignerai officiellement. Cette assignation est votre "GO" officiel pour créer votre branche `feature-` et commencer à coder !
+* **🪙 Règle d'or (Découpez vos tâches !) :** Ne créez pas un seul ticket géant pour une fonctionnalité énorme (ex: "Faire le mini CMS"). Découpez votre fonctionnalité en petits tickets de tâche et créez un ticket pour chacune (ex: Ticket 1 : "Créer la table SQL", Ticket 2 : "Faire la page de connexion"). C'est plus clair pour vous, et plus facile à suivre pour moi.
 
+* **Créez votre Tâche (Issue) :** Dans l'onglet *Issues* sur GitHub, cliquez sur **New Issue**. Prenez le modèle de ticket "Création de fonctionnalité" et remplissez juste les champs. **Faites-moi ensuite un petit message sur Discord une fois le ticket **créé**.**
+
+* **🐛 Signalez un Bug (Issue) :** Le principe est exactement le même ! Si vous repérez une erreur, créez un ticket par problème en utilisant le modèle "Signalement de Bug". Ne faites surtout pas de listes groupées. Prévenez-moi aussi sur Discord une fois le ticket **créé**.
+
+
+* **Le Tableau de Bord (GitHub Projects) :** Un tableau de suivi est disponible dans l'onglet **Projects** du dépôt.
+  Un tableau de suivi est disponible dans l'onglet _Projects_ du dépôt pour voir l'avancée globale. Voici comment lire ses 4 colonnes :
+
+	* **⚪ En cours :** Quand vous aurez crée votre, ticket il sera automatiquement dans cette colonne, soit ça veut dire que je ne l'ai pas encore vérifié, soit ça veut dire que je l'ai laissé en attente avec un commentaire.
+	* **🔵à faire :** Le ticket est créé, validé par moi, et prêt à être codé **(Le ticket se mettra automatiquement dans "à faire")**
+	* **🟡 En cours :** Un développeur est en train d'écrire le code pour ce ticket **(il faudra que vous déplaciez vous-même votre ticket dans "En cous" après avoir eu mon "Feu Vert")**
+	* **🟢 Terminé :** La tâche est finie, le code a été vérifié et je l'ai officiellement fusionné dans notre architecture de base **(mettra le ticket automatiquement dedans)**
+
+   Ce système permettra à tout le monde (surtout à moi) de voir l'avancée globale de chaque fonctionnalité .
+ 
+* **Revue Technique :** Je vais relire votre ticket pour m'assurer que cette étape respecte bien l'architecture et que ça ne casse pas la bdd. Puis je me charge d'ajouter des étiquettes de couleur ("bug", "base de données", etc.) pour bien catégoriser les issues.
+* ✅ **Le Feu Vert (Assignation) :** Une fois le ticket validé, je vous l'assignerai officiellement. Cette assignation est votre "GO" officiel pour créer votre branche `feature-`, déplacer votre ticket dans la colonne **EN cours** dans le tableau et commencer à coder !
+* ❌ **En cas de refus** : Si un ticket est incomplet, mal découpé, ou qu'il ne s'agit pas d'un vrai bug lié au noyau du projet, je le fermerai avec un commentaire explicatif pour que vous puissiez le corriger.
 
 
 ## 🖥️ Les Espaces de Travail (Branches Git) 
 
 Le dépôt est structuré en deux espaces principaux pour garantir la stabilité du site en ligne :
 
-* 🔵 **La branche `dev` (Développement) :** C'est notre espace d'intégration. C'est ici que l'on rassemble toutes les fonctionnalités pour vérifier qu'elles fonctionnent ensemble. C'est votre branche de référence pour démarrer. Donc c'est là que vous allez faire vos Pull Request.
+* 💿 **La branche `dev` (Développement) :** C'est notre espace d'intégration. C'est ici que l'on rassemble toutes les fonctionnalités pour vérifier qu'elles fonctionnent ensemble. C'est votre branche de référence pour démarrer. Donc c'est là que vous allez faire vos Pull Request.
 
-* 🟢 **La branche `main` (Production) :** C'est la vitrine officielle du projet. Le code présent sur cette branche doit être 100% fonctionnel et testé. **Il est strictement interdit de coder ou de pusher directement sur `main`.**
+* 📀 **La branche `main` (Production) :** C'est la vitrine officielle du projet. Le code présent sur cette branche doit être 100% fonctionnel et testé. **Il est strictement interdit de coder ou de pusher directement sur `main`.**
 
 
 
@@ -78,12 +93,12 @@ Voici la routine à suivre à chaque fois que vous développez votre fonctionnal
 ### Étape 1 : Se mettre à jour
 Avant tout développement, récupérez la dernière version propre du code :
 ```bash
-git checkout develop
-git pull origin develop
+git checkout dev
+git pull origin dev
 ```
 
 ### Étape 2 : Créer sa branche locale
-Créez une branche dédiée à partir de `develop` en respectant la nomenclature professionnelle suivante : `feature-[nom-de-la-fonctionnalite]`
+Créez une branche dédiée à partir de `dev` en respectant la nomenclature professionnelle suivante : `feature-[nom-de-la-fonctionnalite]`
 ```bash
 git checkout -b feature-nom-du-plugin
 ```
@@ -103,9 +118,10 @@ git push origin feature-nom-du-plugin
 ```
 
 ### Étape 5 : Ouvrir une Pull Request (PR)
-1. Sur la page GitHub du projet.Cliquez sur le bouton vert **Compare & pull request**
-2. Configurez la demande pour fusionner votre branche **vers la branche `develop`** (et non vers `main`)
+1. Sur la page GitHub du projet.Cliquez sur le bouton vert **Compare & pull request** 
+2. Configurez la demande pour fusionner votre branche **vers la branche `dev`** (et non vers `main`) 
 3. Décrivez brièvement ce que fait votre code
+4. Validez la création de la Pull Request
 
 C'est moi qui me chargerai de relire le code, de le tester et de valider la Pull Request pour l'intégrer au projet global !
 
