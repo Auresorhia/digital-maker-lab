@@ -1,50 +1,47 @@
 <?php
-/**
- * Composant — Bulle Assistant IA
- * Ticket #32 : À inclure dans chaque vue de page métier
- *
- * Prérequis : la variable $jobId doit être définie dans le contrôleur
- * qui charge la page métier.
- *
- * Exemple d'inclusion dans une vue métier :
- *   <?php $jobId = 5; include __DIR__ . '/assistant-ia-bubble.php'; ?>
- *
- * Fichiers CSS/JS à ajouter dans le <head> et avant </body> :
- *   <link rel="stylesheet" href="assets/css/assistant-ia.css">
- *   <script src="assets/js/assistant-ia.js" defer></script>
- */
-
 $safeJobId = isset($jobId) ? (int) $jobId : 0;
+if ($safeJobId <= 0) return;
 ?>
 
-<?php if ($safeJobId > 0): ?>
+<div class="ai-overlay" aria-hidden="true"></div>
 
-<!-- Overlay (fond sombre) -->
-<div class="assistant-ia-overlay" aria-hidden="true"></div>
+<div class="ai-modal" role="dialog" aria-modal="true" aria-label="Assistant Digital Maker Lab" aria-hidden="true">
+    <div class="ai-modal__card">
 
-<!-- Panneau latéral -->
-<aside class="assistant-ia-panel" aria-label="Applications du métier" aria-hidden="true">
-    <div class="assistant-ia-panel__header">
-        <div>
-            <p class="assistant-ia-panel__title">Les apps du métier</p>
-            <p class="assistant-ia-panel__subtitle">3 outils incontournables</p>
+        <div class="ai-modal__header">
+            <h2 class="ai-modal__title">Explore ce métier avec l'assistant</h2>
+            <button class="ai-modal__close" type="button" aria-label="Fermer l'assistant">&#215;</button>
         </div>
-        <button class="assistant-ia-panel__close" aria-label="Fermer le panneau">&times;</button>
-    </div>
-    <div class="assistant-ia-panel__body">
-        <!-- Contenu chargé dynamiquement par assistant-ia.js -->
-    </div>
-</aside>
 
-<!-- Bulle flottante -->
-<button
-    class="assistant-ia-bubble"
-    data-metier-id="<?= $safeJobId ?>"
-    aria-label="Voir les applications de ce métier"
-    type="button"
->
-    <span class="assistant-ia-bubble__icon" aria-hidden="true">✦</span>
-    <span class="assistant-ia-bubble__label">Les apps du métier</span>
+        <div class="ai-modal__tabs" role="tablist">
+            <button class="ai-tab is-active" type="button" data-tab="collabs" role="tab" aria-selected="true">Les collaborations</button>
+            <button class="ai-tab" type="button" data-tab="impact" role="tab" aria-selected="false">L'impact sur t'es app</button>
+        </div>
+
+        <div class="ai-modal__content">
+            <div class="ai-jobs-grid" role="group" aria-label="Grille des métiers"></div>
+            <div class="ai-apps-list" aria-live="polite"></div>
+        </div>
+
+        <div class="ai-modal__footer">
+            <div class="ai-message">
+                <div class="ai-message__avatar" aria-hidden="true">&#10022;</div>
+                <div class="ai-message__body">
+                    <div class="ai-message__header">
+                        <span class="ai-message__name">Assistant Digital Maker Lab</span>
+                        <span class="ai-message__status">En attente</span>
+                    </div>
+                    <p class="ai-message__text ai-message__text--hint">Clique sur un métier pour activer l'assistant</p>
+                </div>
+            </div>
+            <p class="ai-hint" aria-hidden="true">Clique sur un métier pour explorer &#10022;</p>
+            <button class="ai-cta" type="button">Changer de métier &#8594;</button>
+        </div>
+
+    </div>
+</div>
+
+<button class="ai-bubble" type="button" data-metier-id="<?= $safeJobId ?>" aria-expanded="false" aria-label="Ouvrir l'assistant Digital Maker Lab">
+    <span class="ai-bubble__label">Votre assistant Digital Maker Lab</span>
+    <span class="ai-bubble__icon" aria-hidden="true">&#10022;</span>
 </button>
-
-<?php endif; ?>
