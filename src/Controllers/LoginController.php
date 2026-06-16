@@ -37,23 +37,23 @@ class LoginController
             exit;
         }
 
-        $identifiant = $_POST['identifiant'] ?? '';
+        $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
         // Validation basique
-        if (empty($identifiant) || empty($password)) {
+        if (empty($email) || empty($password)) {
             $_SESSION['error'] = 'Veuillez remplir tous les champs';
             header('Location: /login');
             exit;
         }
 
         // Vérification des identifiants
-        $admin = $this->adminModel->findByIdentifiant($identifiant);
+        $admin = $this->adminModel->findByEmail($email);
 
         if ($admin && password_verify($password, $admin['password'])) {
             // Connexion réussie
             $_SESSION['admin_id'] = $admin['id'];
-            $_SESSION['admin_identifiant'] = $admin['identifiant'];
+            $_SESSION['admin_email'] = $admin['email'];
 
             header('Location: /admin/dashboard');
             exit;
@@ -125,6 +125,17 @@ class LoginController
 
             @mail($email, $subject, $message, $headers);
 
+            // --- ASTUCE DEBOGAGE LOCAL ---
+            // Puisque mail() ne fonctionne pas par défaut sur MAMP localement,
+            // on écrit l'email dans un fichier local "mail-debug.log" pour pouvoir lire le code à 4 chiffres !
+            $logContent = "=== NOUVEL EMAIL DE REINITIALISATION ===\n"
+                . "Date: " . date('Y-m-d H:i:s') . "\n"
+                . "Pour: {$email}\n"
+                . "Sujet: {$subject}\n"
+                . "Message:\n{$message}\n"
+                . "========================================\n\n";
+            @file_put_contents(__DIR__ . '/../../mail-debug.log', $logContent, FILE_APPEND);
+
             // On retient l'email pour l'étape suivante
             $_SESSION['reset_email'] = $email;
         }
@@ -143,7 +154,7 @@ class LoginController
     }
 
     /**
-     * Traite la réinitialisation : vérifie le code et met à jour le mot de passe
+     * Étape 1 : Vérifie le code à 4 chiffres et redirige vers la page du nouveau mot de passe
      */
     public function handleResetPassword(): void
     {
@@ -153,11 +164,9 @@ class LoginController
         }
 
         $email = trim($_POST['email'] ?? ($_SESSION['reset_email'] ?? ''));
-        $code = trim($_POST['code'] ?? '');
-        $password = $_POST['password'] ?? '';
-        $passwordConfirm = $_POST['password_confirm'] ?? '';
+        $code  = trim($_POST['code'] ?? '');
 
-        if (empty($email) || empty($code) || empty($password) || empty($passwordConfirm)) {
+        if (empty($email) || empty($code)) {
             $_SESSION['error'] = 'Veuillez remplir tous les champs';
             header('Location: /reset-password');
             exit;
@@ -169,27 +178,79 @@ class LoginController
             exit;
         }
 
-        if ($password !== $passwordConfirm) {
-            $_SESSION['error'] = 'Les mots de passe ne correspondent pas';
-            header('Location: /reset-password');
-            exit;
-        }
-
-        if (strlen($password) < 8) {
-            $_SESSION['error'] = 'Le mot de passe doit contenir au moins 8 caractères';
-            header('Location: /reset-password');
-            exit;
-        }
-
         if (!$this->adminModel->verifyResetCode($email, $code)) {
             $_SESSION['error'] = 'Code invalide ou expiré';
             header('Location: /reset-password');
             exit;
         }
 
+        // Code valide : on mémorise l'étape pour autoriser la page suivante
+        $_SESSION['reset_email']    = $email;
+        $_SESSION['reset_verified'] = true;
+        header('Location: /new-password');
+        exit;
+    }
+
+    /**
+     * Étape 2 : Affiche la page de saisie du nouveau mot de passe
+     */
+    public function showNewPassword(): void
+    {
+        if (empty($_SESSION['reset_verified'])) {
+            header('Location: /forgot-password');
+            exit;
+        }
+
+        require_once __DIR__ . '/../Views/new-password.php';
+    }
+
+    /**
+     * Étape 2 : Enregistre le nouveau mot de passe
+     */
+    public function handleNewPassword(): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header('Location: /new-password');
+            exit;
+        }
+
+        if (empty($_SESSION['reset_verified']) || empty($_SESSION['reset_email'])) {
+            header('Location: /forgot-password');
+            exit;
+        }
+
+        $email           = $_SESSION['reset_email'];
+        $password        = $_POST['password'] ?? '';
+        $passwordConfirm = $_POST['password_confirm'] ?? '';
+
+        if (empty($password) || empty($passwordConfirm)) {
+            $_SESSION['error'] = 'Veuillez remplir tous les champs';
+            header('Location: /new-password');
+            exit;
+        }
+
+        if ($password !== $passwordConfirm) {
+            $_SESSION['error'] = 'Les mots de passe ne correspondent pas';
+            header('Location: /new-password');
+            exit;
+        }
+
+        if (strlen($password) < 8) {
+            $_SESSION['error'] = 'Le mot de passe doit contenir au moins 8 caractères';
+            header('Location: /new-password');
+            exit;
+        }
+
+        $admin = $this->adminModel->findByEmail($email);
+        if ($admin && password_verify($password, $admin['password'])) {
+            $_SESSION['error'] = 'Ce mot de passe est déjà utilisé, veuillez en choisir un nouveau';
+            header('Location: /new-password');
+            exit;
+        }
+
         $this->adminModel->updatePasswordByEmail($email, $password);
 
-        unset($_SESSION['reset_email']);
+        unset($_SESSION['reset_email'], $_SESSION['reset_verified']);
         $_SESSION['success'] = 'Votre mot de passe a été réinitialisé. Vous pouvez vous connecter.';
         header('Location: /login');
         exit;

@@ -162,14 +162,14 @@
 
             <form action="/login" method="POST">
                 <div class="form-group">
-                    <label for="identifiant">Identifiant</label>
+                    <label for="email">Email</label>
                     <input 
-                        type="text" 
-                        id="identifiant" 
-                        name="identifiant" 
-                        placeholder="admin"
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="votre@email.com"
                         required
-                        autocomplete="username"
+                        autocomplete="email"
                     >
                 </div>
 

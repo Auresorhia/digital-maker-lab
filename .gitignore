@@ -7,3 +7,6 @@ Thumbs.db
 # Configurations personnelles des éditeurs de code (VS Code, PhpStorm...)
 .vscode/
 .idea/
+
+# Logs locaux de débogage d'e-mails
+/mail-debug.log
