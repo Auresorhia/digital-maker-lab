@@ -1,9 +1,3 @@
-/* ============================================
-   Assistant IA — Bulle + Panneau latéral
-   Utilise les variables du design-system.css
-   ============================================ */
-
-/* --- Bulle flottante --- */
 .assistant-ia-bubble {
     position: fixed;
     bottom: 32px;
@@ -50,7 +44,6 @@
     white-space: nowrap;
 }
 
-/* --- Overlay (fond sombre) --- */
 .assistant-ia-overlay {
     position: fixed;
     inset: 0;
@@ -66,7 +59,6 @@
     pointer-events: all;
 }
 
-/* --- Panneau latéral --- */
 .assistant-ia-panel {
     position: fixed;
     top: 0;
@@ -91,7 +83,6 @@
     transform: translateX(0);
 }
 
-/* --- En-tête du panneau --- */
 .assistant-ia-panel__header {
     display: flex;
     align-items: center;
@@ -139,7 +130,6 @@
     background: rgba(11, 11, 11, 0.06);
 }
 
-/* --- Corps du panneau --- */
 .assistant-ia-panel__body {
     padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-2xl);
     display: flex;
@@ -148,7 +138,6 @@
     flex: 1;
 }
 
-/* --- État de chargement --- */
 .assistant-ia-panel__loader {
     display: flex;
     flex-direction: column;
@@ -173,7 +162,6 @@
     to { transform: rotate(360deg); }
 }
 
-/* --- Message d'erreur --- */
 .assistant-ia-panel__error {
     background: #fff0ed;
     border: 1px solid rgba(255, 107, 53, 0.3);
@@ -184,7 +172,6 @@
     text-align: center;
 }
 
-/* --- Carte d'application --- */
 .assistant-ia-app-card {
     background: var(--color-background);
     border-radius: 12px;
@@ -259,7 +246,6 @@
     font-style: italic;
 }
 
-/* --- Responsive mobile --- */
 @media (max-width: 480px) {
     .assistant-ia-bubble {
         bottom: 20px;
