@@ -27,6 +27,12 @@ class Router
             $controller->index();
         } elseif ($chemin === '/metiers') {
             echo "Voici la page des métiers";
+        } elseif (preg_match('#^/api/assistant/(\d+)$#', $chemin, $matches)) {
+            require_once '../config/database.php';
+            require_once '../src/Models/AssistantIA/AssistantIAModel.php';
+            require_once '../src/Controllers/AssistantIA/AssistantIAController.php';
+            $controller = new \Controllers\AssistantIA\AssistantIAController(Database::getInstance());
+            $controller->getApps((int) $matches[1]);
         } else {
             echo "<h1>Erreur 404</h1><p>Page introuvable.</p>";
         }
