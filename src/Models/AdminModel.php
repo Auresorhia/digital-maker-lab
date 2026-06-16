@@ -17,26 +17,6 @@ class AdminModel
     }
 
     /**
-     * Recherche un administrateur par son identifiant
-     * 
-     * @param string $identifiant
-     * @return array|false
-     */
-    public function findByIdentifiant(string $identifiant): array|false
-    {
-        $query = "SELECT id, identifiant, password, created_at 
-                  FROM admins 
-                  WHERE identifiant = :identifiant 
-                  LIMIT 1";
-        
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':identifiant', $identifiant, PDO::PARAM_STR);
-        $stmt->execute();
-        
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    /**
      * Recherche un administrateur par son ID
      * 
      * @param int $id
@@ -44,7 +24,7 @@ class AdminModel
      */
     public function findById(int $id): array|false
     {
-        $query = "SELECT id, identifiant, created_at 
+        $query = "SELECT id, email, created_at 
                   FROM admins 
                   WHERE id = :id 
                   LIMIT 1";
@@ -63,15 +43,15 @@ class AdminModel
      * @param string $password (en clair, sera hashé)
      * @return bool
      */
-    public function create(string $identifiant, string $password): bool
+    public function create(string $email, string $password): bool
     {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         
-        $query = "INSERT INTO admins (identifiant, password) 
-                  VALUES (:identifiant, :password)";
+        $query = "INSERT INTO admins (email, password) 
+                  VALUES (:email, :password)";
         
         $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':identifiant', $identifiant, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->bindParam(':password', $hashedPassword, PDO::PARAM_STR);
         
         return $stmt->execute();
@@ -85,7 +65,7 @@ class AdminModel
      */
     public function findByEmail(string $email): array|false
     {
-        $query = "SELECT id, identifiant, email, reset_code, reset_expires 
+        $query = "SELECT id, email, password, reset_code, reset_expires 
                   FROM admins 
                   WHERE email = :email 
                   LIMIT 1";
