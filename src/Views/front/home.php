@@ -120,6 +120,10 @@
                 <span class="jobs__dot"></span>
             </div>
         </section>
+
+        <section style="padding: 40px; display: flex; justify-content: center;">
+            <?php require_once __DIR__ . '/searchbar/searchbar.php'; ?>
+        </section>
     </main>
 
     <script src="assets/js/home.js"></script>
