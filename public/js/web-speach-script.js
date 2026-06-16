@@ -1,42 +1,60 @@
+
 document.addEventListener("DOMContentLoaded", () => {
-    const toggle = document.getElementById("accessibilityToggle");
-    const cards = document.querySelectorAll(".article-card");
+    const audioToggle = document.getElementById("audio-toggle");
+    
+    // 1. Trouver tous les éléments cibles et injecter automatiquement le bouton micro
+    const audioElements = document.querySelectorAll(".audio-target");
+    
+    audioElements.forEach(element => {
+        // On crée un vrai bouton HTML pour le micro
+        const microBtn = document.createElement("button");
+        microBtn.type = "button";
+        microBtn.className = "audio-micro-btn";
+        microBtn.innerText = "🎤";
+        microBtn.setAttribute("aria-label", "Écouter le texte");
 
-    // 1. Étape 1 : Injecter les boutons micros dynamiquement dans chaque conteneur
-    cards.forEach(card => {
-        const micBtn = document.createElement("button");
-        micBtn.classList.add("mic-btn");
-        micBtn.innerHTML = "🎤"; // Icône du micro
-        micBtn.setAttribute("title", "Écouter le texte");
-        card.appendChild(micBtn);
-
-        // 2. Étape 3 : Quand on clique sur le micro, on joue la voix
-        micBtn.addEventListener("click", (e) => {
-            e.stopPropagation(); // Évite les comportements étranges du clic
+        // Événement au clic sur CE micro précis
+        microBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); // Évite de déclencher d'autres clics sur la page
             
-            // On stoppe les voix en cours s'il y en a
-            window.speechSynthesis.cancel();
-
-            // On récupère le texte stocké dans l'attribut data-audio-text de la carte
-            const textToSpeak = card.getAttribute("data-audio-text");
+            // On récupère uniquement le texte de l'élément PARENT (en enlevant le symbole du micro lui-même)
+            let textToRead = element.innerText.replace("🎤", "").trim();
             
-            // Configuration de la voix française
-            const utterance = new SpeechSynthesisUtterance(textToSpeak);
-            utterance.lang = "fr-FR";
-            utterance.rate = 1.0; // Vitesse de la voix
-
-            // Le navigateur parle !
-            window.speechSynthesis.speak(utterance);
+            speakText(textToRead);
         });
+
+        // On injecte le bouton directement à l'intérieur de l'élément cible
+        element.appendChild(microBtn);
     });
 
-    // 3. Étape 2 : Activer/Désactiver le mode accessibilité via le Switch
-    toggle.addEventListener("change", () => {
-        if (toggle.checked) {
-            document.body.classList.add("accessibility-active");
+    // 2. Gestion de la mémoire de l'interrupteur (localStorage)
+    if (localStorage.getItem("audioMode") === "enabled") {
+        audioToggle.checked = true;
+        document.body.classList.add("audio-mode-active");
+    }
+
+    // 3. Écouteur sur le Switch On/Off
+    audioToggle.addEventListener("change", () => {
+        if (audioToggle.checked) {
+            document.body.classList.add("audio-mode-active");
+            localStorage.setItem("audioMode", "enabled");
+            speakText("Mode audio activé.");
         } else {
-            document.body.classList.remove("accessibility-active");
-            window.speechSynthesis.cancel(); // Coupe le son si on désactive le switch
+            document.body.classList.remove("audio-mode-active");
+            localStorage.setItem("audioMode", "disabled");
+            window.speechSynthesis.cancel(); // Coupe le son direct
         }
     });
+
+    // 4. Fonction universelle pour faire parler le navigateur
+    function speakText(text) {
+        window.speechSynthesis.cancel(); // Stoppe la lecture précédente si elle existe
+
+        if (text !== "") {
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = "fr-FR";
+            utterance.rate = 1.0;
+            window.speechSynthesis.speak(utterance);
+        }
+    }
 });
