@@ -27,6 +27,8 @@ class Router
             $controller->index();
         } elseif ($chemin === '/metiers') {
             echo "Voici la page des métiers";
+        } elseif ($chemin === '/demo-assistant') {
+            require_once '../src/Views/front/metiers/demo-assistant.php';
         } elseif (preg_match('#^/api/assistant/(\d+)$#', $chemin, $matches)) {
             require_once '../config/database.php';
             require_once '../src/Models/AssistantIA/AssistantIAModel.php';
