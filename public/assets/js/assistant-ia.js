@@ -1,15 +1,15 @@
 (function () {
     'use strict';
 
-    var JOBS = {
-        1: { name: 'Entrepreneur',    color: '#FF806B' },
-        2: { name: 'Resp. CRM',       color: '#FBC246' },
-        3: { name: 'Consultant SEO',  color: '#6B7FFF' },
-        4: { name: 'Game Designer',   color: '#C5B0FF' },
-        5: { name: 'Dev. Web',        color: '#4DE8D0' },
-        6: { name: 'Community Mgr',   color: '#E85D75' },
-        7: { name: 'Vidéaste',        color: '#FF9A56' },
-        8: { name: 'Graphiste',       color: '#95D47A' }
+    var JOB_COLORS = {
+        1: '#FF806B',
+        2: '#FBC246',
+        3: '#6B7FFF',
+        4: '#C5B0FF',
+        5: '#4DE8D0',
+        6: '#E85D75',
+        7: '#FF9A56',
+        8: '#95D47A'
     };
 
     var COLLAB_TEXTS = {
@@ -23,13 +23,13 @@
         8: 'Le graphiste façonne l\'identité visuelle et garantit la cohérence de marque. Son sens de la composition et de la couleur renforce chaque communication.'
     };
 
-    var bubble   = document.querySelector('.ai-bubble');
-    var overlay  = document.querySelector('.ai-overlay');
-    var modal    = document.querySelector('.ai-modal');
-    var closeBtn = document.querySelector('.ai-modal__close');
-    var tabBtns  = document.querySelectorAll('.ai-tab');
-    var jobsGrid = document.querySelector('.ai-jobs-grid');
-    var appsList = document.querySelector('.ai-apps-list');
+    var bubble    = document.querySelector('.ai-bubble');
+    var overlay   = document.querySelector('.ai-overlay');
+    var modal     = document.querySelector('.ai-modal');
+    var closeBtn  = document.querySelector('.ai-modal__close');
+    var tabBtns   = document.querySelectorAll('.ai-tab');
+    var jobsGrid  = document.querySelector('.ai-jobs-grid');
+    var appsList  = document.querySelector('.ai-apps-list');
     var msgStatus = document.querySelector('.ai-message__status');
     var msgText   = document.querySelector('.ai-message__text');
     var hintEl    = document.querySelector('.ai-hint');
@@ -42,6 +42,7 @@
     var selectedJobId  = null;
     var selectedAppIdx = null;
     var appsData       = null;
+    var jobsData       = null;
     var isOpen         = false;
 
     function openModal() {
@@ -51,6 +52,7 @@
         bubble.setAttribute('aria-expanded', 'true');
         isOpen = true;
         if (!appsData) loadCurrentApps();
+        if (!jobsData) loadJobs();
     }
 
     function closeModal() {
@@ -91,23 +93,41 @@
             .catch(function () { showAppsError(); });
     }
 
+    function loadJobs() {
+        fetch('/api/assistant/jobs/' + currentJobId)
+            .then(function (res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.json();
+            })
+            .then(function (data) {
+                if (data.success && data.jobs) {
+                    jobsData = data.jobs;
+                    renderJobs();
+                }
+            })
+            .catch(function () {
+                jobsGrid.innerHTML = '<p style="font-size:12px;color:rgba(243,241,234,0.3);padding:8px 0;">Impossible de charger les métiers.</p>';
+            });
+    }
+
     function renderJobs() {
+        if (!jobsData) return;
         var isPassive = activeTab === 'impact';
         var html = '';
-        Object.keys(JOBS).forEach(function (id) {
-            var numId = parseInt(id, 10);
-            if (numId === currentJobId) return;
-            var job = JOBS[id];
+        jobsData.forEach(function (job) {
+            var numId    = parseInt(job.id_job, 10);
+            var color    = JOB_COLORS[numId] || '#888888';
             var selected = numId === selectedJobId;
+            var bgStyle  = selected ? 'background:' + hexToRgba(color, 0.09) + ';' : '';
             html += '<button class="ai-job-card' +
-                (selected ? ' is-selected' : '') +
-                (isPassive ? ' is-passive' : '') +
+                (selected  ? ' is-selected' : '') +
+                (isPassive ? ' is-passive'  : '') +
                 '" type="button" data-job-id="' + numId + '"' +
-                ' style="--job-color:' + job.color + '"' +
-                (selected ? ';background:' + hexToRgba(job.color, 0.09) : '') +
-                '">' +
+                ' style="--job-color:' + color + ';' + bgStyle + '"' +
+                (isPassive ? ' tabindex="-1"' : '') +
+                '>' +
                 '<span class="ai-job-card__circle"></span>' +
-                '<span class="ai-job-card__name">' + escapeHtml(job.name) + '</span>' +
+                '<span class="ai-job-card__name">' + escapeHtml(job.job_name) + '</span>' +
                 '</button>';
         });
         jobsGrid.innerHTML = html;
@@ -125,7 +145,9 @@
         selectedJobId = (selectedJobId === jobId) ? null : jobId;
         renderJobs();
         if (selectedJobId) {
-            setMessage(JOBS[selectedJobId].name, COLLAB_TEXTS[selectedJobId] || '');
+            var job  = jobsData.find(function (j) { return parseInt(j.id_job, 10) === selectedJobId; });
+            var name = job ? job.job_name : 'Métier ' + selectedJobId;
+            setMessage(name, COLLAB_TEXTS[selectedJobId] || '');
         } else {
             resetMessage();
         }
@@ -139,7 +161,7 @@
             var selected = index === selectedAppIdx;
             html += '<button class="ai-app-item' +
                 (isClickable ? ' is-clickable' : ' is-passive') +
-                (selected ? ' is-selected' : '') +
+                (selected    ? ' is-selected'  : '') +
                 '" type="button" data-app-idx="' + index + '"' +
                 (!isClickable ? ' tabindex="-1"' : '') +
                 '>' +
@@ -162,7 +184,8 @@
         selectedAppIdx = (selectedAppIdx === idx) ? null : idx;
         renderAppsList();
         if (selectedAppIdx !== null && appsData[selectedAppIdx]) {
-            setMessage(appsData[selectedAppIdx].app_name, appsData[selectedAppIdx].description);
+            var app = appsData[selectedAppIdx];
+            setMessage(app.app_name, app.description);
         } else {
             resetMessage();
         }
@@ -178,14 +201,14 @@
 
     function setMessage(status, text) {
         msgStatus.textContent = status;
-        msgText.textContent = text;
+        msgText.textContent   = text;
         msgText.classList.remove('ai-message__text--hint');
         if (hintEl) hintEl.classList.add('is-hidden');
     }
 
     function resetMessage() {
         msgStatus.textContent = 'En attente';
-        msgText.textContent = 'Clique sur un métier pour activer l\'assistant';
+        msgText.textContent   = 'Clique sur un métier pour activer l\'assistant';
         msgText.classList.add('ai-message__text--hint');
         if (hintEl) hintEl.classList.remove('is-hidden');
     }
@@ -230,7 +253,6 @@
         if (e.key === 'Escape' && isOpen) closeModal();
     });
 
-    renderJobs();
     resetMessage();
 
 }());
