@@ -6,3 +6,5 @@ require_once '../src/core/Router.php';
 // On dit au Routeur de faire son travail
 $router = new Router();
 $router->start();
+
+?>
