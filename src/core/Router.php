@@ -41,6 +41,10 @@ class Router
             require_once '../src/Controllers/AssistantIA/AssistantIAController.php';
             $controller = new \Controllers\AssistantIA\AssistantIAController(Database::getInstance());
             $controller->getApps((int) $matches[1]);
+        } elseif ($chemin === '/api/search') {
+            require_once __DIR__ . '/../Controllers/SearchController.php';
+            $controller = new SearchController();
+            $controller->autocomplete();
         } else {
             echo "<h1>Erreur 404</h1><p>Page introuvable.</p>";
         }

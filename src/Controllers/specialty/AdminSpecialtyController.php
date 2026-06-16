@@ -30,4 +30,10 @@ class AdminSpecialtyController
         // Récupération de la vue.
         require_once __DIR__ . '/../../Views/admin/specialties/index.php';
     }
+
+    public function create(): void
+    {
+        // On charge simplement la vue du formulaire
+        require_once __DIR__ . '/../../Views/admin/specialties/create.php';
+    }
 }
