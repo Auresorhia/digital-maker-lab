@@ -27,6 +27,10 @@ class Router
             $controller->index();
         } elseif ($chemin === '/metiers') {
             echo "Voici la page des métiers";
+        } elseif ($chemin === '/api/search') {
+            require_once __DIR__ . '/../Controllers/SearchController.php';
+            $controller = new SearchController();
+            $controller->autocomplete();
         } else {
             echo "<h1>Erreur 404</h1><p>Page introuvable.</p>";
         }
