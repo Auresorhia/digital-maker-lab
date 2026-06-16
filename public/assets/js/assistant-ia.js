@@ -37,7 +37,8 @@
 
     if (!bubble || !modal) return;
 
-    var currentJobId   = parseInt(bubble.getAttribute('data-metier-id'), 10);
+    var currentJobId = parseInt(bubble.getAttribute('data-metier-id'), 10);
+    if (!currentJobId || isNaN(currentJobId)) return;
     var activeTab      = 'collabs';
     var selectedJobId  = null;
     var selectedAppIdx = null;

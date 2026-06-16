@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Demo — Assistant IA | Digital Maker Lab</title>
-    <link rel="stylesheet" href="assets/css/design-system.css">
-    <link rel="stylesheet" href="assets/css/assistant-ia.css">
+    <link rel="stylesheet" href="/assets/css/design-system.css">
+    <link rel="stylesheet" href="/assets/css/assistant-ia.css">
     <style>
         body {
             margin: 0;
@@ -93,7 +93,7 @@
     include __DIR__ . '/assistant-ia-bubble.php';
     ?>
 
-    <script src="assets/js/assistant-ia.js" defer></script>
+    <script src="/assets/js/assistant-ia.js" defer></script>
 
 </body>
 </html>
