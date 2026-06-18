@@ -82,3 +82,71 @@ if (jobsSlider) {
     window.addEventListener('resize', updateJobsPagination);
     updateJobsPagination();
 }
+
+const allNavLinks = document.querySelectorAll('.desktop-nav__link, .mobile-menu__link, .site-footer__nav a');
+const navSections = ['about', 'jobs', 'news'];
+
+allNavLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+        const href = link.getAttribute('href');
+        if (!href || href === '#') {
+            return;
+        }
+        const target = document.querySelector(href);
+        if (target) {
+            event.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+const navList = document.querySelector('.desktop-nav__list');
+let navPill = null;
+
+if (navList) {
+    navPill = document.createElement('span');
+    navPill.className = 'nav-pill';
+    navList.appendChild(navPill);
+}
+
+const movePill = () => {
+    if (!navPill || !navList) {
+        return;
+    }
+
+    const activeLink = navList.querySelector('.desktop-nav__link.is-active');
+
+    if (!activeLink) {
+        return;
+    }
+
+    const listRect = navList.getBoundingClientRect();
+    const linkRect = activeLink.getBoundingClientRect();
+
+    navPill.style.left = `${linkRect.left - listRect.left}px`;
+    navPill.style.width = `${linkRect.width}px`;
+};
+
+const updateActiveNav = () => {
+    const viewportMiddle = window.scrollY + window.innerHeight * 0.45;
+    let current = null;
+
+    navSections.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section && section.offsetTop <= viewportMiddle) {
+            current = id;
+        }
+    });
+
+    allNavLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        const expected = current ? `#${current}` : '#';
+        link.classList.toggle('is-active', href === expected);
+    });
+
+    movePill();
+};
+
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+window.addEventListener('resize', movePill);
+updateActiveNav();

@@ -536,10 +536,18 @@ SET time_zone = "+00:00";
 CREATE TABLE `job` (
   `id_job` int NOT NULL,
   `job_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `display` tinyint(1) NOT NULL DEFAULT '1',
   `specialty_id` int NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `job`
+--
+
+INSERT INTO `job` (`id_job`, `job_name`, `display`, `specialty_id`, `created_at`, `updated_at`) VALUES
+(2, 'Expert Full-Stack Modifié', 1, 1, '2026-06-13 23:16:15', '2026-06-13 23:16:15');
 
 --
 -- Index pour les tables déchargées
@@ -560,7 +568,7 @@ ALTER TABLE `job`
 -- AUTO_INCREMENT pour la table `job`
 --
 ALTER TABLE `job`
-  MODIFY `id_job` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id_job` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées
@@ -611,6 +619,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `specialty` (
   `id_specialty` int NOT NULL,
   `specialty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `display` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -619,9 +628,9 @@ CREATE TABLE `specialty` (
 -- Déchargement des données de la table `specialty`
 --
 
-INSERT INTO `specialty` (`id_specialty`, `specialty`, `created_at`, `updated_at`) VALUES
-(1, 'UXPO', '2026-06-13 14:10:08', '2026-06-13 14:10:08'),
-(2, 'DEV', '2026-06-13 14:21:24', '2026-06-13 14:21:24');
+INSERT INTO `specialty` (`id_specialty`, `specialty`, `display`, `created_at`, `updated_at`) VALUES
+(1, 'UXPO', 0, '2026-06-13 14:10:08', '2026-06-13 14:10:08'),
+(2, 'DEV', 0, '2026-06-13 14:21:24', '2026-06-13 14:21:24');
 
 --
 -- Index pour les tables déchargées
