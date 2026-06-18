@@ -229,58 +229,26 @@ button {
 .hero__logo {
     position: relative;
     z-index: 2;
-    display: grid;
-    grid-template-columns: min-content 1fr;
-    align-items: end;
-    width: fit-content;
+    width: 290px;
     max-width: 100%;
     margin: 10px auto 31px;
-    padding: 7px 7px 6px 6px;
-    color: var(--color-brand-orange);
-    font-family: var(--font-mobile-title-family);
-    font-size: 37px;
-    font-weight: var(--font-mobile-title-weight);
-    line-height: var(--font-mobile-title-line-height);
-    text-transform: uppercase;
-    background: #fbc24665;
-    border-left: 2px solid var(--color-yellow);
-    border-right: 2px solid var(--color-yellow);
 }
 
-.hero__logo::before,
-.hero__logo::after {
-    content: "";
+.hero__logo__img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.hero__logo__highlight {
     position: absolute;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--color-yellow);
-}
-
-.hero__logo::before {
-    left: -5px;
-    bottom: -5px;
-}
-
-.hero__logo::after {
-    right: -5px;
-    top: -5px;
-}
-
-.hero__logo span {
-    grid-column: 1;
-    display: block;
-}
-
-.hero__logo strong {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    display: block;
-    margin-left: 6px;
-    font-size: 88px;
-    font-weight: 900;
-    letter-spacing: -0.08em;
-    line-height: 0.78;
+    inset: 0;
+    width: 313px;
+    height: 89px;
+    object-fit: fill;
+    pointer-events: none;
+    left: -11px;
+    top: -15px;
 }
 
 .hero__cta {
@@ -290,12 +258,12 @@ button {
     align-items: center;
     justify-content: center;
     width: min(100%, 438px);
-    min-height: 68px;
+    min-height: 56px;
     margin: 0 auto;
     padding: 23px 24px 21px;
     border-radius: var(--radius-button);
     color: var(--color-creame);
-    font-size: 15px;
+    font-size: 12px;
     font-weight: var(--font-button-weight);
     line-height: var(--font-button-line-height);
     text-align: center;
@@ -389,6 +357,7 @@ button {
     display: block;
     width: 100%;
     height: auto;
+    cursor: pointer;
 }
 
 .job-card__caption {
@@ -444,11 +413,182 @@ button {
     background: var(--color-brand-orange);
 }
 
-@media (min-width: 1020px) {
+.site-footer {
+    position: relative;
+    width: 100%;
+    min-height: 257px;
+    margin-top: 42px;
+    padding: 21px 23px 23px;
+    overflow: hidden;
+    color: var(--color-white);
+    background: var(--color-brand-orange);
+}
+
+.site-footer__logo {
+    display: none;
+}
+
+.site-footer__brand {
+    width: 100%;
+    margin-bottom: 21px;
+}
+
+.site-footer__brand img {
+    display: block;
+    width: 100%;
+    max-width: 343px;
+    height: auto;
+}
+
+.site-footer__content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 18px;
+}
+
+.site-footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 11px 10px;
+    max-width: 205px;
+}
+
+.site-footer__nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 22px;
+    padding: 5px 7px 4px;
+    border-radius: 6px;
+    color: var(--color-white);
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.23);
+}
+
+.site-footer__socials {
+    display: grid;
+    gap: 8px;
+    padding-top: 27px;
+}
+
+.site-footer__socials a,
+.site-footer__socials img {
+    display: block;
+    width: 29px;
+    height: auto;
+}
+
+.site-footer__legal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+}
+
+.site-footer__legal a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 10px;
+    font-weight: 300;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.site-footer__copy {
+    position: absolute;
+    right: 21px;
+    bottom: 26px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 8px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+@media (min-width: 1024px) {
     .site-header {
         display: flex;
         justify-content: center;
         padding: 24px 0 0;
+    }
+
+    .jobs__dot {
+        width: 10px;
+        height: 10px;
+    }
+
+    .hero__logo__highlight {
+        width: 413px;
+        height: 110px;
+        top: -16px;
+    }
+
+    .site-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 0;
+        padding: 30px 40px;
+    }
+
+    .site-footer__logo {
+        display: flex;
+        align-items: center;
+        order: 3;
+    }
+
+    .site-footer__logo img {
+        display: block;
+        height: 100px;
+        width: auto;
+    }
+
+    .site-footer__brand {
+        display: none;
+    }
+
+    .site-footer__content {
+        display: flex;
+        align-items: center;
+        gap: 32px;
+        order: 1;
+    }
+
+    .site-footer__nav {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        max-width: none;
+        gap: 5px;
+    }
+
+    .site-footer__nav a {
+        font-size: 10px;
+        font-weight: 800;
+    }
+
+    .site-footer__socials {
+        flex-direction: column;
+        padding-top: 0;
+        gap: 10px;
+    }
+
+    .site-footer__legal {
+        position: absolute;
+        bottom: 10px;
+        left: 40px;
+        margin-top: 0;
+        gap: 12px;
+    }
+
+    .site-footer__copy {
+        display: block;
+        position: absolute;
+        right: 21px;
+        bottom: 10px;
+        font-size: 8px;
     }
 
     .menu-toggle {
@@ -463,6 +603,7 @@ button {
     }
 
     .desktop-nav__list {
+        position: relative;
         display: flex;
         align-items: center;
         gap: 18px;
@@ -486,10 +627,26 @@ button {
         font-weight: 400;
     }
 
+    .desktop-nav__link {
+        position: relative;
+        z-index: 1;
+        transition: color var(--transition-base);
+    }
+
     .desktop-nav__link.is-active {
         color: var(--color-white);
+    }
+
+    .nav-pill {
+        position: absolute;
+        top: 4px;
+        bottom: 4px;
+        z-index: 0;
+        border-radius: 8px;
         background: var(--color-brand-orange);
         box-shadow: 0 3px 6px rgba(255, 107, 53, 0.35);
+        transition: left 0.3s ease, width 0.3s ease;
+        pointer-events: none;
     }
 
     .desktop-nav__support {
@@ -530,14 +687,8 @@ button {
     }
 
     .hero__logo {
+        width: 390px;
         margin-bottom: 56px;
-        padding: 8px 8px 7px 7px;
-        font-size: 40px;
-    }
-
-    .hero__logo strong {
-        margin-left: 7px;
-        font-size: 96px;
     }
 
     .hero__cta {
@@ -570,18 +721,18 @@ button {
     }
 
     .hero__icon--camera {
-        top: 380px;
+        top: 357px;
         right: 205px;
         width: 146px;
     }
 
     .hero__icon--micro {
-        z-index: 3;
+        z-index: 2;
         display: block;
-        left: 190px;
-        bottom: 70px;
+        left: 231px;
+        bottom: 92px;
         width: 130px;
-        transform: rotate(16deg);
+        transform: rotate(9deg);
     }
 
     .about {
@@ -590,8 +741,12 @@ button {
         column-gap: 72px;
         align-items: start;
         max-width: 950px;
-        margin: 0 auto;
+        margin: 96px 20px;
         padding-top: 0;
+    }
+
+    .section-title {
+        font-size: 19px;
     }
 
     .about .section-label,
@@ -629,9 +784,8 @@ button {
     }
 
     .jobs {
-        max-width: 830px;
-        margin: 0 auto;
-        padding-top: 72px;
+        max-width: 920px;
+        padding: 60px 33px 0;
     }
 
     .jobs .section-label {
@@ -673,7 +827,162 @@ button {
     }
 
     .jobs__pagination {
-        margin-top: 4px;
+        margin-top: 39px;
+    }
+}
+
+@media (min-width: 1512px) {
+
+    .desktop-nav {
+        gap: 14px;
+    }
+
+    .desktop-nav__list {
+        gap: 28px;
+        min-height: 50px;
+        padding: 0 12px;
+        border-radius: 16px;
+    }
+
+    .desktop-nav__link {
+        min-height: 56px;
+        padding: 0 18px;
+        border-radius: 12px;
+        font-size: 15px;
+    }
+
+    .desktop-nav__support {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        font-size: 26px;
+    }
+
+    .hero {
+        min-height: 680px;
+        padding: 110px 24px 90px;
+        margin: 79px 0;
+    }
+
+    .hero__kicker {
+        gap: 10px;
+        margin: 40px auto 28px;
+        font-size: 36px;
+    }
+
+    .hero__kicker span:last-child {
+        text-transform: none;
+    }
+
+    .hero__kicker strong {
+        font-size: 72px;
+    }
+
+    .hero__logo {
+        width: 500px;
+        margin-bottom: 72px;
+    }
+
+    .hero__logo__highlight {
+        width: 533px;
+        height: 141px;
+        left: -17px;
+        top: -20px;
+    }
+
+    .hero__cta {
+        width: 758px;
+        min-height: 61px;
+        padding: 18px 28px 16px;
+        font-size: 25px;
+    }
+
+    .hero__icon--dev {
+        top: 0;
+        left: 83px;
+        width: 196px;
+    }
+
+    .hero__icon--mac {
+        top: 290px;
+        left: 56px;
+        width: 116px;
+    }
+
+    .hero__icon--like {
+        top: 190px;
+        right: 287px;
+        width: 106px;
+    }
+
+    .about {
+        grid-template-columns: minmax(0, 540px) 380px;
+        column-gap: 289px;
+        max-width: 91rem;
+        margin: 25px 29px;
+        align-content: start;
+        row-gap: 0;
+        justify-content: space-between;
+    }
+
+    .about .section-label {
+        margin-bottom: 0;
+        font-size: 18px;
+    }
+
+    .about .section-title {
+        margin-top: 10px;
+    }
+
+    .about .section-content p {
+        font-size: 24px;
+        width: 52rem;
+    }
+
+    .about__media {
+        align-self: start;
+        height: 22rem;
+        width: auto;
+        margin: 0;
+    }
+
+    .about__media img {
+        height: 447px;
+        width: auto;
+        object-fit: cover;
+    }
+
+    .jobs {
+        max-width: none;
+        margin: 0;
+    }
+
+    .jobs .section-title {
+        margin-bottom: 52px;
+        font-size: 21px;
+    }
+
+    .job-card {
+        flex: 0 0 380px;
+    }
+
+    .job-card__caption {
+        left: 44px;
+        right: 44px;
+    }
+
+    .hero__icon--camera {
+        top: auto;
+        bottom: -12px;
+        right: 229px;
+        width: 241px;
+    }
+
+    .hero__icon--micro {
+        left: 289px;
+        bottom: 56px;
+        width: 228px;
+        z-index: 2;
     }
 }
 

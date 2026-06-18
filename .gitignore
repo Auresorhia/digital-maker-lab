@@ -14,3 +14,7 @@ arborescence.txt
 
 # Credentials BDD — ne jamais committer
 /config/config.php
+
+#fichiers sql
+/sql/job.sql
+/sql/specialty.sql
