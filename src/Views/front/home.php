@@ -7,6 +7,7 @@
     <title>Digital Maker Lab</title>
     <link rel="stylesheet" href="assets/css/design-system.css">
     <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="assets/css/events.css">
 </head>
 
 <body>
@@ -42,10 +43,10 @@
             <span class="hero__decor hero__decor--left"></span>
             <span class="hero__decor hero__decor--right"></span>
             <img class="hero__icon hero__icon--dev" src="assets/images/home/hero/icon-dev.svg" alt="" aria-hidden="true">
-            <img class="hero__icon hero__icon--camera" src="assets/images/home/hero/icon-camera.svg" alt="" aria-hidden="true">
+            <img class="hero__icon hero__icon--camera" src="assets/images/home/hero/icon-camera.webp" alt="" aria-hidden="true">
             <img class="hero__icon hero__icon--mac" src="assets/images/home/hero/icon-mac.svg" alt="" aria-hidden="true">
-            <img class="hero__icon hero__icon--like" src="assets/images/home/hero/icon-like.svg" alt="" aria-hidden="true">
-            <img class="hero__icon hero__icon--micro" src="assets/images/home/hero/icon-micro.svg" alt="" aria-hidden="true">
+            <img class="hero__icon hero__icon--like" src="assets/images/home/hero/icon-like.webp" alt="" aria-hidden="true">
+            <img class="hero__icon hero__icon--micro" src="assets/images/home/hero/icon-micro.webp" alt="" aria-hidden="true">
 
             <p class="hero__kicker">
                 <span>Trouve ta voie dans</span>
@@ -53,9 +54,8 @@
                 <span>avec</span>
             </p>
             <h1 class="hero__logo" id="hero-title">
-                <span>Digital</span>
-                <span>Maker</span>
-                <strong>Lab</strong>
+                <img class="hero__logo__img" src="assets/images/logos/hero/logo_digital_maker_lab_rectangle_orange.webp" alt="Digital Maker Lab">
+                <img class="hero__logo__highlight" src="assets/images/logos/hero/effet-surligne.webp" alt="" aria-hidden="true">
             </h1>
             <a class="hero__cta" href="#jobs">Découvrez les métiers du digital</a>
         </section>
@@ -121,10 +121,37 @@
             </div>
         </section>
 
-        <section style="padding: 40px; display: flex; justify-content: center;">
-            <?php require_once __DIR__ . '/searchbar/searchbar.php'; ?>
-        </section>
+        <?php require_once __DIR__ . '/../partials/events-section.php'; ?>
     </main>
+
+    <footer class="site-footer" id="footer">
+        <div class="site-footer__logo">
+            <img src="assets/images/logos/logo_digital_maker_lab_orange.webp" alt="Digital Maker Lab">
+        </div>
+        <div class="site-footer__brand">
+            <img src="assets/images/logos/logo_digital_maker_lab_orange.webp" alt="Digital Maker Lab">
+        </div>
+        <div class="site-footer__content">
+            <nav class="site-footer__nav" aria-label="Navigation pied de page">
+                <a href="#">Accueil</a>
+                <a href="#about">À propos</a>
+                <a href="#jobs">Les métiers du digital</a>
+                <a href="#news">Actualités</a>
+            </nav>
+            <div class="site-footer__socials">
+                <a href="#" aria-label="YouTube">
+                    <img src="assets/images/icons/icon-white-youtube.svg" alt="">
+                </a>
+                <a href="#" aria-label="Instagram">
+                    <img src="assets/images/icons/icon-white-instagram.svg" alt="">
+                </a>
+            </div>
+        </div>
+        <div class="site-footer__legal">
+            <a href="#">Mentions légales</a>
+            <a href="#">Conditions générales</a>
+        </div>
+    </footer>
 
     <script src="assets/js/home.js"></script>
 </body>
