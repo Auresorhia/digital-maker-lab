@@ -1,28 +1,29 @@
 <?php
+require_once __DIR__ . '/../../core/Model.php';
+require_once __DIR__ . '/QuizAnswerModel.php';
 
-namespace App\Models;
-
-class QuizQuestionModel 
+class QuizQuestionModel extends Model
 {
-    private ?int $id;
-    private string $questionText;
-    private int $jobId; // Correspond à job_id dans ta base de données
-    private string $level; // 'easy', 'medium', 'hard'
-    private array $answers = []; // Contiendra les objets QuizMetierAnswer
+    private ?int $id = null;
+    private string $questionText = '';
+    private int $jobId = 0; 
+    private string $level = ''; 
+    private array $answers = []; 
 
-    public function __construct(?int $id, string $questionText, int $jobId, string $level) 
-    {
-        $this->id = $id;
-        $this->questionText = $questionText;
-        $this->jobId = $jobId;
-        $this->level = $level;
-    }
 
-    // Getters
+
+    // Getters & Setters (Pour l'hydratation manuelle ou automatique)
     public function getId(): ?int { return $this->id; }
+    public function setId(?int $id): void { $this->id = $id; }
+
     public function getQuestionText(): string { return $this->questionText; }
+    public function setQuestionText(string $questionText): void { $this->questionText = $questionText; }
+
     public function getJobId(): int { return $this->jobId; }
+    public function setJobId(int $jobId): void { $this->jobId = $jobId; }
+
     public function getLevel(): string { return $this->level; }
+    public function setLevel(string $level): void { $this->level = $level; }
     
     // Gestion des réponses liées
     public function getAnswers(): array { return $this->answers; }

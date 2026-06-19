@@ -1,31 +1,31 @@
 <?php
 
-namespace App\Controllers;
-
-use PDO;
-use App\Models\Quiz\QuizModel;
-
-class QuizController 
+class QuizController extends Controller
 {
     private QuizModel $quizModel;
 
-    public function __construct(PDO $db) 
+    public function __construct() 
     {
-        // On s'assure que la session est démarrée pour stocker le score
+        // Appel du constructeur parent si nécessaire (ex: initialisations globales)
+        if (method_exists('Controller', '__construct')) {
+            parent::__construct();
+        }
+        
+        // Démarrage de la session de manière sécurisée
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
         
-        // Instanciation du modèle de Quiz
-        $this->quizModel = new QuizModel($db);
+        // L'instanciation se fait maintenant sans lui passer $db
+        $this->quizModel = new QuizModel();
     }
 
     /**
-     * Action 1 : Afficher le quiz d'un métier
+     * Action 1 : Afficher le quiz complet d'un métier
      */
     public function show(int $jobId): void 
     {
-        // 1. Récupération des questions hydratées avec leurs réponses
+        // 1. Récupération des questions du quiz
         $questions = $this->quizModel->findByJobWithAnswers($jobId);
 
         if (empty($questions)) {
@@ -33,36 +33,45 @@ class QuizController
             return;
         }
 
-        // 2. On transmet les données à la vue (adapter le chemin selon ton architecture)
-        // require_once __DIR__ . '/../Views/quiz/show.php';
-        
-        // Pour le test visuel rapide, on peut faire un dump ou passer à la vue :
-        echo "<h2>Contrôleur : Quiz récupéré avec succès ! ready à être affiché.</h2>";
+        // 2. Récupération de la spécialité grâce au chaînage des modèles (sans $db)
+        $jobModel = new JobModel();
+        $job = $jobModel->findById($jobId);
+
+        $specialtyTitle = 'Spécialité'; // Titre par défaut si non trouvé
+
+        if ($job && isset($job['specialty_id'])) {
+            $specialtyModel = new SpecialtyModel();
+            $specialty = $specialtyModel->findById((int)$job['specialty_id']);
+            
+            if ($specialty) {
+                // Adapte 'specialty_name' ou 'name' selon ta base de données
+                $specialtyTitle = $specialty['specialty_name'] ?? $specialty['name'] ?? 'Spécialité';
+            }
+        }
+
+        // 3. Transmission à la vue
+        require_once __DIR__ . '/../../Views/quiz/question.php';
     }
 
     /**
-     * Action 2 : Traiter la soumission du formulaire et calculer le score
+     * Action 2 : Traiter la soumission finale, calculer le score et afficher le verdict
      */
     public function submit(int $jobId, array $userAnswers): void 
     {
-        // 1. On récupère le quiz de référence pour vérifier les bonnes réponses
         $questions = $this->quizModel->findByJobWithAnswers($jobId);
         
         $score = 0;
         $totalQuestions = count($questions);
-        $resultsDetail = []; // Pour afficher les corrections à l'utilisateur
+        $resultsDetail = [];
 
         foreach ($questions as $question) {
             $questionId = $question->getId();
-            
-            // On récupère l'ID de la réponse cochée par l'utilisateur pour cette question
             $chosenAnswerId = isset($userAnswers[$questionId]) ? (int)$userAnswers[$questionId] : null;
             
             $isCorrect = false;
             $correctAnswerText = '';
             $explanation = '';
 
-            // On parcourt les réponses de la question pour trouver la bonne et comparer
             foreach ($question->getAnswers() as $answer) {
                 if ($answer->isCorrect()) {
                     $correctAnswerText = $answer->getAnswerText();
@@ -78,7 +87,6 @@ class QuizController
                 $score++;
             }
 
-            // On stocke le détail pour la page de résultat
             $resultsDetail[$questionId] = [
                 'question' => $question->getQuestionText(),
                 'user_answer_id' => $chosenAnswerId,
@@ -88,7 +96,17 @@ class QuizController
             ];
         }
 
-        // 2. Sauvegarde des données dans la Superglobale $_SESSION
+        // Récupération rapide du titre de la spécialité pour la page answer.php (sans $db)
+        $jobModel = new JobModel();
+        $job = $jobModel->findById($jobId);
+        $specialtyTitle = 'Spécialité';
+        
+        if ($job && isset($job['specialty_id'])) {
+            $specialtyModel = new SpecialtyModel();
+            $specialty = $specialtyModel->findById((int)$job['specialty_id']);
+            $specialtyTitle = $specialty ? ($specialty['specialty_name'] ?? $specialty['name'] ?? 'Spécialité') : 'Spécialité';
+        }
+
         $_SESSION['quiz_results'] = [
             'job_id'          => $jobId,
             'score'           => $score,
@@ -97,11 +115,7 @@ class QuizController
             'percentage'      => $totalQuestions > 0 ? round(($score / $totalQuestions) * 100) : 0
         ];
 
-        // 3. Redirection vers la page de résultat (ex: result.php)
-        // header("Location: /quiz/result");
-        // exit;
-        
-        echo "<h2>Contrôleur : Score calculé et mis en session !</h2>";
-        echo "<p>Score : <strong>$score / $totalQuestions</strong></p>";
+        require_once __DIR__ . '/../../Views/quiz/answer.php';
+        exit;
     }
 }
