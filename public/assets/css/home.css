@@ -37,8 +37,10 @@ button {
     top: 0;
     left: 0;
     z-index: 20;
+    display: flex;
+    justify-content: flex-end;
     width: 100%;
-    padding: 62px 0 0 29px;
+    padding: 63px 29px 0 0;
     pointer-events: none;
 }
 
@@ -917,12 +919,11 @@ button {
 
     .about {
         grid-template-columns: minmax(0, 540px) 380px;
-        column-gap: 289px;
+        column-gap: 430px;
         max-width: 91rem;
         margin: 25px 29px;
         align-content: start;
         row-gap: 0;
-        justify-content: space-between;
     }
 
     .about .section-label {
