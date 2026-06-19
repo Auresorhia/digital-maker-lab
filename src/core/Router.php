@@ -13,7 +13,9 @@ class Router
             $controller = new HomeController();
             $controller->index();
         } elseif ($chemin === '/metiers') {
-            echo "Voici la page des métiers";
+            require_once '../src/Controllers/FinderController.php';
+            $controller = new FinderController();
+            $controller->index();
         } elseif ($chemin === '/api/search') {
             require_once __DIR__ . '/../Controllers/SearchController.php';
             $controller = new SearchController();
