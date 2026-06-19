@@ -1,20 +1,10 @@
 <?php
+require_once __DIR__ . '/../../core/Model.php';
+require_once __DIR__ . '/QuizQuestionModel.php';
+require_once __DIR__ . '/QuizAnswerModel.php';
 
-namespace App\Models\Quiz;
-
-use PDO;
-use App\Models\QuizQuestionModel;
-use App\Models\QuizAnswerModel;
-
-class QuizModel 
+class QuizModel extends Model
 {
-    private PDO $db;
-
-    public function __construct(PDO $db) 
-    {
-        $this->db = $db;
-    }
-
     /**
      * Récupère le quiz complet d'un job (Questions + Réponses) sous forme d'objets hydratés
      */
@@ -30,6 +20,7 @@ class QuizModel
             ORDER BY q.id ASC
         ";
 
+        // Utilisation de la propriété héritée $this->db du Model parent
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['jobId' => $jobId]);
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -39,25 +30,25 @@ class QuizModel
         foreach ($rows as $row) {
             $questionId = $row['q_id'];
 
-            // Si la question n'a pas encore été instanciée dans notre tableau, on la crée
+            // Si la question n'a pas encore été instanciée, on la crée via ses setters
             if (!isset($questions[$questionId])) {
-                $questions[$questionId] = new QuizQuestionModel(
-                    $questionId,
-                    $row['q_text'],
-                    (int)$row['q_job_id'],
-                    $row['q_level']
-                );
+                $question = new QuizQuestionModel();
+                $question->setId($questionId);
+                $question->setQuestionText($row['q_text']);
+                $question->setJobId((int)$row['q_job_id']);
+                $question->setLevel($row['q_level']);
+                
+                $questions[$questionId] = $question;
             }
 
-            // Si une réponse est liée à cette question, on l'instancie et on l'ajoute
+            // Si une réponse est liée à cette question, on l'instancie via ses setters
             if ($row['a_id'] !== null) {
-                $answer = new QuizAnswerModel(
-                    (int)$row['a_id'],
-                    $row['a_text'],
-                    $questionId,
-                    $row['a_explanation'],
-                    (bool)$row['a_is_correct']
-                );
+                $answer = new QuizAnswerModel();
+                $answer->setId((int)$row['a_id']);
+                $answer->setAnswerText($row['a_text']);
+                $answer->setQuestionId($questionId);
+                $answer->setExplanation($row['a_explanation']);
+                $answer->setIsCorrect((bool)$row['a_is_correct']);
                 
                 $questions[$questionId]->addAnswer($answer);
             }
