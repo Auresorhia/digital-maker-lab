@@ -1,4 +1,15 @@
- CREATE TABLE IF NOT EXISTS `events` (
+SET FOREIGN_KEY_CHECKS=0;
+
+-- Suppression de toutes les tables (ordre inverse des dépendances)
+DROP TABLE IF EXISTS `quiz_job_answer`;
+DROP TABLE IF EXISTS `quiz_job_question`;
+DROP TABLE IF EXISTS `job_content`;
+DROP TABLE IF EXISTS `job`;
+DROP TABLE IF EXISTS `specialty`;
+DROP TABLE IF EXISTS `admins`;
+DROP TABLE IF EXISTS `events`;
+
+CREATE TABLE `events` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `title` VARCHAR(255) NOT NULL,
     `description` TEXT,
@@ -30,10 +41,13 @@
 -- ============================================
 
 -- Création de la table admins
-CREATE TABLE IF NOT EXISTS admins (
+DROP TABLE IF EXISTS admins;
+CREATE TABLE admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    reset_code VARCHAR(255) NULL,
+    reset_expires DATETIME NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_email (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -41,51 +55,8 @@ CREATE TABLE IF NOT EXISTS admins (
 -- Insertion d'un compte admin par défaut (à modifier en production)
 -- Email: leo.duriezj@gmail.com
 -- Mot de passe: Admin123! (à changer immédiatement après la première connexion)
-INSERT INTO admins (email, password) VALUES 
+INSERT IGNORE INTO admins (email, password) VALUES
 ('leo.duriezj@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
-
--- Note: Le mot de passe hashé ci-dessus correspond à "Admin123!"
--- Il est FORTEMENT recommandé de changer ce mot de passe après la première connexion
-
--- ============================================
--- Requêtes de test (optionnelles)
--- ============================================
-
--- Vérifier que la table a été créée
--- SELECT id, email, created_at FROM admins;
-
--- Compter le nombre d'admins
--- SELECT COUNT(*) as total_admins FROM admins;
-
-
-
--- ============================================
--- Fichier SQL pour la fonctionnalité "Mot de passe oublié"
--- Date: 2026-06-09
--- ============================================
---
--- Ce fichier ajoute le support de la réinitialisation
--- de mot de passe par code à 4 chiffres envoyé par email.
---
--- À exécuter sur une base où la table `admins` existe déjà
--- (voir feature_login_admin.sql).
--- ============================================
-
--- NOTE: MySQL (MAMP) ne supporte pas "ADD COLUMN IF NOT EXISTS".
--- N'exécutez ces ALTER qu'une seule fois. Si une colonne existe déjà,
--- supprimez la ligne correspondante avant d'exécuter.
-
--- Ajout des colonnes de réinitialisation
--- reset_code : le code à 4 chiffres HASHÉ (jamais stocké en clair)
--- reset_expires : date d'expiration du code (10 minutes par défaut)
-ALTER TABLE admins
-    ADD COLUMN reset_code VARCHAR(255) NULL AFTER password,
-    ADD COLUMN reset_expires DATETIME NULL AFTER reset_code;
-
--- ============================================
--- Requêtes de test (optionnelles)
--- ============================================
--- SELECT id, email, reset_code, reset_expires FROM admins;
 
 
 
@@ -96,11 +67,97 @@ ALTER TABLE admins
 
 
 
+--
+-- Structure de la table `specialty`
+--
+
+DROP TABLE IF EXISTS `specialty`;
+CREATE TABLE `specialty` (
+  `id_specialty` int NOT NULL,
+  `specialty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `display` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `specialty` (`id_specialty`, `specialty`, `display`, `created_at`, `updated_at`) VALUES
+(1, 'UXPO', 0, '2026-06-13 14:10:08', '2026-06-13 14:10:08'),
+(2, 'DEV', 0, '2026-06-13 14:21:24', '2026-06-13 14:21:24');
+
+ALTER TABLE `specialty`
+  ADD PRIMARY KEY (`id_specialty`);
+
+ALTER TABLE `specialty`
+  MODIFY `id_specialty` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Structure de la table `job`
+--
+
+DROP TABLE IF EXISTS `job`;
+CREATE TABLE `job` (
+  `id_job` int NOT NULL,
+  `job_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `display` tinyint(1) NOT NULL DEFAULT '1',
+  `specialty_id` int NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `job` (`id_job`, `job_name`, `display`, `specialty_id`, `created_at`, `updated_at`) VALUES
+(1, 'Créateur d''Entreprise', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(2, 'Responsable CRM', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(3, 'Consultant SEO', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(4, 'Game Designer', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(5, 'Développeur Web', 1, 2, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(6, 'Community Manager', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(7, 'Vidéaste', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(8, 'Graphiste', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00');
+
+ALTER TABLE `job`
+  ADD PRIMARY KEY (`id_job`),
+  ADD KEY `fk_specialty` (`specialty_id`);
+
+ALTER TABLE `job`
+  MODIFY `id_job` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+ALTER TABLE `job`
+  ADD CONSTRAINT `fk_specialty` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`id_specialty`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Structure de la table `job_content`
+--
+
+DROP TABLE IF EXISTS `job_content`;
+CREATE TABLE `job_content` (
+  `id_element` int NOT NULL,
+  `job_id` int DEFAULT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `job_content`
+  ADD PRIMARY KEY (`id_element`),
+  ADD KEY `FK` (`job_id`);
+
+ALTER TABLE `job_content`
+  MODIFY `id_element` int NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `job_content`
+  ADD CONSTRAINT `FK` FOREIGN KEY (`job_id`) REFERENCES `job` (`id_job`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Structure des tables du quiz
+--
+
+DROP TABLE IF EXISTS `quiz_job_answer`;
+DROP TABLE IF EXISTS `quiz_job_question`;
 CREATE TABLE `quiz_job_question` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `question_text` TEXT NOT NULL,
-    `job_id` INT NOT NULL, -- Aligné avec ton code PHP (metier_id)
-    `level` VARCHAR(50) NOT NULL, -- 'easy', 'medium', 'hard'
+    `job_id` INT NOT NULL,
+    `level` VARCHAR(50) NOT NULL,
     CONSTRAINT `fk_quiz_job_question_job` 
         FOREIGN KEY (`job_id`) REFERENCES `job`(`id_job`) 
         ON DELETE CASCADE 
@@ -118,7 +175,7 @@ CREATE TABLE `quiz_job_answer` (
     `answer_text` TEXT NOT NULL,
     `question_id` INT NOT NULL,
     `explanation` TEXT NULL,
-    `is_correct` TINYINT(1) NOT NULL DEFAULT 0, -- 1 = Vrai / 0 = Faux
+    `is_correct` TINYINT(1) NOT NULL DEFAULT 0,
     CONSTRAINT `fk_quiz_job_answer_quiz_job_question` 
         FOREIGN KEY (`question_id`) REFERENCES `quiz_job_question`(`id`) 
         ON DELETE CASCADE 
@@ -428,231 +485,4 @@ INSERT INTO `quiz_job_answer` (`question_id`, `answer_text`, `explanation`, `is_
 
 
 
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : localhost:8889
--- Généré le : sam. 13 juin 2026 à 20:55
--- Version du serveur : 8.0.35
--- Version de PHP : 8.2.20
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `digital_maker_lab`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `job_content`
---
-
-CREATE TABLE `job_content` (
-  `id_element` int NOT NULL,
-  `job_id` int DEFAULT NULL,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `job_content`
---
-ALTER TABLE `job_content`
-  ADD PRIMARY KEY (`id_element`),
-  ADD KEY `FK` (`job_id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `job_content`
---
-ALTER TABLE `job_content`
-  MODIFY `id_element` int NOT NULL AUTO_INCREMENT;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `job_content`
---
-ALTER TABLE `job_content`
-  ADD CONSTRAINT `FK` FOREIGN KEY (`job_id`) REFERENCES `job` (`id_job`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
-
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : localhost:8889
--- Généré le : sam. 13 juin 2026 à 20:55
--- Version du serveur : 8.0.35
--- Version de PHP : 8.2.20
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `digital_maker_lab`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `job`
---
-
-CREATE TABLE `job` (
-  `id_job` int NOT NULL,
-  `job_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `display` tinyint(1) NOT NULL DEFAULT '1',
-  `specialty_id` int NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `job`
---
-
-INSERT INTO `job` (`id_job`, `job_name`, `display`, `specialty_id`, `created_at`, `updated_at`) VALUES
-(2, 'Expert Full-Stack Modifié', 1, 1, '2026-06-13 23:16:15', '2026-06-13 23:16:15');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `job`
---
-ALTER TABLE `job`
-  ADD PRIMARY KEY (`id_job`),
-  ADD KEY `fk_specialty` (`specialty_id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `job`
---
-ALTER TABLE `job`
-  MODIFY `id_job` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `job`
---
-ALTER TABLE `job`
-  ADD CONSTRAINT `fk_specialty` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`id_specialty`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : localhost:8889
--- Généré le : sam. 13 juin 2026 à 20:55
--- Version du serveur : 8.0.35
--- Version de PHP : 8.2.20
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `digital_maker_lab`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `specialty`
---
-
-CREATE TABLE `specialty` (
-  `id_specialty` int NOT NULL,
-  `specialty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `display` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `specialty`
---
-
-INSERT INTO `specialty` (`id_specialty`, `specialty`, `display`, `created_at`, `updated_at`) VALUES
-(1, 'UXPO', 0, '2026-06-13 14:10:08', '2026-06-13 14:10:08'),
-(2, 'DEV', 0, '2026-06-13 14:21:24', '2026-06-13 14:21:24');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `specialty`
---
-ALTER TABLE `specialty`
-  ADD PRIMARY KEY (`id_specialty`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `specialty`
---
-ALTER TABLE `specialty`
-  MODIFY `id_specialty` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS=1;
