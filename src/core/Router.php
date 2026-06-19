@@ -59,7 +59,7 @@ class Router
             $controller->index();
 
 
-        //Page admin créer une spécialité
+            //Page admin créer une spécialité
         } elseif ($chemin === '/admin/specialties/create') {
             require_once __DIR__ . '/../../config/database.php';
             require_once __DIR__ . '/../Models/Specialty/SpecialtyModel.php';

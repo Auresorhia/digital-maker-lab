@@ -64,6 +64,14 @@ require_once __DIR__ . '/../partials/header.php';
             Explore les métiers par domaine ou fais notre test pour découvrir ceux qui te correspondent le mieux et trouver la spécialité dans laquelle tu peux vraiment t'épanouir.
         </p>
     </section>
+
+    <section class="finder-job-sheet" id="finder-job-sheet" aria-labelledby="finder-job-sheet-title" aria-hidden="true">
+        <button class="finder-job-sheet__back" type="button" aria-label="Retour aux métiers">
+            <span aria-hidden="true">‹</span>
+        </button>
+        <h2 class="finder-job-sheet__title" id="finder-job-sheet-title">Titre métier</h2>
+        <p class="finder-job-sheet__text" id="finder-job-sheet-text">Description du métier.</p>
+    </section>
 </main>
 
 <footer class="site-footer" id="footer">
