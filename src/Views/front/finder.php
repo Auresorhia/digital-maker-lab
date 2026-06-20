@@ -5,7 +5,7 @@ $extra_css        = '';
 $header_class     = 'site-header';
 $show_desktop_nav = true;
 $nav_links = [
-    ['label' => 'Accueil',                'href' => '../home.php/#hero',    'active' => true],
+    ['label' => 'Accueil',                'href' => '../#hero',    'active' => true],
     ['label' => 'À propos',               'href' => '#about',   'active' => false],
     ['label' => 'Les métiers du digital', 'href' => '#jobs',    'active' => false],
     ['label' => 'Actualités',             'href' => '#news',    'active' => false],
@@ -26,7 +26,7 @@ require_once __DIR__ . '/../partials/header.php';
             <span aria-hidden="true">
                 X
         </button>
-        <a class="finder-sidebar__logo" href="home.php" aria-label="Retour à l'accueil">
+        <a class="finder-sidebar__logo" href="../" aria-label="Retour à l'accueil">
             <img src="assets/images/logos/logo_digital_maker_lab_orange.webp" alt="Digital Maker Lab">
         </a>
         <?php require_once __DIR__ . '/searchbar/searchbar.php'; ?>
