@@ -21,10 +21,10 @@
         <?php if (!empty($show_desktop_nav)): ?>
             <nav class="desktop-nav" aria-label="Navigation principale">
                 <ul class="desktop-nav__list">
-                    <li><a class="desktop-nav__link is-active" href="#hero">Accueil</a></li>
-                    <li><a class="desktop-nav__link" href="#about">À Propos</a></li>
-                    <li><a class="desktop-nav__link" href="#jobs">Métiers Du Digital</a></li>
-                    <li><a class="desktop-nav__link" href="#news">Actualités</a></li>
+                    <li><a class="desktop-nav__link is-active" href="<?= $nav_prefix ?? '' ?>#hero">Accueil</a></li>
+                    <li><a class="desktop-nav__link" href="<?= $nav_prefix ?? '' ?>#about">À Propos</a></li>
+                    <li><a class="desktop-nav__link" href="<?= $nav_prefix ?? '' ?>#jobs">Métiers Du Digital</a></li>
+                    <li><a class="desktop-nav__link" href="<?= $nav_prefix ?? '' ?>#news">Actualités</a></li>
                 </ul>
                 <a class="desktop-nav__support" href="#" aria-label="Support">☎</a>
             </nav>
