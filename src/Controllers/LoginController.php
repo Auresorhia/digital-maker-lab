@@ -23,7 +23,7 @@ class LoginController extends Controller
             exit;
         }
 
-        require_once __DIR__ . '/../Views/login.php';
+        require_once __DIR__ . '/../Views/admin/login/login.php';
     }
 
     /**
@@ -80,7 +80,7 @@ class LoginController extends Controller
      */
     public function showForgotPassword(): void
     {
-        require_once __DIR__ . '/../Views/forgot-password.php';
+        require_once __DIR__ . '/../Views/admin/login/forgot-password.php';
     }
 
     /**
@@ -149,7 +149,7 @@ class LoginController extends Controller
      */
     public function showResetPassword(): void
     {
-        require_once __DIR__ . '/../Views/reset-password.php';
+        require_once __DIR__ . '/../Views/admin/login/reset-password.php';
     }
 
     /**
@@ -200,7 +200,7 @@ class LoginController extends Controller
             exit;
         }
 
-        require_once __DIR__ . '/../Views/new-password.php';
+        require_once __DIR__ . '/../Views/admin/login/new-password.php';
     }
 
     /**

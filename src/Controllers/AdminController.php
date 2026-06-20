@@ -15,7 +15,7 @@ class AdminController extends Controller
             exit;
         }
 
-        require_once __DIR__ . '/../Views/admin-dashboard.php';
+        require_once __DIR__ . '/../Views/admin/login/admin-dashboard.php';
     }
 
     /**
