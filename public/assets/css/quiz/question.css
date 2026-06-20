@@ -1,0 +1,268 @@
+/* ==========================================================================
+   1. RESET & CONFIGURATION DE BASE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Permet aux paddings de ne pas fausser les dimensions */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f3f4f6; /* Fond de page gris clair pour faire ressortir la pop-up */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   2. STRUCTURE DE LA POP-UP (OVERLAY & CONTAINER)
+   ========================================================================== */
+
+/* L'arrière-plan sombre qui couvre tout l'écran */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); /* Noir semi-transparent à 60% */
+    z-index: 9999; /* S'assure que la pop-up passe au-dessus de tout le reste */
+    
+    /* Centre la pop-up verticalement et horizontalement */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* La boîte de la pop-up avec tes dimensions exactes */
+.popup-container {
+    width: 637px;
+    height: 573px;
+    background-color: #ffffff;
+    border-radius: 16px; /* Ton arrondi de 16px */
+    padding: 40px;       /* Espace de sécurité interne pour le texte */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    
+    /* Structure interne */
+    display: flex;
+    flex-direction: column;
+    
+    /* Sécurité Responsive : s'adapte si l'écran est trop petit */
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto; /* Un scroll apparaît à l'intérieur si le contenu déborde */
+}
+
+/* ==========================================================================
+   3. COMPOSANTS INTERNES
+   ========================================================================== */
+
+/* L'image de bannière en haut */
+.popup-banner {
+    width: calc(100% + 80px); /* Annule le padding de 40px à gauche et à droite */
+    height: 237px;            /* Ta hauteur exacte */
+    margin-top: -40px;        /* Annule le padding du haut pour coller au bord */
+    margin-left: -40px;       /* Aligne parfaitement à gauche */
+    margin-right: -40px;      /* Aligne parfaitement à droite */
+    margin-bottom: 24px;      /* Espace sous l'image avant d'attaquer les textes */
+    
+    object-fit: cover;        /* Recadre proprement l'image sans la déformer */
+    
+    /* Arrondit uniquement les deux coins supérieurs pour épouser la pop-up */
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+/* Conteneur pour le texte sous l'image */
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Permet au contenu de prendre l'espace restant */
+}
+
+/* Bloc Question (Compteur + Texte) */
+.question-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+/* Le compteur "Question 1/10" */
+.question-counter {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4f46e5; /* Couleur indigo stylée (modifiable selon ta charte) */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* L'intitulé de la question */
+.question-text {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1f2937; /* Gris très foncé presque noir pour une super lisibilité */
+    line-height: 1.4;
+}
+
+/* Description ou texte d'accompagnement */
+.popup-description {
+    font-size: 0.95rem;
+    color: #4b5563;
+    line-height: 1.5;
+    margin-bottom: auto; /* Pousse le bouton de validation tout en bas de la pop-up */
+}
+
+/* Le bouton de validation */
+.action-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background-color: #4f46e5; /* Même couleur que le compteur */
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Effet au survol du bouton */
+.action-btn:hover {
+    background-color: #4338ca;
+}
+
+/* ==========================================================================
+   4. AJUSTEMENT RESPONSIVE (MOBILE)
+   ========================================================================== */
+@media (max-width: 640px) {
+/* 1. Le conteneur : on ENLÈVE le padding pour que l'image touche les bords naturellement */
+.popup-container {
+    width: 637px;
+    height: 573px;
+    background-color: #ffffff;
+    border-radius: 16px; 
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    display: flex;
+    flex-direction: column;
+    
+    max-width: 90%;
+    max-height: 90vh;
+    overflow: hidden; /* Obligatoire pour couper les coins du haut de l'image */
+}
+
+/* 2. L'image : plus besoin de tricher avec des marges négatives */
+.popup-banner {
+    width: 100%;        /* Prend toute la largeur naturellement */
+    height: 237px;      /* Ta hauteur exacte */
+    object-fit: cover;  
+    
+    /* On applique l'arrondi de 16px sur les 4 coins */
+    border-radius: 16px; 
+    
+    /* Optionnel : si tu veux un petit espace blanc discret autour de l'image 
+       pour bien voir l'arrondi du bas, tu peux ajouter une petite marge : */
+    /* margin: 0; */
+}
+
+/* 3. Le contenu textuel : c'est ICI qu'on met le padding (40px) pour protéger le texte */
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 30px 40px 40px 40px; /* Haut (30px), Droite (40px), Bas (40px), Gauche (40px) */
+}
+    
+    .question-text {
+        font-size: 1.15rem; /* Texte un poil plus petit sur mobile */
+    }
+/* Le conteneur qui gère l'intervalle de 10px entre les deux boutons */
+.popup-actions {
+    display: flex;
+    flex-direction: row; /* Aligne les boutons côte à côte */
+    gap: 10px;           /* Intervalle exact de 10px */
+    width: 100%;         
+    margin-top: auto;    /* Pousse les boutons tout en bas de la pop-up */
+}
+
+/* Le style unique et identique pour tes 2 boutons */
+.quiz-btn {
+    display: flex;
+    padding: 16px 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;          /* Donne exactement la même largeur aux deux boutons */
+    
+    background-color: transparent; /* Fond transparent pour les deux */
+    color: #C5B0FF;                /* Texte couleur de la variable */
+    border-radius: 8px;   
+    border: 2px solid var(--cta, #C5B0FF); /* Bordure violette */
+    
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Un petit effet au survol pour que l'utilisateur sache qu'ils sont cliquables */
+    .quiz-btn:hover {
+        background-color: rgba(197, 176, 255, 0.1); /* Léger fond violet transparent au survol */
+    }
+}
+/* Le conteneur qui gère l'intervalle de 10px entre les deux boutons */
+.popup-actions {
+    display: flex;
+    flex-direction: row; /* Aligne les boutons côte à côte */
+    gap: 10px;           /* Intervalle exact de 10px */
+    width: 100%;         
+    margin-top: auto;    /* Pousse les boutons tout en bas de la pop-up */
+}
+
+/* 1. IMPORTATION DE LA POLICE INTER (À mettre tout en haut de ton fichier CSS) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+/* 2. LE CONTENEUR DES BOUTONS */
+.popup-actions {
+    display: flex;
+    flex-direction: row; 
+    gap: 10px;           
+    width: 100%;         
+    margin-top: auto;    
+}
+
+/* 3. LE STYLE DES BOUTONS */
+.quiz-btn {
+    display: flex;
+    padding: 16px 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex: 1 0 0;          
+    
+    /* L'astuce magique pour la bordure dégradée + l'arrondi de 8px */
+    border: 2px solid transparent;
+    background: 
+        linear-gradient(#fff, #fff) padding-box, 
+        linear-gradient(87deg, #C5B0FF 3.49%, #6B7FFF 54.14%) border-box;
+    border-radius: 8px; /* Ton arrondi est maintenant parfaitement préservé */
+
+    /* Tes propriétés exactes pour le texte */
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Un petit effet au survol */
+.quiz-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}

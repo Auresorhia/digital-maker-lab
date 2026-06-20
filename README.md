@@ -1,124 +1,119 @@
-# Projet Digital Maker Lab 🎬🎥
 
-Bonjour ! Bienvenue sur le dépôt de notre projet interspécialités de fin d'année pour **Digital Campus Paris (Bachelor 2)**.
+## 👨🏻‍💻 Installation en local
 
-Ce site web a pour but de présenter les coulisses de la création digitale et de décrypter les grands métiers du numérique à travers une plateforme cohérente, pédagogique et accessible.
-
-Ce projet est développé en **PHP Orienté Objet "from scratch"** et s'appuie sur une architecture MVC fait-maison.
-
-
-
-## 👨🏻‍💻 Comment installer le projet en local chez vous? 
-
-1. **Cloner le dépôt** sur votre ordinateur :
-   ```bash
-   git clone https://github.com/Auresorhia/digital-maker-lab
-   cd projet-digital-maker-lab
-   ```
-
-2. **Configurer la base de données** :
-   - Ouvrez votre outil de gestion de base de données.
-   - Créez une nouvelle base de données nommée `digital_maker_lab`.
-   - Importez le fichier initial situé dans `sql/init_db.sql`, Magie ! vous êtes à jour sur la bdd.
-
-3. **Gérer les identifiants locaux** :
-   - Les configurations de connexion se trouvent dans `config/database.php`.
-   - *Note pour les utilisateurs Mac (MAMP) :* Pensez à adapter les identifiants (ex: le mdp `root`) pour votre environnement local.
-
-1. **Pour lancer le serveur local PHP** :
-   - Ouvrez votre terminal à la racine du projet et exécutez cette commande:
-     ```bash
-     php -S localhost:8000 -t public
-     ```
-   - Allez sur [http://localhost:8000]
-
-
-
-## 🗃️ Organisation de l'Architecture (MVC)
-
-Le MVC sert à séparer la logique métier de l'affichage. Vous devez coder que dans les dossiers dédiés à vos fonctionnalités :
-
-* `src/Controllers/` : Pour placer vos contrôleurs (gestion de la logique de vos plugins).
-* `src/Models/` : Pour placer vos modèles et effectuer vos requêtes SQL à la base de données.
-* `src/Views/` : Pour intégrer vos fichiers d'affichage HTML (les morceaux de pages ou gabarits).
-
-* ⚠️ **RÈGLE POUR LES ROUTES (`src/Core/Router.php`) :** Le fichier `Router.php` centralise tous les accès aux pages du site. **Il est strictement interdit de modifier ce fichier directement**. Si votre fonctionnalité a besoin de créer une nouvelle page (et donc d'une nouvelle route), mentionnez-le obligatoirement dans votre ticket (Issue) et **envoyez-moi un message privé sur Discord** pour que nous configurions la route ensemble.
-
-> ‼️ **ZONE INTERDITE :** Ne modifiez pas le dossier `src/Core/`, le fichier `public/index.php` ou la configuration globale de la base de données (config/) sans m'en parler.
-
-
-## 🎟️ Gestion des Fonctionnalités (GitHub Issues) 
-
-**Rappel : Tâches = Tickets = Issues**
-
-Pour que le développement reste fluide et sous contrôle, nous utilisons un système de validation par Tickets (/Tâches) :
-
-* **Règle d'or (Découpez vos tâches !) :** Ne créez pas un seul ticket géant pour une fonctionnalité énorme (ex: "Faire le mini CMS"). Découpez votre fonctionnalité en petites tâches et créez un ticket pour chacune (ex: Ticket 1 : "Créer la table SQL", Ticket 2 : "Faire la page de connexion"). C'est plus clair pour vous, et plus facile à suivre pour moi.
-* **Créez votre Tâche (Issue) :** Dans l'onglet *Issues* sur GitHub, cliquez sur **New Issue**. Prenez le modèle de ticket (Création de fonctionnalité) et remplissez juste les champs. **Faites-moi ensuite un petit message sur Discord pour me prévenir que le ticket est en attente.**
-* **Revue Technique :** Je vais relire votre ticket pour m'assurer que cette étape respecte bien l'architecture et que ça ne casse pas la bdd.
-* **Le Feu Vert (Assignation) :** Une fois le ticket validé, je vous l'assignerai officiellement. Cette assignation est votre "GO" officiel pour créer votre branche `feature-` et commencer à coder !
-
-
-
-## 🖥️ Les Espaces de Travail (Branches Git) 
-
-Le dépôt est structuré en deux espaces principaux pour garantir la stabilité du site en ligne :
-
-* 🔵 **La branche `dev` (Développement) :** C'est notre espace d'intégration. C'est ici que l'on rassemble toutes les fonctionnalités pour vérifier qu'elles fonctionnent ensemble. C'est votre branche de référence pour démarrer. Donc c'est là que vous allez faire vos Pull Request.
-
-* 🟢 **La branche `main` (Production) :** C'est la vitrine officielle du projet. Le code présent sur cette branche doit être 100% fonctionnel et testé. **Il est strictement interdit de coder ou de pusher directement sur `main`.**
-
-
-
-
-## 🤺 Le Workflow Git 
-
-Voici la routine à suivre à chaque fois que vous développez votre fonctionnalité :
-
-### Étape 1 : Se mettre à jour
-Avant tout développement, récupérez la dernière version propre du code :
+**1. Cloner le dépôt et entrer dans le dossier :**
 ```bash
-git checkout develop
-git pull origin develop
+git clone https://github.com/Auresorhia/digital-maker-lab
+cd digital-maker-lab
+````
+
+**2. Configurer la base de données :**
+
+- Créez une base de données nommée `digital_maker_lab` dans votre outil de gestion.
+- Importez le fichier `sql/init_db.sql`.
+- Vérifiez vos identifiants dans `config/database.php` _(Utilisateurs Mac/MAMP : pensez à adapter le mot de passe root)_.
+    
+
+**3. Lancer le serveur local PHP :**
+
+Bash
+
+```
+php -S localhost:8000 -t public
 ```
 
-### Étape 2 : Créer sa branche locale
-Créez une branche dédiée à partir de `develop` en respectant la nomenclature professionnelle suivante : `feature-[nom-de-la-fonctionnalite]`
-```bash
-git checkout -b feature-nom-du-plugin
-```
-*(Exemples : `feature-plugin-backoffice`, `feature-chatbot`)*
+Allez sur [http://localhost:8000](https://www.google.com/search?q=http://localhost:8000&authuser=2).
 
-### Étape 3 : Coder et sauvegarder (Commit)
-Faites des sauvegardes régulières avec des messages clairs et explicites :
-```bash
+## 🗃️ Architecture MVC : Règles de base
+
+Le code est strictement organisé pour séparer la logique de l'affichage :
+
+- `src/Controllers/` : Logique de vos fonctionnalités et plugins.
+- `src/Models/` : Requêtes SQL vers la base de données.
+- `src/Views/` : Affichage HTML et gabarits.
+    
+
+## ‼️ **ZONES INTERDITES :**
+
+- **`src/Core/Router.php`** : Centralise toutes les routes. Il est strictement interdit de le modifier. Si vous avez besoin d'une nouvelle page, précisez-le dans votre ticket et je configurerai la route.
+- **`src/Core/`**, **`public/index.php`** et **`config/`** : Ne modifiez jamais ces dossiers/fichiers sans mon accord explicite.
+     
+
+## 🎟️ Gestion des tickets (Issues)
+
+**🪙 Règle d'or : 1 Ticket = 1 Branche = 1 Petite tâche.** Ne créez pas de ticket "fourre-tout" (ex: "Faire le mini CMS"). Découpez au maximum (ex: "Créer la table SQL CMS", "Faire l'UI de connexion").
+
+Suivez l'avancée sur le tableau **GitHub Projects**. Voici le cycle de vie d'un ticket :
+ 
+- **En revue** : Attribuez ce statut dès la création du ticket. **Attendez mon "Feu Vert" et mon assignation avant de commencer à coder.**
+- **À faire** : Le ticket a été validé et ous êtes assigné au ticket, vous pouvez créer votre branche et coder. 
+- **En cours** : Le ticket est en cours de developpement.
+- **Terminé** : Le code a été vérifié et fusionné au projet.
+    
+
+## 🖥️ Branches et Workflow Git
+
+Nous utilisons deux branches principales :
+
+- 💿 **`dev`** : Espace d'intégration des nouvelles fonctionnalités. **Toutes vos Pull Requests (PR) pointeront ici.**
+- 📀 **`main`** : Code de production 100% testé. Interdiction stricte de pousser directement dessus.
+    
+
+### Le Workflow du développeur :
+
+**1. Toujours se mettre à jour avant de coder :**
+
+Bash
+
+```
+git checkout dev
+git pull origin dev
+```
+
+**2. Créer sa branche locale (Nomenclature stricte) :**
+
+Respectez le format `feat/[fonctionnalite]` :
+
+Bash
+
+```
+git checkout -b feat/quiz-bdd
+ou
+git checkout -b feat/chat-controller
+```
+
+**3. Coder et sauvegarder régulièrement :**
+
+Bash
+
+```
 git add .
-git commit -m "Ajout du formulaire de saisie pour le plugin de back-office"
+git commit -m "Ajout du formulaire de saisie pour le back-office"
 ```
 
-### Étape 4 : Envoyer votre code sur GitHub (Push)
-Une fois votre fonctionnalité terminée et testée localement, poussez votre branche sur le dépôt distant :
-```bash
-git push origin feature-nom-du-plugin
+**4. Envoyer le code :**
+
+Bash
+
+```
+git push origin feat/votre-nom-de-branche
 ```
 
-### Étape 5 : Ouvrir une Pull Request (PR)
-1. Sur la page GitHub du projet.Cliquez sur le bouton vert **Compare & pull request**
-2. Configurez la demande pour fusionner votre branche **vers la branche `develop`** (et non vers `main`)
-3. Décrivez brièvement ce que fait votre code
+**5. Ouvrir une Pull Request (PR) :**
 
-C'est moi qui me chargerai de relire le code, de le tester et de valider la Pull Request pour l'intégrer au projet global !
+Sur GitHub, ouvrez une PR de votre branche vers **`dev`**. Décrivez vos modifications et attendez ma relecture pour la fusion.
 
+## 🍡 Base de données
 
+Si votre ticket nécessite de nouvelles tables ou champs :
 
-## 🍡 Règle pour la Base de Données
+1. **Ne modifiez jamais** directement le fichier `sql/init_db.sql` global.
+    
+2. Créez un **petit fichier SQL indépendant** dans le dossier `sql/` contenant uniquement vos requêtes.
+    
+3. Mentionnez ce fichier dans votre PR pour que je mette à jour la base globale sans conflit.
+    
 
-Si votre fonctionnalité a besoin d'enregistrer des données (tables supplémentaires, nouveaux champs) :
-* **Ne modifiez jamais** le fichier `sql/init_db.sql` directement pour éviter les conflits d'écrasement.
-* **La solution :** Créez un petit fichier SQL indépendant dans le dossier `sql/` contenant uniquement vos requêtes SQL. Mentionnez-le clairement dans votre Pull Request pour que je puisse mettre à jour la base globale.
-
-
-
-## 🤝 Besoin d'aide ou bloqué ?
+## 🤝 Besoin d'aide ?
 
 Si vous rencontrez des problèmes, si vous avez un doute sur l'emplacement d'un fichier ou juste si vous avez une question, n'hésitez PAS à venir me voir !!

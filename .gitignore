@@ -1,12 +1,20 @@
-# Fichiers systèmes Mac (très utile pour tes camarades sous MAMP !)
+# Fichiers systèmes Mac
 .DS_Store
 
 # Fichiers systèmes Windows
 Thumbs.db
 
-# Configurations personnelles des éditeurs de code (VS Code, PhpStorm...)
+# Configurations personnelles des éditeurs de code
 .vscode/
 .idea/
 
 # Logs locaux de débogage d'e-mails
 /mail-debug.log
+arborescence.txt
+
+# Credentials BDD — ne jamais committer
+/config/config.php
+
+#fichiers sql
+/sql/job.sql
+/sql/specialty.sql
