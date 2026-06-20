@@ -1,31 +1,10 @@
 <?php
-
-require_once __DIR__ . '/../Controllers/LoginController.php';
-require_once __DIR__ . '/../Controllers/AdminController.php';
-
 class Router
 {
 
-    public function start()
+    public function start(string $url)
     {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // 1. On lit le chemin demandé dans l'URL
-        $chemin = $_SERVER['REQUEST_URI'];
-
-        // 2. DÉTECTION DYNAMIQUE : On trouve le dossier de base automatiquement
-        $basePath = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
-
-        // 3. On soustrait la base du chemin pour ne garder que la route pure (ex: /login)
-        if (substr($chemin, 0, strlen($basePath)) == $basePath) {
-            $chemin = substr($chemin, strlen($basePath));
-        }
-
-        // 4. On nettoie l'URL (paramètres ?id=1) et on sécurise le premier slash
-        $chemin = parse_url($chemin, PHP_URL_PATH);
-        $chemin = '/' . trim($chemin, '/');
+        $chemin = $url;
 
         if ($chemin === '/') {
             // Appel du Contrôleur de la page d'accueil
@@ -48,6 +27,7 @@ class Router
 
             require_once __DIR__ . '/../Models/Job/JobModel.php';
             require_once __DIR__ . '/../Models/Specialty/SpecialtyModel.php';
+
             require_once __DIR__ . '/../Controllers/job/AdminJobController.php';
 
             $db = Database::getInstance();
@@ -131,48 +111,6 @@ class Router
             $controller = new \EventController($db);
 
             $controller->create();*/
-
-        // --- ROUTES LOGIN ADMIN ---
-        } elseif ($chemin === '/login') {
-            $controller = new \App\Controllers\LoginController();
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $controller->handleLogin();
-            } else {
-                $controller->showLoginPage();
-            }
-
-        } elseif ($chemin === '/forgot-password') {
-            $controller = new \App\Controllers\LoginController();
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $controller->handleForgotPassword();
-            } else {
-                $controller->showForgotPassword();
-            }
-
-        } elseif ($chemin === '/reset-password') {
-            $controller = new \App\Controllers\LoginController();
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $controller->handleResetPassword();
-            } else {
-                $controller->showResetPassword();
-            }
-
-        } elseif ($chemin === '/new-password') {
-            $controller = new \App\Controllers\LoginController();
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $controller->handleNewPassword();
-            } else {
-                $controller->showNewPassword();
-            }
-
-        } elseif ($chemin === '/admin/dashboard') {
-            $controller = new \App\Controllers\AdminController();
-            $controller->dashboard();
-
-        } elseif ($chemin === '/logout') {
-            $controller = new \App\Controllers\LoginController();
-            $controller->logout();
-
         } else {
             echo "<h1>Erreur 404</h1><p>Page introuvable.</p>";
         }
