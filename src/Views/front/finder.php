@@ -29,7 +29,6 @@ require_once __DIR__ . '/../partials/header.php';
         <a class="finder-sidebar__logo" href="../" aria-label="Retour à l'accueil">
             <img src="assets/images/logos/logo_digital_maker_lab_orange.webp" alt="Digital Maker Lab">
         </a>
-        <?php require_once __DIR__ . '/searchbar/searchbar.php'; ?>
         <h2 class="finder-sidebar__title">Catégories</h2>
         <ul class="finder-sidebar__list">
             <li><a href="#" data-category="marketing">Marketing</a></li>
@@ -39,6 +38,10 @@ require_once __DIR__ . '/../partials/header.php';
             <li><a href="#" data-category="developpement">Développement</a></li>
         </ul>
     </aside>
+
+    <div class="finder-searchbar-wrapper">
+        <?php require_once __DIR__ . '/searchbar/searchbar.php'; ?>
+    </div>
 
     <aside class="finder-subsidebar" id="finder-subsidebar" aria-label="Métiers" aria-hidden="true">
         <button class="finder-subsidebar__back" type="button" aria-label="Retour aux catégories">
