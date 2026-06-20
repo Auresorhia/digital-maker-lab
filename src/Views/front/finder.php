@@ -28,6 +28,7 @@ require_once __DIR__ . '/../partials/header.php';
         <a class="finder-sidebar__logo" href="home.php" aria-label="Retour à l'accueil">
             <img src="assets/images/logos/logo_digital_maker_lab_orange.webp" alt="Digital Maker Lab">
         </a>
+        <?php require_once __DIR__ . '/searchbar/searchbar.php'; ?>
         <h2 class="finder-sidebar__title">Catégories</h2>
         <ul class="finder-sidebar__list">
             <li><a href="#" data-category="marketing">Marketing</a></li>
