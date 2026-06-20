@@ -109,8 +109,49 @@ class Router
             $db = Database::getInstance();
 
             $controller = new \EventController($db);
-
+            
             $controller->create();*/
+
+
+            //Page LOGIN ADMIN
+        } elseif ($chemin === '/login') {
+            $controller = new \App\Controllers\LoginController();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->handleLogin();
+            } else {
+                $controller->showLoginPage();
+            }
+        } elseif ($chemin === '/forgot-password') {
+            $controller = new \App\Controllers\LoginController();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->handleForgotPassword();
+            } else {
+                $controller->showForgotPassword();
+            }
+        } elseif ($chemin === '/reset-password') {
+            $controller = new \App\Controllers\LoginController();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->handleResetPassword();
+            } else {
+                $controller->showResetPassword();
+            }
+        } elseif ($chemin === '/new-password') {
+            $controller = new \App\Controllers\LoginController();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->handleNewPassword();
+            } else {
+                $controller->showNewPassword();
+            }
+        } elseif ($chemin === '/admin/dashboard') {
+            $controller = new \App\Controllers\AdminController();
+            $controller->dashboard();
+        } elseif ($chemin === '/logout') {
+            $controller = new \App\Controllers\LoginController();
+            $controller->logout();
+
+
+
+            //Partie Questionnaire d'orientation
         } elseif ($chemin === '/api/orientation/questions') {
             require_once __DIR__ . '/../Controllers/OrientationController.php';
             $controller = new OrientationController();

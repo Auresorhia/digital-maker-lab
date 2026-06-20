@@ -148,7 +148,7 @@ button {
 /* ── Sidebar ── */
 .finder-page {
     display: flex;
-    min-height: 100vh;
+    min-height: 88vh;
 }
 
 .finder-sidebar {
@@ -681,7 +681,7 @@ button {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 140px 28px 120px;
+    padding: 0px 28px 570px;
     text-align: center;
     background: var(--color-black);
     color: var(--color-white);
@@ -816,9 +816,12 @@ button {
         height: auto;
     }
 
+    .finder-subsidebar {
+        padding: 107px 28px;
+    }
+
     .finder-hero {
         flex: 1;
-        max-width: 720px;
         margin: 0 auto;
         padding: 140px 48px 120px;
     }
@@ -879,7 +882,6 @@ button {
     }
 
     .finder-hero {
-        max-width: 81rem;
         padding: 160px 64px 140px;
     }
 
