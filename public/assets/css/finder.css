@@ -243,7 +243,7 @@ button {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 32px;
+        width: 26px;
         height: 64px;
         padding: 0;
         border: 0;
@@ -686,6 +686,7 @@ button {
     background: var(--color-black);
     color: var(--color-white);
     overflow: hidden;
+    width: 100%;
 }
 
 .finder-hero__title {

@@ -111,6 +111,14 @@ class Router
             $controller = new \EventController($db);
 
             $controller->create();*/
+        } elseif ($chemin === '/api/orientation/questions') {
+            require_once __DIR__ . '/../Controllers/OrientationController.php';
+            $controller = new OrientationController();
+            $controller->questions();
+        } elseif ($chemin === '/api/orientation/result') {
+            require_once __DIR__ . '/../Controllers/OrientationController.php';
+            $controller = new OrientationController();
+            $controller->result();
         } else {
             echo "<h1>Erreur 404</h1><p>Page introuvable.</p>";
         }
