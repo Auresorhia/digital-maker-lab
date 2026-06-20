@@ -4,11 +4,12 @@ $page_css         = 'finder.css';
 $extra_css        = '';
 $header_class     = 'site-header';
 $show_desktop_nav = true;
+$nav_prefix       = '../';
 $nav_links = [
-    ['label' => 'Accueil',                'href' => '../#hero',    'active' => true],
-    ['label' => 'À propos',               'href' => '#about',   'active' => false],
-    ['label' => 'Les métiers du digital', 'href' => '#jobs',    'active' => false],
-    ['label' => 'Actualités',             'href' => '#news',    'active' => false],
+    ['label' => 'Accueil',                'href' => '',    'active' => true],
+    ['label' => 'À propos',               'href' => '',   'active' => false],
+    ['label' => 'Les métiers du digital', 'href' => '',    'active' => false],
+    ['label' => 'Actualités',             'href' => '',    'active' => false],
 ];
 require_once __DIR__ . '/../partials/header.php';
 ?>

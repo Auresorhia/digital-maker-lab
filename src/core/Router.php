@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../Controllers/LoginController.php';
+require_once __DIR__ . '/../Controllers/AdminController.php';
 class Router
 {
 
@@ -161,7 +163,8 @@ class Router
             $controller = new LoginController();
             $controller->logout();
         } else {
-            echo "<h1>Erreur 404</h1><p>Page introuvable.</p>";
+            http_response_code(404);
+            require_once __DIR__ . '/../Views/errors/404.php';
         }
     }
 }
