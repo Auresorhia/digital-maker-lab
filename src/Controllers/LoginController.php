@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Controllers;
-
+require_once __DIR__ . '/../core/Controller.php';
 require_once __DIR__ . '/../Models/AdminModel.php';
 
-class LoginController
+class LoginController extends Controller
 {
-    private \App\Models\AdminModel $adminModel;
+    private AdminModel $adminModel;
 
     public function __construct()
     {
-        $this->adminModel = new \App\Models\AdminModel();
+        $this->adminModel = new AdminModel();
     }
 
     /**
@@ -24,7 +23,7 @@ class LoginController
             exit;
         }
 
-        require_once __DIR__ . '/../Views/login.php';
+        require_once __DIR__ . '/../Views/admin/login/login.php';
     }
 
     /**
@@ -81,7 +80,7 @@ class LoginController
      */
     public function showForgotPassword(): void
     {
-        require_once __DIR__ . '/../Views/forgot-password.php';
+        require_once __DIR__ . '/../Views/admin/login/forgot-password.php';
     }
 
     /**
@@ -150,7 +149,7 @@ class LoginController
      */
     public function showResetPassword(): void
     {
-        require_once __DIR__ . '/../Views/reset-password.php';
+        require_once __DIR__ . '/../Views/admin/login/reset-password.php';
     }
 
     /**
@@ -201,7 +200,7 @@ class LoginController
             exit;
         }
 
-        require_once __DIR__ . '/../Views/new-password.php';
+        require_once __DIR__ . '/../Views/admin/login/new-password.php';
     }
 
     /**
