@@ -39,8 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         item.addEventListener('mousedown', (e) => {
                             e.preventDefault();
-                            // TODO : adapter l'URL quand la route /metier/{id} sera créée par le lead dev
-                            window.location.href = `/metier/${metier.id}`;
+                            dropdown.innerHTML = '';
+                            dropdown.classList.add('search-dropdown--hidden');
+                            input.value = '';
+                            document.dispatchEvent(new CustomEvent('finder:openJob', { detail: { titre: metier.titre } }));
                         });
 
                         dropdown.appendChild(item);

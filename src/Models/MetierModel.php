@@ -17,7 +17,7 @@ class MetierModel {
              JOIN specialty s ON j.specialty_id = s.id_specialty
              WHERE j.job_name LIKE :query 
              ORDER BY j.job_name ASC 
-             LIMIT 8"
+             LIMIT 5"
         );
         $stmt->execute([':query' => '%' . $query . '%']);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

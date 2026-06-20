@@ -206,3 +206,10 @@ accordionTriggers.forEach((trigger) => {
         }
     });
 });
+
+document.addEventListener('finder:openJob', (e) => {
+    const titre = e.detail.titre;
+    if (titre) {
+        openJobSheet(titre);
+    }
+});
