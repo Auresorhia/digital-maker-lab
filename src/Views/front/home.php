@@ -96,6 +96,8 @@ require_once __DIR__ . '/../partials/header.php';
         </div>
     </section>
 
+    <?php require_once __DIR__ . '/../partials/orientation-section.php'; ?>
+
     <?php require_once __DIR__ . '/../partials/events-section.php'; ?>
 </main>
 
