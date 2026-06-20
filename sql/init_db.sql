@@ -1,4 +1,18 @@
- CREATE TABLE IF NOT EXISTS `events` (
+SET FOREIGN_KEY_CHECKS=0;
+
+-- Suppression de toutes les tables (ordre inverse des dépendances)
+DROP TABLE IF EXISTS `orientation_answer_job`;
+DROP TABLE IF EXISTS `orientation_answer`;
+DROP TABLE IF EXISTS `orientation_question`;
+DROP TABLE IF EXISTS `quiz_job_answer`;
+DROP TABLE IF EXISTS `quiz_job_question`;
+DROP TABLE IF EXISTS `job_content`;
+DROP TABLE IF EXISTS `job`;
+DROP TABLE IF EXISTS `specialty`;
+DROP TABLE IF EXISTS `admins`;
+DROP TABLE IF EXISTS `events`;
+
+CREATE TABLE `events` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `title` VARCHAR(255) NOT NULL,
     `description` TEXT,
@@ -30,10 +44,13 @@
 -- ============================================
 
 -- Création de la table admins
-CREATE TABLE IF NOT EXISTS admins (
+DROP TABLE IF EXISTS admins;
+CREATE TABLE admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    reset_code VARCHAR(255) NULL,
+    reset_expires DATETIME NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     INDEX idx_email (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -41,51 +58,8 @@ CREATE TABLE IF NOT EXISTS admins (
 -- Insertion d'un compte admin par défaut (à modifier en production)
 -- Email: leo.duriezj@gmail.com
 -- Mot de passe: Admin123! (à changer immédiatement après la première connexion)
-INSERT INTO admins (email, password) VALUES 
+INSERT IGNORE INTO admins (email, password) VALUES
 ('leo.duriezj@gmail.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
-
--- Note: Le mot de passe hashé ci-dessus correspond à "Admin123!"
--- Il est FORTEMENT recommandé de changer ce mot de passe après la première connexion
-
--- ============================================
--- Requêtes de test (optionnelles)
--- ============================================
-
--- Vérifier que la table a été créée
--- SELECT id, email, created_at FROM admins;
-
--- Compter le nombre d'admins
--- SELECT COUNT(*) as total_admins FROM admins;
-
-
-
--- ============================================
--- Fichier SQL pour la fonctionnalité "Mot de passe oublié"
--- Date: 2026-06-09
--- ============================================
---
--- Ce fichier ajoute le support de la réinitialisation
--- de mot de passe par code à 4 chiffres envoyé par email.
---
--- À exécuter sur une base où la table `admins` existe déjà
--- (voir feature_login_admin.sql).
--- ============================================
-
--- NOTE: MySQL (MAMP) ne supporte pas "ADD COLUMN IF NOT EXISTS".
--- N'exécutez ces ALTER qu'une seule fois. Si une colonne existe déjà,
--- supprimez la ligne correspondante avant d'exécuter.
-
--- Ajout des colonnes de réinitialisation
--- reset_code : le code à 4 chiffres HASHÉ (jamais stocké en clair)
--- reset_expires : date d'expiration du code (10 minutes par défaut)
-ALTER TABLE admins
-    ADD COLUMN reset_code VARCHAR(255) NULL AFTER password,
-    ADD COLUMN reset_expires DATETIME NULL AFTER reset_code;
-
--- ============================================
--- Requêtes de test (optionnelles)
--- ============================================
--- SELECT id, email, reset_code, reset_expires FROM admins;
 
 
 
@@ -96,11 +70,271 @@ ALTER TABLE admins
 
 
 
+--
+-- Structure de la table `specialty`
+--
+
+DROP TABLE IF EXISTS `specialty`;
+CREATE TABLE `specialty` (
+  `id_specialty` int NOT NULL,
+  `specialty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `display` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `specialty` (`id_specialty`, `specialty`, `display`, `created_at`, `updated_at`) VALUES
+(1, 'UXPO', 0, '2026-06-13 14:10:08', '2026-06-13 14:10:08'),
+(2, 'DEV', 0, '2026-06-13 14:21:24', '2026-06-13 14:21:24');
+
+ALTER TABLE `specialty`
+  ADD PRIMARY KEY (`id_specialty`);
+
+ALTER TABLE `specialty`
+  MODIFY `id_specialty` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- Structure de la table `job`
+--
+
+DROP TABLE IF EXISTS `job`;
+CREATE TABLE `job` (
+  `id_job` int NOT NULL,
+  `job_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `display` tinyint(1) NOT NULL DEFAULT '1',
+  `specialty_id` int NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `job` (`id_job`, `job_name`, `display`, `specialty_id`, `created_at`, `updated_at`) VALUES
+(1, 'Créateur d''Entreprise', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(2, 'Responsable CRM', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(3, 'Consultant SEO', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(4, 'Game Designer', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(5, 'Développeur Web', 1, 2, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(6, 'Community Manager', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(7, 'Vidéaste', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00'),
+(8, 'Graphiste', 1, 1, '2026-06-13 00:00:00', '2026-06-13 00:00:00');
+
+ALTER TABLE `job`
+  ADD PRIMARY KEY (`id_job`),
+  ADD KEY `fk_specialty` (`specialty_id`);
+
+ALTER TABLE `job`
+  MODIFY `id_job` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+ALTER TABLE `job`
+  ADD CONSTRAINT `fk_specialty` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`id_specialty`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Structure de la table `job_content`
+--
+
+DROP TABLE IF EXISTS `job_content`;
+CREATE TABLE `job_content` (
+  `id_element` int NOT NULL,
+  `job_id` int DEFAULT NULL,
+  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `job_content`
+  ADD PRIMARY KEY (`id_element`),
+  ADD KEY `FK` (`job_id`);
+
+ALTER TABLE `job_content`
+  MODIFY `id_element` int NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `job_content`
+  ADD CONSTRAINT `FK` FOREIGN KEY (`job_id`) REFERENCES `job` (`id_job`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
+-- Structure des tables du quiz d'orientation
+--
+
+CREATE TABLE `orientation_question` (
+  `id_question` int NOT NULL AUTO_INCREMENT,
+  `question_key` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `question_text` text COLLATE utf8mb4_general_ci NOT NULL,
+  `position` int NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_question`),
+  UNIQUE KEY `question_key` (`question_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `orientation_question` (`id_question`, `question_key`, `question_text`, `position`) VALUES
+(1, 'q1', 'Quel type de mission te motive le plus ?', 1),
+(2, 'q2', 'Quand tu decouvres un site, une video ou une campagne, qu''est-ce qui attire ton attention ?', 2),
+(3, 'q3', 'Dans un projet de groupe, quel role prends-tu naturellement ?', 3),
+(4, 'q4', 'Quel probleme aimerais-tu le plus resoudre ?', 4),
+(5, 'q5', 'Quel livrable aimerais-tu produire ?', 5),
+(6, 'q6', 'Quelle activite te parait la plus naturelle ?', 6),
+(7, 'q7', 'Quel environnement de travail te correspond le mieux ?', 7),
+(8, 'q8', 'Si un projet ne fonctionne pas, que veux-tu ameliorer en premier ?', 8),
+(9, 'q9', 'Quelle phrase te ressemble le plus ?', 9),
+(10, 'q10', 'Avec quels outils aimerais-tu travailler le plus souvent ?', 10),
+(11, 'q11', 'Quel resultat te rendrait le plus fier ?', 11),
+(12, 'q12', 'Dans quel domaine aimerais-tu progresser en priorite ?', 12)
+ON DUPLICATE KEY UPDATE
+  `question_key` = VALUES(`question_key`),
+  `question_text` = VALUES(`question_text`),
+  `position` = VALUES(`position`);
+
+CREATE TABLE `orientation_answer` (
+  `id_answer` int NOT NULL AUTO_INCREMENT,
+  `question_id` int NOT NULL,
+  `answer_letter` varchar(5) COLLATE utf8mb4_general_ci NOT NULL,
+  `answer_text` text COLLATE utf8mb4_general_ci NOT NULL,
+  `specialty_id` int NOT NULL,
+  `points` int NOT NULL DEFAULT 1,
+  `position` int NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_answer`),
+  KEY `question_id` (`question_id`),
+  KEY `specialty_id` (`specialty_id`),
+  CONSTRAINT `orientation_answer_question_fk` FOREIGN KEY (`question_id`) REFERENCES `orientation_question` (`id_question`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `orientation_answer_specialty_fk` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`id_specialty`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `orientation_answer` (`id_answer`, `question_id`, `answer_letter`, `answer_text`, `specialty_id`, `points`, `position`) VALUES
+(1, 1, 'A', 'Creer une identite visuelle ou un support graphique', 1, 3, 1),
+(2, 1, 'B', 'Developper un site ou une fonctionnalite web', 2, 3, 2),
+(3, 1, 'C', 'Faire connaitre une marque et animer une communaute', 1, 3, 3),
+(4, 1, 'D', 'Imaginer un concept de jeu ou lancer un projet', 1, 3, 4),
+(5, 2, 'A', 'Le rendu visuel, les images et la composition', 1, 3, 1),
+(6, 2, 'B', 'La fluidite technique et le fonctionnement du site', 2, 3, 2),
+(7, 2, 'C', 'La visibilite sur Google et les mots utilises', 1, 3, 3),
+(8, 2, 'D', 'La relation avec les utilisateurs ou clients', 1, 3, 4),
+(9, 3, 'A', 'Celui qui propose des idees creatives et visuelles', 1, 3, 1),
+(10, 3, 'B', 'Celui qui construit la solution technique', 2, 3, 2),
+(11, 3, 'C', 'Celui qui organise, vend l''idee et prend des decisions', 1, 3, 3),
+(12, 3, 'D', 'Celui qui communique, publie et fait vivre le projet', 1, 3, 4),
+(13, 4, 'A', 'Rendre un message plus clair et plus attractif', 1, 3, 1),
+(14, 4, 'B', 'Corriger un bug ou automatiser une action', 2, 3, 2),
+(15, 4, 'C', 'Comprendre pourquoi un contenu ne performe pas', 1, 3, 3),
+(16, 4, 'D', 'Transformer une idee en projet viable', 1, 3, 4),
+(17, 5, 'A', 'Une affiche, un logo ou une charte graphique', 1, 3, 1),
+(18, 5, 'B', 'Un site web fonctionnel', 2, 3, 2),
+(19, 5, 'C', 'Une video ou un contenu pour les reseaux sociaux', 1, 3, 3),
+(20, 5, 'D', 'Une strategie pour attirer et fideliser des clients', 1, 3, 4),
+(21, 6, 'A', 'Designer des visuels et choisir une direction artistique', 1, 3, 1),
+(22, 6, 'B', 'Coder, tester et ameliorer une interface web', 2, 3, 2),
+(23, 6, 'C', 'Analyser des audiences, des mots-cles ou des campagnes', 1, 3, 3),
+(24, 6, 'D', 'Concevoir des mecanismes de jeu ou une experience interactive', 1, 3, 4),
+(25, 7, 'A', 'Un studio creatif avec de la production visuelle', 1, 3, 1),
+(26, 7, 'B', 'Un environnement calme pour developper et resoudre des problemes', 2, 3, 2),
+(27, 7, 'C', 'Une equipe marketing avec des objectifs de visibilite', 1, 3, 3),
+(28, 7, 'D', 'Un contexte entrepreneurial avec des decisions rapides', 1, 3, 4),
+(29, 8, 'A', 'Son image, son style et sa coherence visuelle', 1, 3, 1),
+(30, 8, 'B', 'Son code, sa rapidite et ses fonctionnalites', 2, 3, 2),
+(31, 8, 'C', 'Sa visibilite, son audience et son taux de conversion', 1, 3, 3),
+(32, 8, 'D', 'Son concept, son positionnement ou son experience de jeu', 1, 3, 4),
+(33, 9, 'A', 'J''aime transformer une idee en image forte', 1, 3, 1),
+(34, 9, 'B', 'J''aime construire une solution qui fonctionne vraiment', 2, 3, 2),
+(35, 9, 'C', 'J''aime comprendre les publics et optimiser une strategie', 1, 3, 3),
+(36, 9, 'D', 'J''aime porter une vision et convaincre les autres', 1, 3, 4),
+(37, 10, 'A', 'Photoshop, Illustrator, Figma ou Canva', 1, 3, 1),
+(38, 10, 'B', 'VS Code, GitHub et un navigateur de test', 2, 3, 2),
+(39, 10, 'C', 'Google Analytics, Search Console, CRM ou outils social media', 1, 3, 3),
+(40, 10, 'D', 'Camera, logiciel de montage ou outil de game design', 1, 3, 4),
+(41, 11, 'A', 'Un visuel professionnel que les gens retiennent', 1, 3, 1),
+(42, 11, 'B', 'Un site rapide, stable et utile', 2, 3, 2),
+(43, 11, 'C', 'Une campagne qui gagne en audience ou en clients', 1, 3, 3),
+(44, 11, 'D', 'Un projet original qui donne envie d''etre explore', 1, 3, 4),
+(45, 12, 'A', 'Creation graphique et direction artistique', 1, 3, 1),
+(46, 12, 'B', 'Developpement web et logique technique', 2, 3, 2),
+(47, 12, 'C', 'Marketing digital, SEO, CRM et reseaux sociaux', 1, 3, 3),
+(48, 12, 'D', 'Video, jeu video ou entrepreneuriat', 1, 3, 4)
+ON DUPLICATE KEY UPDATE
+  `question_id` = VALUES(`question_id`),
+  `answer_letter` = VALUES(`answer_letter`),
+  `answer_text` = VALUES(`answer_text`),
+  `specialty_id` = VALUES(`specialty_id`),
+  `points` = VALUES(`points`),
+  `position` = VALUES(`position`);
+
+CREATE TABLE `orientation_answer_job` (
+  `id_answer_job` int NOT NULL AUTO_INCREMENT,
+  `answer_id` int NOT NULL,
+  `job_id` int NOT NULL,
+  `points` int NOT NULL DEFAULT 1,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_answer_job`),
+  UNIQUE KEY `answer_job_unique` (`answer_id`, `job_id`),
+  KEY `answer_id` (`answer_id`),
+  KEY `job_id` (`job_id`),
+  CONSTRAINT `orientation_answer_job_answer_fk` FOREIGN KEY (`answer_id`) REFERENCES `orientation_answer` (`id_answer`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `orientation_answer_job_job_fk` FOREIGN KEY (`job_id`) REFERENCES `job` (`id_job`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `orientation_answer_job` (`answer_id`, `job_id`, `points`) VALUES
+(1, 8, 5), (1, 7, 3), (1, 4, 2),
+(2, 5, 5), (2, 4, 2),
+(3, 6, 5), (3, 3, 3), (3, 2, 2),
+(4, 4, 5), (4, 1, 4),
+(5, 8, 5), (5, 7, 3), (5, 4, 2),
+(6, 5, 5),
+(7, 3, 5), (7, 6, 2), (7, 2, 2),
+(8, 2, 5), (8, 6, 3), (8, 1, 2),
+(9, 8, 5), (9, 7, 3), (9, 4, 2),
+(10, 5, 5), (10, 4, 2),
+(11, 1, 5), (11, 2, 4),
+(12, 6, 5), (12, 7, 2), (12, 3, 2),
+(13, 8, 4), (13, 6, 3), (13, 7, 2),
+(14, 5, 5),
+(15, 3, 5), (15, 2, 4), (15, 6, 2),
+(16, 1, 5), (16, 2, 3),
+(17, 8, 5), (17, 7, 2),
+(18, 5, 5),
+(19, 7, 5), (19, 6, 4), (19, 8, 2),
+(20, 2, 5), (20, 3, 4), (20, 1, 3),
+(21, 8, 5), (21, 7, 3),
+(22, 5, 5),
+(23, 3, 5), (23, 2, 5), (23, 6, 2),
+(24, 4, 5), (24, 5, 2),
+(25, 8, 5), (25, 7, 4),
+(26, 5, 5),
+(27, 3, 5), (27, 6, 5), (27, 2, 3),
+(28, 1, 5), (28, 2, 3),
+(29, 8, 5), (29, 7, 4),
+(30, 5, 5),
+(31, 3, 5), (31, 2, 5), (31, 6, 3),
+(32, 4, 5), (32, 1, 3),
+(33, 8, 5), (33, 7, 3),
+(34, 5, 5),
+(35, 3, 5), (35, 2, 4), (35, 6, 3),
+(36, 1, 5), (36, 2, 3), (36, 6, 2),
+(37, 8, 5), (37, 7, 2),
+(38, 5, 5),
+(39, 2, 5), (39, 3, 5), (39, 6, 4),
+(40, 7, 5), (40, 4, 5),
+(41, 8, 5), (41, 7, 3),
+(42, 5, 5),
+(43, 3, 5), (43, 6, 4), (43, 2, 3),
+(44, 4, 5), (44, 1, 3),
+(45, 8, 5), (45, 7, 3),
+(46, 5, 5),
+(47, 3, 5), (47, 2, 5), (47, 6, 4),
+(48, 7, 5), (48, 4, 4), (48, 1, 4)
+ON DUPLICATE KEY UPDATE
+  `points` = VALUES(`points`);
+
+--
+-- Structure des tables du quiz métier
+--
+
+DROP TABLE IF EXISTS `quiz_job_answer`;
+DROP TABLE IF EXISTS `quiz_job_question`;
 CREATE TABLE `quiz_job_question` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
     `question_text` TEXT NOT NULL,
-    `job_id` INT NOT NULL, -- Aligné avec ton code PHP (metier_id)
-    `level` VARCHAR(50) NOT NULL, -- 'easy', 'medium', 'hard'
+    `job_id` INT NOT NULL,
+    `level` VARCHAR(50) NOT NULL,
     CONSTRAINT `fk_quiz_job_question_job` 
         FOREIGN KEY (`job_id`) REFERENCES `job`(`id_job`) 
         ON DELETE CASCADE 
@@ -118,7 +352,7 @@ CREATE TABLE `quiz_job_answer` (
     `answer_text` TEXT NOT NULL,
     `question_id` INT NOT NULL,
     `explanation` TEXT NULL,
-    `is_correct` TINYINT(1) NOT NULL DEFAULT 0, -- 1 = Vrai / 0 = Faux
+    `is_correct` TINYINT(1) NOT NULL DEFAULT 0,
     CONSTRAINT `fk_quiz_job_answer_quiz_job_question` 
         FOREIGN KEY (`question_id`) REFERENCES `quiz_job_question`(`id`) 
         ON DELETE CASCADE 
@@ -428,231 +662,4 @@ INSERT INTO `quiz_job_answer` (`question_id`, `answer_text`, `explanation`, `is_
 
 
 
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : localhost:8889
--- Généré le : sam. 13 juin 2026 à 20:55
--- Version du serveur : 8.0.35
--- Version de PHP : 8.2.20
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `digital_maker_lab`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `job_content`
---
-
-CREATE TABLE `job_content` (
-  `id_element` int NOT NULL,
-  `job_id` int DEFAULT NULL,
-  `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `job_content`
---
-ALTER TABLE `job_content`
-  ADD PRIMARY KEY (`id_element`),
-  ADD KEY `FK` (`job_id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `job_content`
---
-ALTER TABLE `job_content`
-  MODIFY `id_element` int NOT NULL AUTO_INCREMENT;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `job_content`
---
-ALTER TABLE `job_content`
-  ADD CONSTRAINT `FK` FOREIGN KEY (`job_id`) REFERENCES `job` (`id_job`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
-
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : localhost:8889
--- Généré le : sam. 13 juin 2026 à 20:55
--- Version du serveur : 8.0.35
--- Version de PHP : 8.2.20
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `digital_maker_lab`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `job`
---
-
-CREATE TABLE `job` (
-  `id_job` int NOT NULL,
-  `job_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `display` tinyint(1) NOT NULL DEFAULT '1',
-  `specialty_id` int NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `job`
---
-
-INSERT INTO `job` (`id_job`, `job_name`, `display`, `specialty_id`, `created_at`, `updated_at`) VALUES
-(2, 'Expert Full-Stack Modifié', 1, 1, '2026-06-13 23:16:15', '2026-06-13 23:16:15');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `job`
---
-ALTER TABLE `job`
-  ADD PRIMARY KEY (`id_job`),
-  ADD KEY `fk_specialty` (`specialty_id`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `job`
---
-ALTER TABLE `job`
-  MODIFY `id_job` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `job`
---
-ALTER TABLE `job`
-  ADD CONSTRAINT `fk_specialty` FOREIGN KEY (`specialty_id`) REFERENCES `specialty` (`id_specialty`) ON DELETE RESTRICT ON UPDATE RESTRICT;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Hôte : localhost:8889
--- Généré le : sam. 13 juin 2026 à 20:55
--- Version du serveur : 8.0.35
--- Version de PHP : 8.2.20
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Base de données : `digital_maker_lab`
---
-
--- --------------------------------------------------------
-
---
--- Structure de la table `specialty`
---
-
-CREATE TABLE `specialty` (
-  `id_specialty` int NOT NULL,
-  `specialty` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `display` tinyint(1) NOT NULL DEFAULT '1',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `specialty`
---
-
-INSERT INTO `specialty` (`id_specialty`, `specialty`, `display`, `created_at`, `updated_at`) VALUES
-(1, 'UXPO', 0, '2026-06-13 14:10:08', '2026-06-13 14:10:08'),
-(2, 'DEV', 0, '2026-06-13 14:21:24', '2026-06-13 14:21:24');
-
---
--- Index pour les tables déchargées
---
-
---
--- Index pour la table `specialty`
---
-ALTER TABLE `specialty`
-  ADD PRIMARY KEY (`id_specialty`);
-
---
--- AUTO_INCREMENT pour les tables déchargées
---
-
---
--- AUTO_INCREMENT pour la table `specialty`
---
-ALTER TABLE `specialty`
-  MODIFY `id_specialty` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS=1;
