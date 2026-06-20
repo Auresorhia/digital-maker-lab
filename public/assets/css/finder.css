@@ -161,7 +161,7 @@ button {
 
 .finder-sidebar__logo {
     display: block;
-    margin-bottom: 56px;
+    margin-bottom: 30px;
 }
 
 .finder-sidebar__logo img {
@@ -172,7 +172,7 @@ button {
 }
 
 .finder-sidebar__title {
-    margin: 0 0 24px;
+    margin: 80px 0 24px;
     font-size: 12px;
     font-weight: 400;
     text-transform: uppercase;
