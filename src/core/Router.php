@@ -13,8 +13,20 @@ class Router {
             session_start();
         }
 
-        // On lit le chemin demandé dans l'URL et on supprime les éventuels paramètres GET
-        $chemin = strtok($_SERVER['REQUEST_URI'], '?');
+        // 1. On lit le chemin demandé dans l'URL
+        $chemin = $_SERVER['REQUEST_URI'];
+
+        // 2. DÉTECTION DYNAMIQUE : On trouve le dossier de base automatiquement
+        $basePath = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
+
+        // 3. On soustrait la base du chemin pour ne garder que la route pure (ex: /login)
+        if (substr($chemin, 0, strlen($basePath)) == $basePath) {
+            $chemin = substr($chemin, strlen($basePath));
+        }
+
+        // 4. On nettoie l'URL (paramètres ?id=1) et on sécurise le premier slash
+        $chemin = parse_url($chemin, PHP_URL_PATH);
+        $chemin = '/' . trim($chemin, '/');
 
         if ($chemin === '/') {
             echo "Voici la page d'accueil";
@@ -46,6 +58,14 @@ class Router {
                 $controller->handleResetPassword();
             } else {
                 $controller->showResetPassword();
+            }
+
+        } elseif ($chemin === '/new-password') {
+            $controller = new \App\Controllers\LoginController();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->handleNewPassword();
+            } else {
+                $controller->showNewPassword();
             }
 
         } elseif ($chemin === '/admin/dashboard') {
