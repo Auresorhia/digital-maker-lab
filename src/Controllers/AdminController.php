@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
+require_once __DIR__ . '/../core/Controller.php';
 
-class AdminController
+class AdminController extends Controller
 {
     /**
      * Affiche le dashboard admin

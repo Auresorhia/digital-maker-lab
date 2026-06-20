@@ -1,21 +1,11 @@
 <?php
 
-namespace App\Models;
-
-use PDO;
-
 // On charge manuellement la configuration de la base de données
 require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../core/Model.php';
 
-class AdminModel
+class AdminModel extends Model
 {
-    private PDO $db;
-
-    public function __construct()
-    {
-        $this->db = \Database::getInstance();
-    }
-
     /**
      * Recherche un administrateur par son ID
      * 

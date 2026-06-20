@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Controllers;
-
+require_once __DIR__ . '/../core/Controller.php';
 require_once __DIR__ . '/../Models/AdminModel.php';
 
-class LoginController
+class LoginController extends Controller
 {
-    private \App\Models\AdminModel $adminModel;
+    private AdminModel $adminModel;
 
     public function __construct()
     {
-        $this->adminModel = new \App\Models\AdminModel();
+        $this->adminModel = new AdminModel();
     }
 
     /**
