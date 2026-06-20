@@ -237,7 +237,7 @@ button {
 
     .finder-sidebar__toggle {
         position: fixed;
-        top: 50%;
+        top: 36%;
         left: 0;
         z-index: 25;
         display: flex;
@@ -681,9 +681,9 @@ button {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 0px 28px 570px;
+    padding: 158px 28px 464px;
     text-align: center;
-    background: var(--color-black);
+    background: var(--color-black-finder);
     color: var(--color-white);
     overflow: hidden;
     width: 100%;
@@ -691,7 +691,7 @@ button {
 
 .finder-hero__title {
     margin: 0 0 20px;
-    font-size: 28px;
+    font-size: 34px;
     font-weight: 900;
     line-height: 1.05;
     text-transform: uppercase;
@@ -704,7 +704,7 @@ button {
 .finder-hero__intro {
     max-width: 320px;
     margin: 0 0 80px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 300;
     line-height: 1.35;
     color: rgba(255, 255, 255, 0.85);
@@ -718,24 +718,27 @@ button {
 }
 
 .finder-hero__icon--mac {
-    left: 16px;
+    left: 42px;
     bottom: 110px;
     width: 90px;
     transform: rotate(-12deg);
+    bottom: 388px;
+    filter: blur(1px);
 }
 
 .finder-hero__icon--like {
-    right: 24px;
-    top: 140px;
-    width: 50px;
-    transform: rotate(24deg);
+    right: 62px;
+    top: 451px;
+    width: 54px;
+    transform: rotate(31deg);
+    filter: blur(1px);
 }
 
 .finder-hero__icon--cursor {
-    right: 16px;
-    bottom: 150px;
-    width: 70px;
-    transform: rotate(-10deg);
+    right: 100px;
+    bottom: 367px;
+    width: 133px;
+    transform: rotate(3deg);
 }
 
 @media (min-width: 1024px) {

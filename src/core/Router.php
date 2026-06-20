@@ -113,44 +113,6 @@ class Router
             $controller->create();*/
 
 
-            //Page LOGIN ADMIN
-        } elseif ($chemin === '/login') {
-            $controller = new \App\Controllers\LoginController();
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $controller->handleLogin();
-            } else {
-                $controller->showLoginPage();
-            }
-        } elseif ($chemin === '/forgot-password') {
-            $controller = new \App\Controllers\LoginController();
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $controller->handleForgotPassword();
-            } else {
-                $controller->showForgotPassword();
-            }
-        } elseif ($chemin === '/reset-password') {
-            $controller = new \App\Controllers\LoginController();
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $controller->handleResetPassword();
-            } else {
-                $controller->showResetPassword();
-            }
-        } elseif ($chemin === '/new-password') {
-            $controller = new \App\Controllers\LoginController();
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $controller->handleNewPassword();
-            } else {
-                $controller->showNewPassword();
-            }
-        } elseif ($chemin === '/admin/dashboard') {
-            $controller = new \App\Controllers\AdminController();
-            $controller->dashboard();
-        } elseif ($chemin === '/logout') {
-            $controller = new \App\Controllers\LoginController();
-            $controller->logout();
-
-
-
             //Partie Questionnaire d'orientation
         } elseif ($chemin === '/api/orientation/questions') {
             require_once __DIR__ . '/../Controllers/OrientationController.php';
@@ -160,6 +122,44 @@ class Router
             require_once __DIR__ . '/../Controllers/OrientationController.php';
             $controller = new OrientationController();
             $controller->result();
+
+
+
+            // --- ROUTES LOGIN ADMIN ---
+        } elseif ($chemin === '/login') {
+            $controller = new LoginController();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->handleLogin();
+            } else {
+                $controller->showLoginPage();
+            }
+        } elseif ($chemin === '/forgot-password') {
+            $controller = new LoginController();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->handleForgotPassword();
+            } else {
+                $controller->showForgotPassword();
+            }
+        } elseif ($chemin === '/reset-password') {
+            $controller = new LoginController();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->handleResetPassword();
+            } else {
+                $controller->showResetPassword();
+            }
+        } elseif ($chemin === '/new-password') {
+            $controller = new LoginController();
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->handleNewPassword();
+            } else {
+                $controller->showNewPassword();
+            }
+        } elseif ($chemin === '/admin/dashboard') {
+            $controller = new AdminController();
+            $controller->dashboard();
+        } elseif ($chemin === '/logout') {
+            $controller = new LoginController();
+            $controller->logout();
         } else {
             echo "<h1>Erreur 404</h1><p>Page introuvable.</p>";
         }
