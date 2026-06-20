@@ -46,7 +46,7 @@ Le code est strictement organisé pour séparer la logique de l'affichage :
 Suivez l'avancée sur le tableau **GitHub Projects**. Voici le cycle de vie d'un ticket :
  
 - **En revue** : Attribuez ce statut dès la création du ticket. **Attendez mon "Feu Vert" et mon assignation avant de commencer à coder.**
-- - **À faire** : Le ticket a été validé et ous êtes assigné au ticket, vous pouvez créer votre branche et coder. 
+- **À faire** : Le ticket a été validé et ous êtes assigné au ticket, vous pouvez créer votre branche et coder. 
 - **En cours** : Le ticket est en cours de developpement.
 - **Terminé** : Le code a été vérifié et fusionné au projet.
     
