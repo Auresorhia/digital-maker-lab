@@ -12,6 +12,7 @@ $nav_links = [
 ];
 require_once __DIR__ . '/../partials/header.php';
 ?>
+<link rel="stylesheet" href="assets/css/orientation.css">
 
 <main class="finder-page">
     <button class="finder-sidebar__toggle" type="button" aria-label="Ouvrir les catégories" aria-controls="finder-sidebar" aria-expanded="false">
@@ -64,6 +65,7 @@ require_once __DIR__ . '/../partials/header.php';
         <p class="finder-hero__intro">
             Explore les métiers par domaine ou fais notre test pour découvrir ceux qui te correspondent le mieux et trouver la spécialité dans laquelle tu peux vraiment t'épanouir.
         </p>
+        <button class="orientation-preview__button finder-orientation-button" type="button">Faire le test&nbsp;!</button>
     </section>
 
     <article class="finder-job-sheet" id="finder-job-sheet" aria-labelledby="finder-job-sheet-title" aria-hidden="true">
@@ -301,4 +303,18 @@ require_once __DIR__ . '/../partials/header.php';
     <p class="site-footer__copy">Tous droits réservés. 2026 - made by DC Paris</p>
 </footer>
 
+<div class="orientation-modal" id="orientation-modal" aria-hidden="true">
+    <div class="orientation-modal__backdrop" data-orientation-close></div>
+    <section class="orientation-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="orientation-modal-title">
+        <div class="orientation-modal__panel">
+            <header class="orientation-modal__hero">
+                <button class="orientation-modal__close" type="button" aria-label="Fermer le questionnaire" data-orientation-close>&times;</button>
+                <h2 id="orientation-modal-title">QUESTIONNAIRES<br>D&rsquo;ORIENTATION</h2>
+            </header>
+            <div class="orientation-modal__content" data-orientation-content></div>
+        </div>
+    </section>
+</div>
+
 <script src="assets/js/finder.js"></script>
+<script src="assets/js/orientation.js"></script>
