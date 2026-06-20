@@ -579,6 +579,10 @@ button {
     background: var(--color-white);
 }
 
+.finder-job-sheet__tag a {
+    cursor: pointer;
+}
+
 .finder-job-sheet__skills {
     padding: 0 28px 40px;
 }

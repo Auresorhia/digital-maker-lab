@@ -84,10 +84,8 @@ require_once __DIR__ . '/../partials/header.php';
         </section>
 
         <section class="finder-job-sheet__video">
-            <video controls playsinline>
-                <source src="assets/images/finder/videos/creation_ticket_tache.mp4" type="video/mp4">
-                Votre navigateur ne supporte pas la lecture vidéo.
-            </video>
+            </br>
+            <a href="https://youtu.be/xwTPvcPYaOo?si=Pm-ZLxWgLddEjjY9" target="_blank" rel="noopener noreferrer" aria-label="Youtube">Voir la vidéo explicative</a>
         </section>
 
         <section class="finder-job-sheet__post-video">
@@ -152,10 +150,8 @@ require_once __DIR__ . '/../partials/header.php';
 
         <section class="finder-job-sheet__interview">
             <span class="finder-job-sheet__tag">Interview pro</span>
-            <video controls playsinline>
-                <source src="assets/images/finder/videos/creation_ticket_tache.mp4" type="video/mp4">
-                Votre navigateur ne supporte pas la lecture vidéo.
-            </video>
+            </br>
+            <a href="https://youtu.be/xwTPvcPYaOo?si=Pm-ZLxWgLddEjjY9" target="_blank" rel="noopener noreferrer" aria-label="Youtube">Voir l'interview pro</a>
         </section>
 
         <section class="finder-job-sheet__skills">
@@ -231,10 +227,8 @@ require_once __DIR__ . '/../partials/header.php';
 
         <section class="finder-job-sheet__interview finder-job-sheet__interview--student">
             <span class="finder-job-sheet__tag">Interview étudiant</span>
-            <video controls playsinline>
-                <source src="assets/images/finder/videos/creation_ticket_tache.mp4" type="video/mp4">
-                Votre navigateur ne supporte pas la lecture vidéo.
-            </video>
+            </br>
+            <a href="https://youtu.be/xwTPvcPYaOo?si=Pm-ZLxWgLddEjjY9" target="_blank" rel="noopener noreferrer" aria-label="Youtube">Voir l'interview étudiant</a>
         </section>
 
         <section class="finder-job-sheet__text-block finder-job-sheet__article-link">
