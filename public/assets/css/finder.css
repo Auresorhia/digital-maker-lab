@@ -28,7 +28,7 @@ button {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 20;
+    z-index: 50;
     display: flex;
     justify-content: flex-end;
     width: 100%;
@@ -256,10 +256,6 @@ button {
         transition: opacity 0.3s ease;
     }
 
-    .finder-sidebar__toggle[aria-expanded="true"] {
-        opacity: 0;
-        pointer-events: none;
-    }
 
     .finder-sidebar-overlay {
         position: fixed;
@@ -400,48 +396,258 @@ button {
     display: none;
     flex: 1;
     min-height: 100vh;
-    padding: 120px 48px 80px;
+    padding: 0 0 80px;
     text-align: left;
     background: var(--color-black);
     color: var(--color-white);
+    overflow-y: auto;
 }
 
 .finder-job-sheet.is-open {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: block;
 }
 
-.finder-job-sheet__back {
+.finder-job-sheet__hero {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    margin-bottom: 24px;
-    padding: 0;
-    border: 0;
-    color: var(--color-white);
-    font-size: 24px;
-    background: transparent;
-    cursor: pointer;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 120px 28px 32px;
 }
 
 .finder-job-sheet__title {
-    margin: 0 0 24px;
-    font-size: 32px;
+    margin: 0;
+    font-size: 28px;
     font-weight: 900;
-    line-height: 1.1;
+    line-height: 1.05;
     text-transform: uppercase;
 }
 
-.finder-job-sheet__text {
-    max-width: 640px;
-    margin: 0;
-    font-size: 16px;
+.finder-job-sheet__intro {
+    padding: 0 28px 40px;
+}
+
+.finder-job-sheet__section-title {
+    margin: 0 0 16px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-white);
+}
+
+.finder-job-sheet__intro p {
+    margin: 0 0 16px;
+    font-size: 14px;
     font-weight: 300;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.85);
+}
+
+.finder-job-sheet__intro p:last-child {
+    margin-bottom: 0;
+}
+
+.finder-job-sheet__what {
+    padding: 0 28px 16px;
+}
+
+.finder-job-sheet__post-video {
+    padding: 32px 28px 40px;
+}
+
+.finder-job-sheet__post-video p {
+    margin: 0 0 16px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.finder-job-sheet__post-video p:last-child {
+    margin-bottom: 0;
+}
+
+.finder-job-sheet__video {
+    padding: 0 28px 40px;
+}
+
+.finder-job-sheet__video video {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    object-fit: cover;
+    background: var(--color-black);
+}
+
+.finder-job-sheet__missions {
+    padding: 0 28px 40px;
+}
+
+.finder-job-sheet__missions-lead {
+    margin: 0 0 24px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.finder-job-sheet__accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.finder-job-sheet__accordion-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: var(--color-white);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: background 180ms ease;
+}
+
+.finder-job-sheet__accordion-trigger:hover,
+.finder-job-sheet__accordion-trigger:focus-visible {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.finder-job-sheet__accordion-trigger[aria-expanded="true"] {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.finder-job-sheet__accordion-panel {
+    display: none;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.finder-job-sheet__accordion-panel.is-open {
+    display: block;
+}
+
+.finder-job-sheet__accordion-panel p {
+    margin: 0 0 12px;
+}
+
+.finder-job-sheet__accordion-panel ul {
+    margin: 0 0 16px;
+    padding-left: 20px;
+}
+
+.finder-job-sheet__accordion-panel li {
+    margin-bottom: 6px;
+}
+
+.finder-job-sheet__interview {
+    padding: 0 28px 40px;
+}
+
+.finder-job-sheet__interview video {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
+    object-fit: cover;
+    background: var(--color-black);
+    border-radius: 8px;
+}
+
+.finder-job-sheet__tag {
+    display: inline-block;
+    margin-bottom: 12px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-black);
+    background: var(--color-white);
+}
+
+.finder-job-sheet__skills {
+    padding: 0 28px 40px;
+}
+
+.finder-job-sheet__text-block {
+    padding: 0 28px 40px;
+}
+
+.finder-job-sheet__text-block p {
+    margin: 0 0 16px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.finder-job-sheet__text-block ul {
+    margin: 0 0 16px;
+    padding-left: 20px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.finder-job-sheet__text-block li {
+    margin-bottom: 8px;
+}
+
+.finder-job-sheet__text-block p:last-child,
+.finder-job-sheet__text-block ul:last-child {
+    margin-bottom: 0;
+}
+
+.finder-job-sheet__article-link a {
+    color: var(--color-orange);
+    text-decoration: underline;
+}
+
+.finder-job-sheet__lead-magnet {
+    margin: 0 28px 40px;
+    padding: 28px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.finder-job-sheet__lead-magnet p {
+    margin: 0 0 16px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.finder-job-sheet__lead-magnet p:last-of-type {
+    margin-bottom: 24px;
+}
+
+.finder-job-sheet__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    color: var(--color-white);
+    background: var(--color-orange);
 }
 
 .finder-page:has(.finder-job-sheet.is-open) .finder-hero {
@@ -450,24 +656,17 @@ button {
 
 @media (max-width: 1023px) {
     .finder-job-sheet {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 33;
+        display: none;
         width: 100%;
-        height: 100vh;
         min-height: auto;
-        padding: 80px 28px 40px;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
     }
 
     .finder-job-sheet.is-open {
-        transform: translateX(0);
+        display: block;
     }
 
     .finder-page:has(.finder-job-sheet.is-open) .finder-hero {
-        display: flex;
+        display: none;
     }
 }
 

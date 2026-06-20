@@ -61,7 +61,7 @@ const subSidebarBack = document.querySelector('.finder-subsidebar__back');
 const categoryLinks = document.querySelectorAll('.finder-sidebar__list a[data-category]');
 
 const jobsByCategory = {
-    marketing: ['Chef de projet digital', 'SEO Manager', 'Community Manager', 'Content Manager'],
+    marketing: ['Chef de projet digital', 'Consultant SEO', 'Community Manager', 'Content Manager'],
     uxpo: ['UX Designer', 'UI Designer', 'Product Owner', 'UX Researcher'],
     videos: ['Motion Designer', 'Animateur 2D', 'Animateur 3D', 'Monteur Vidéo'],
     design: ['Graphiste', 'Motion Designer', 'Directeur artistique', 'Webdesigner'],
@@ -111,12 +111,11 @@ if (subSidebarBack) {
 /* ── Job sheet ── */
 const jobSheet = document.getElementById('finder-job-sheet');
 const jobSheetTitle = document.getElementById('finder-job-sheet-title');
-const jobSheetText = document.getElementById('finder-job-sheet-text');
-const jobSheetBack = document.querySelector('.finder-job-sheet__back');
+const jobSheetIntro = document.querySelector('.finder-job-sheet__intro');
 
 const jobDescriptions = {
     'Chef de projet digital': 'Le chef de projet digital coordonne les équipes et les ressources pour mener à bien les projets numériques. Il définit les plannings, les budgets et les livrables tout en assurant la communication entre les parties prenantes.',
-    'SEO Manager': 'Le SEO Manager optimise la visibilité des sites web sur les moteurs de recherche. Il analyse les performances, définit les stratégies de contenu et accompagne les équipes éditoriales.',
+    'Consultant SEO': 'Consultant SEO, spécialiste SEO, expert SEO, référenceur web… Ce métier peut porter plusieurs noms différents, mais dans la finalité, sa mission reste la même : celle d’augmenter la visibilité et le trafic des sites web.<br><br>Alors, si tu aimes manier les mots, découvrir comment fonctionne le web, analyser des données et comprendre pourquoi certains contenus apparaissent sur les moteurs de recherche et d’autres non…<br><br>Peut-être que le métier de consultant SEO est fait pour toi !',
     'Community Manager': 'Le Community Manager anime les réseaux sociaux d’une marque. Il crée du contenu, modère les échanges et analyse l’engagement de la communauté.',
     'Content Manager': 'Le Content Manager pilote la production et la diffusion des contenus. Il veille à la cohérence éditoriale et à l’optimisation des supports.',
     'UX Designer': 'L’UX Designer conçoit des expériences utilisateur fluides et intuitives. Il réalise des recherches, des prototypes et des tests pour améliorer les produits numériques.',
@@ -136,12 +135,37 @@ const jobDescriptions = {
     'DevOps': 'Le DevOps automatise les déploiements et optimise l’infrastructure. Il assure la fiabilité, la sécurité et la scalabilité des systèmes.'
 };
 
+const jobTitleMap = {
+    'Consultant SEO': 'Le métier de consultant SEO',
+    'Chef de projet digital': 'Le métier de chef de projet digital',
+    'Community Manager': 'Le métier de community manager',
+    'Content Manager': 'Le métier de content manager',
+    'UX Designer': 'Le métier d’UX designer',
+    'UI Designer': 'Le métier d’UI designer',
+    'Product Owner': 'Le métier de product owner',
+    'UX Researcher': 'Le métier d’UX researcher',
+    'Motion Designer': 'Le métier de motion designer',
+    'Animateur 2D': 'Le métier d’animateur 2D',
+    'Animateur 3D': 'Le métier d’animateur 3D',
+    'Monteur Vidéo': 'Le métier de monteur vidéo',
+    'Graphiste': 'Le métier de graphiste',
+    'Directeur artistique': 'Le métier de directeur artistique',
+    'Webdesigner': 'Le métier de webdesigner',
+    'Développeur Front-end': 'Le métier de développeur front-end',
+    'Développeur Back-end': 'Le métier de développeur back-end',
+    'Développeur Full-stack': 'Le métier de développeur full-stack',
+    'DevOps': 'Le métier de DevOps'
+};
+
 const openJobSheet = (job) => {
-    if (!jobSheet || !jobSheetTitle || !jobSheetText) {
+    if (!jobSheet || !jobSheetTitle || !jobSheetIntro) {
         return;
     }
-    jobSheetTitle.textContent = job;
-    jobSheetText.textContent = jobDescriptions[job] || `Découvrez le métier de ${job}.`;
+    jobSheetTitle.textContent = jobTitleMap[job] || `Le métier de ${job}`;
+    jobSheetIntro.innerHTML = `
+        <h2 class="finder-job-sheet__section-title">titre H2</h2>
+        <p>${jobDescriptions[job] || `Découvrez le métier de ${job}.`}</p>
+    `;
     jobSheet.classList.add('is-open');
     jobSheet.setAttribute('aria-hidden', 'false');
 };
@@ -165,6 +189,20 @@ const attachJobClickHandlers = () => {
     });
 };
 
-if (jobSheetBack) {
-    jobSheetBack.addEventListener('click', closeJobSheet);
-}
+const accordionTriggers = document.querySelectorAll('.finder-job-sheet__accordion-trigger');
+accordionTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+        const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+        const panel = document.getElementById(trigger.getAttribute('aria-controls'));
+
+        trigger.setAttribute('aria-expanded', String(!isExpanded));
+        if (panel) {
+            panel.classList.toggle('is-open', !isExpanded);
+        }
+
+        const icon = trigger.querySelector('[aria-hidden="true"]');
+        if (icon) {
+            icon.textContent = isExpanded ? '∧' : '∨';
+        }
+    });
+});
