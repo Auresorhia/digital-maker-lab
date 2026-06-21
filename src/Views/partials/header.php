@@ -4,11 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($page_title ?? 'Digital Maker Lab') ?></title>
-    <link rel="stylesheet" href="assets/css/design-system.css">
-    <link rel="stylesheet" href="assets/css/<?= $page_css ?? 'home.css' ?>">
+    <title><?= htmlspecialchars($seo_title ?? $page_title ?? 'Digital Maker Lab') ?></title>
+    <?php if (!empty($seo_desc)): ?>
+        <meta name="description" content="<?= htmlspecialchars($seo_desc) ?>">
+    <?php endif; ?>
+    <?php if (!empty($seo_canonical)): ?>
+        <link rel="canonical" href="<?= htmlspecialchars($seo_canonical) ?>">
+    <?php endif; ?>
+    <link rel="stylesheet" href="<?= $assets_prefix ?? '' ?>assets/css/design-system.css">
+    <link rel="stylesheet" href="<?= $assets_prefix ?? '' ?>assets/css/<?= $page_css ?? 'home.css' ?>">
     <?php if (!empty($extra_css)): ?>
-        <link rel="stylesheet" href="assets/css/<?= $extra_css ?>">
+        <link rel="stylesheet" href="<?= $assets_prefix ?? '' ?>assets/css/<?= $extra_css ?>">
     <?php endif; ?>
 </head>
 
@@ -49,4 +55,3 @@
     </nav>
 
     <script src="assets/js/menu.js"></script>
-    <script src="assets/js/web-speach-script.js"></script>
