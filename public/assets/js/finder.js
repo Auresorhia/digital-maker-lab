@@ -60,6 +60,10 @@ const subSidebarList = document.getElementById('finder-subsidebar-list');
 const subSidebarBack = document.querySelector('.finder-subsidebar__back');
 const categoryLinks = document.querySelectorAll('.finder-sidebar__list a[data-category]');
 
+const jobSlugs = {
+    'Consultant SEO': 'consultant-seo',
+};
+
 const jobsByCategory = {
     marketing: ['Chef de projet digital', 'Consultant SEO', 'Community Manager', 'Content Manager'],
     uxpo: ['UX Designer', 'UI Designer', 'Product Owner', 'UX Researcher'],
@@ -76,7 +80,11 @@ const openSubSidebar = (category, label) => {
     const jobs = jobsByCategory[category] || [];
     subSidebarTitle.textContent = label;
     subSidebarList.innerHTML = jobs
-        .map((job) => `<li><a href="#" data-job="${job}">${job} <span aria-hidden="true">›</span></a></li>`)
+        .map((job) => {
+            const slug = jobSlugs[job];
+            const href = slug ? `/metiers/${slug}` : '#';
+            return `<li><a href="${href}" data-job="${job}">${job} <span aria-hidden="true">›</span></a></li>`;
+        })
         .join('');
 
     subSidebar.classList.add('is-open');
@@ -93,10 +101,14 @@ const closeSubSidebar = () => {
     subSidebar.setAttribute('aria-hidden', 'true');
 };
 
+const isDesktop = () => window.innerWidth >= 1024;
+
 if (categoryLinks.length) {
     categoryLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
             event.preventDefault();
+            categoryLinks.forEach((l) => l.classList.remove('is-active'));
+            link.classList.add('is-active');
             const category = link.getAttribute('data-category');
             const label = link.textContent.trim();
             openSubSidebar(category, label);
@@ -107,6 +119,20 @@ if (categoryLinks.length) {
 if (subSidebarBack) {
     subSidebarBack.addEventListener('click', closeSubSidebar);
 }
+
+document.addEventListener('click', (event) => {
+    if (!subSidebar || !subSidebar.classList.contains('is-open') || isDesktop()) {
+        return;
+    }
+
+    const target = event.target;
+    const isInsideSubSidebar = subSidebar.contains(target);
+    const isCategoryLink = target.closest('.finder-sidebar__list a[data-category]');
+
+    if (!isInsideSubSidebar && !isCategoryLink) {
+        closeSubSidebar();
+    }
+});
 
 /* ── Job sheet ── */
 const jobSheet = document.getElementById('finder-job-sheet');
@@ -189,8 +215,19 @@ const attachJobClickHandlers = () => {
     });
 };
 
+if (categoryLinks.length && isDesktop()) {
+    const firstLink = categoryLinks[0];
+    firstLink.classList.add('is-active');
+    openSubSidebar(firstLink.getAttribute('data-category'), firstLink.textContent.trim());
+}
+
 const accordionTriggers = document.querySelectorAll('.finder-job-sheet__accordion-trigger');
 accordionTriggers.forEach((trigger) => {
+    const icon = trigger.querySelector('[aria-hidden="true"]');
+    if (icon) {
+        icon.textContent = '▶';
+    }
+
     trigger.addEventListener('click', () => {
         const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
         const panel = document.getElementById(trigger.getAttribute('aria-controls'));
@@ -200,9 +237,8 @@ accordionTriggers.forEach((trigger) => {
             panel.classList.toggle('is-open', !isExpanded);
         }
 
-        const icon = trigger.querySelector('[aria-hidden="true"]');
         if (icon) {
-            icon.textContent = isExpanded ? '∧' : '∨';
+            icon.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(90deg)';
         }
     });
 });
