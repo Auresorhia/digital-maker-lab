@@ -89,3 +89,17 @@
     color: #888;
     flex-shrink: 0;
 }
+
+.search-dropdown__item--voir-tout {
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+    color: var(--color-brand-orange);
+    font-size: 13px;
+}
+
+.search-dropdown__item--voir-tout .search-dropdown__icon {
+    color: var(--color-brand-orange);
+}
+
+.search-dropdown__item--voir-tout:hover {
+    background-color: rgba(255, 107, 53, 0.06);
+}
