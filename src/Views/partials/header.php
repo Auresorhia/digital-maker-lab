@@ -26,7 +26,7 @@
                     <li><a class="desktop-nav__link" href="<?= $nav_prefix ?? '' ?>#jobs">Métiers Du Digital</a></li>
                     <li><a class="desktop-nav__link" href="<?= $nav_prefix ?? '' ?>#news">Actualités</a></li>
                 </ul>
-                <a class="desktop-nav__support" href="#" aria-label="Support">☎</a>
+                <a class="desktop-nav__support" id="audio-toggle" href="#" aria-label="Support">☎</a>
             </nav>
         <?php endif; ?>
     </header>
@@ -45,3 +45,4 @@
     </nav>
 
     <script src="assets/js/menu.js"></script>
+    <script src="assets/js/web-speach-script.js"></script>
