@@ -58,3 +58,75 @@
     --transition-fast: 180ms ease;
     --transition-base: 250ms ease;
 }
+
+
+
+/* ==========================================================================
+   DESIGN SYSTEM - ACCESSIBILITÉ AUDIO CORRIGÉ
+   ========================================================================== */
+
+/* 1. Casque par défaut (Non-actif) */
+.nav-icon-svg {
+    width: 24px !important;
+    height: 24px !important;
+    display: block;
+    color: #FF8B6B !important; /* Devient orange claire */
+    transition: all 0.2s ease-in-out;
+}
+
+/* 2. Casque quand il est ACTIVÉ (is-active) */
+.desktop-nav__support.is-active {
+    background-color: #FF8B6B !important; /* Fond orange */
+    border-radius: 50%;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* L'icône passe en blanc à l'intérieur du fond orange */
+.desktop-nav__support.is-active .nav-icon-svg {
+    color: #ffffff !important; 
+}
+
+
+/* 3. Boutons de lecture de texte sur la page */
+.audio-micro-btn {
+    display: none !important; /* Masqué par défaut */
+}
+
+body.audio-mode-active .audio-micro-btn {
+    display: inline-flex !important; /* Visible si mode actif */
+}
+
+/* Style du bouton flottant (Volume up) Inversé pour plus de visibilité */
+.audio-micro-btn {
+    background: #FF8B6B !important; /* Devient orange claire plein */
+    color: #ffffff !important; /* L'icône passe en blanc */
+    border: none;
+    border-radius: 50%;
+    width: 36px; /* Légèrement plus grand pour marquer */
+    height: 36px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(255, 139, 107, 0.25); /* Ombre plus visible pour l'effet flottant */
+    transition: all 0.2s ease-in-out;
+    
+    /* Tes positions d'origine conservées */
+    position: absolute;
+    z-index: 10;
+}
+
+/* L'icône de volume reste fine à l'intérieur */
+.audio-icon-svg {
+    width: 18px !important;
+    height: 18px !important;
+    display: block;
+}
+
+/* Effet au survol (Hover) : un simple effet de zoom et d'ombre */
+.audio-micro-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 14px rgba(255, 139, 107, 0.35);
+}

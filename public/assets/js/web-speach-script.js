@@ -1,54 +1,64 @@
-
 document.addEventListener("DOMContentLoaded", () => {
     const audioToggle = document.getElementById("audio-toggle");
     
-    // 1. Trouver tous les éléments cibles et injecter automatiquement le bouton micro
+    if (!audioToggle) return;
+
+    // FIX : Déclaration indispensable de la variable pour récupérer les cibles !
     const audioElements = document.querySelectorAll(".audio-target");
-    
+
+    // 1. Préparer tous les éléments cibles
     audioElements.forEach(element => {
-        // On crée un vrai bouton HTML pour le micro
         const microBtn = document.createElement("button");
         microBtn.type = "button";
         microBtn.className = "audio-micro-btn";
-        microBtn.innerText = "🎤";
+        
+        // MODIFICATION : Colle ici le code SVG récupéré de Figma pour l'icône volume
+        microBtn.innerHTML = `
+            <svg class="audio-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+        `;
         microBtn.setAttribute("aria-label", "Écouter le texte");
 
-        // Événement au clic sur CE micro précis
         microBtn.addEventListener("click", (e) => {
-            e.stopPropagation(); // Évite de déclencher d'autres clics sur la page
+            e.stopPropagation();
             
-            // On récupère uniquement le texte de l'élément PARENT (en enlevant le symbole du micro lui-même)
-            let textToRead = element.innerText.replace("🎤", "").trim();
+            if (!document.body.classList.contains("audio-mode-active")) {
+                return; 
+            }
             
+            let textToRead = element.textContent.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
             speakText(textToRead);
         });
 
-        // On injecte le bouton directement à l'intérieur de l'élément cible
         element.appendChild(microBtn);
     });
 
-    // 2. Gestion de la mémoire de l'interrupteur (localStorage)
+    // 2. Vérifier la mémoire locale (localStorage)
     if (localStorage.getItem("audioMode") === "enabled") {
-        audioToggle.checked = true;
         document.body.classList.add("audio-mode-active");
+        audioToggle.classList.add("is-active"); 
     }
 
-    // 3. Écouteur sur le Switch On/Off
-    audioToggle.addEventListener("change", () => {
-        if (audioToggle.checked) {
-            document.body.classList.add("audio-mode-active");
+    // 3. Gestion du clic sur le casque
+    audioToggle.addEventListener("click", (e) => {
+        e.preventDefault(); 
+
+        const isActive = document.body.classList.toggle("audio-mode-active");
+        audioToggle.classList.toggle("is-active", isActive);
+
+        if (isActive) {
             localStorage.setItem("audioMode", "enabled");
             speakText("Mode audio activé.");
         } else {
-            document.body.classList.remove("audio-mode-active");
             localStorage.setItem("audioMode", "disabled");
-            window.speechSynthesis.cancel(); // Coupe le son direct
+            window.speechSynthesis.cancel(); 
         }
     });
 
-    // 4. Fonction universelle pour faire parler le navigateur
+    // 4. Moteur de synthèse vocale
     function speakText(text) {
-        window.speechSynthesis.cancel(); // Stoppe la lecture précédente si elle existe
+        window.speechSynthesis.cancel(); 
 
         if (text !== "") {
             const utterance = new SpeechSynthesisUtterance(text);
