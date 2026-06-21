@@ -1,0 +1,88 @@
+@import "design-system.css";
+
+.main-section-container {
+    display: grid;
+    gap: 20px;
+}
+
+.main-title-container {
+    display: grid;
+    justify-content: center;
+}
+
+.jobs-container {
+    display: grid;
+    gap: 8px;
+}
+
+.job-container {
+    background-color: #ECECEC;
+    height: 64px;
+    width: 100%;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 32px;
+}
+
+.job-name {
+    font-family: var(--font-family-main);
+    font-size: 18px;
+}
+
+.icon-interaction-with-job-container {
+    display: flex;
+    gap: 32px;
+}
+
+.icon-interaction-with-job {
+    height: 50px;
+    width: 50px;
+    border-radius: 26px;
+}
+
+.position-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pencil {
+    background-color: #817DDB20;
+}
+
+.eye {
+    background-color: #75757520;
+}
+
+.trash {
+    background-color: #8B000020;
+}
+
+.btn-add-container {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-add {
+    border: 0;
+    font-size: 24px;
+    background-color: #ECECEC;
+    position: relative;
+}
+
+.plus-bar {
+    width: 3px;
+    height: 28px;
+    background-color: black;
+}
+
+.horizontal-bar {
+    transform: rotate(90deg);
+    position: absolute;
+}
+
+.vertical-bar {
+    position: absolute;
+}

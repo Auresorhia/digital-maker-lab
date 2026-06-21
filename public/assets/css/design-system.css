@@ -1,0 +1,132 @@
+:root {
+    --color-brand-orange: #FF6B35;
+    --color-black: #0B0B0B;
+    --color-background: #F3F1EA;
+    --color-blue: #6B7FFF;
+    --color-purple: #C5B0FF;
+    --color-orange-light: #FF8B6B;
+    --color-yellow: #FBC246;
+    --color-white: #FFFFFF;
+    --color-creame: #F0F0E8;
+    --color-dark: #262626;
+    --color-black-finder: #141414;
+
+
+    --gradient-button-hover: linear-gradient(90deg, #C5B0FF 0%, #6B7FFF 100%);
+    --gradient-card-purple: linear-gradient(135deg, #6B7FFF 0%, #C5B0FF 100%);
+
+    --font-family-main: 'Inter', Arial, Helvetica, sans-serif;
+
+    --font-mobile-title-family: var(--font-family-main);
+    --font-mobile-title-size: 28px;
+    --font-mobile-title-weight: 800;
+    --font-mobile-title-line-height: 0.95;
+
+    --font-desktop-title-family: var(--font-family-main);
+    --font-desktop-title-size: 70px;
+    --font-desktop-title-weight: 900;
+    --font-desktop-title-line-height: 0.9;
+
+    --font-body-size: 14px;
+    --font-body-weight: 400;
+    --font-body-line-height: 1.35;
+
+    --font-nav-mobile-size: 24px;
+    --font-nav-mobile-weight: 800;
+    --font-nav-mobile-line-height: 1.2;
+
+    --font-button-size: 14px;
+    --font-button-weight: 800;
+    --font-button-line-height: 1;
+
+    --spacing-2xs: 4px;
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    --spacing-3xl: 64px;
+
+    --container-mobile-padding: 20px;
+
+    --radius-button: 12px;
+    --radius-card: 8px;
+
+    --background-pattern-url: url("../images/home/backgrounds/FOND.svg");
+
+    --transition-fast: 180ms ease;
+    --transition-base: 250ms ease;
+}
+
+
+
+/* ==========================================================================
+   DESIGN SYSTEM - ACCESSIBILITÉ AUDIO CORRIGÉ
+   ========================================================================== */
+
+/* 1. Casque par défaut (Non-actif) */
+.nav-icon-svg {
+    width: 24px !important;
+    height: 24px !important;
+    display: block;
+    color: #FF8B6B !important; /* Devient orange claire */
+    transition: all 0.2s ease-in-out;
+}
+
+/* 2. Casque quand il est ACTIVÉ (is-active) */
+.desktop-nav__support.is-active {
+    background-color: #FF8B6B !important; /* Fond orange */
+    border-radius: 50%;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* L'icône passe en blanc à l'intérieur du fond orange */
+.desktop-nav__support.is-active .nav-icon-svg {
+    color: #ffffff !important; 
+}
+
+
+/* 3. Boutons de lecture de texte sur la page */
+.audio-micro-btn {
+    display: none !important; /* Masqué par défaut */
+}
+
+body.audio-mode-active .audio-micro-btn {
+    display: inline-flex !important; /* Visible si mode actif */
+}
+
+/* Style du bouton flottant (Volume up) Inversé pour plus de visibilité */
+.audio-micro-btn {
+    background: #FF8B6B !important; /* Devient orange claire plein */
+    color: #ffffff !important; /* L'icône passe en blanc */
+    border: none;
+    border-radius: 50%;
+    width: 36px; /* Légèrement plus grand pour marquer */
+    height: 36px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(255, 139, 107, 0.25); /* Ombre plus visible pour l'effet flottant */
+    transition: all 0.2s ease-in-out;
+    
+    /* Tes positions d'origine conservées */
+    position: absolute;
+    z-index: 10;
+}
+
+/* L'icône de volume reste fine à l'intérieur */
+.audio-icon-svg {
+    width: 18px !important;
+    height: 18px !important;
+    display: block;
+}
+
+/* Effet au survol (Hover) : un simple effet de zoom et d'ombre */
+.audio-micro-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 14px rgba(255, 139, 107, 0.35);
+}
