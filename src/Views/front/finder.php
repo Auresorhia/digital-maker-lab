@@ -4,7 +4,8 @@ $page_css         = 'finder.css';
 $extra_css        = '';
 $header_class     = 'site-header';
 $show_desktop_nav = true;
-$nav_prefix       = '../';
+$nav_prefix       = $nav_prefix ?? '../';
+$assets_prefix    = $assets_prefix ?? '';
 $nav_links = [
     ['label' => 'Accueil',                'href' => '',    'active' => true],
     ['label' => 'À propos',               'href' => '',   'active' => false],
@@ -13,7 +14,7 @@ $nav_links = [
 ];
 require_once __DIR__ . '/../partials/header.php';
 ?>
-<link rel="stylesheet" href="assets/css/orientation.css">
+<link rel="stylesheet" href="<?= $assets_prefix ?>assets/css/orientation.css">
 
 <main class="finder-page">
     <button class="finder-sidebar__toggle" type="button" aria-label="Ouvrir les catégories" aria-controls="finder-sidebar" aria-expanded="false">
@@ -28,7 +29,7 @@ require_once __DIR__ . '/../partials/header.php';
                 X
         </button>
         <a class="finder-sidebar__logo" href="../" aria-label="Retour à l'accueil">
-            <img src="assets/images/logos/logo_digital_maker_lab_orange.webp" alt="Digital Maker Lab">
+            <img src="<?= $assets_prefix ?>assets/images/logos/logo_digital_maker_lab_orange.webp" alt="Digital Maker Lab">
         </a>
         <h2 class="finder-sidebar__title">Catégories</h2>
         <ul class="finder-sidebar__list">
@@ -58,9 +59,9 @@ require_once __DIR__ . '/../partials/header.php';
     </aside>
 
     <section class="finder-hero" aria-labelledby="finder-hero-title">
-        <img class="finder-hero__icon finder-hero__icon--mac" src="assets/images/finder/icon-mac.webp" alt="" aria-hidden="true">
-        <img class="finder-hero__icon finder-hero__icon--like" src="assets/images/finder/icon-like.webp" alt="" aria-hidden="true">
-        <img class="finder-hero__icon finder-hero__icon--cursor" src="assets/images/finder/icon-cursor.webp" alt="" aria-hidden="true">
+        <img class="finder-hero__icon finder-hero__icon--mac" src="<?= $assets_prefix ?>assets/images/finder/icon-mac.webp" alt="" aria-hidden="true">
+        <img class="finder-hero__icon finder-hero__icon--like" src="<?= $assets_prefix ?>assets/images/finder/icon-like.webp" alt="" aria-hidden="true">
+        <img class="finder-hero__icon finder-hero__icon--cursor" src="<?= $assets_prefix ?>assets/images/finder/icon-cursor.webp" alt="" aria-hidden="true">
 
         <h1 class="finder-hero__title" id="finder-hero-title">
             <span>Quel métier du digital</span>
@@ -72,7 +73,7 @@ require_once __DIR__ . '/../partials/header.php';
         <button class="orientation-preview__button finder-orientation-button" type="button">Faire le test&nbsp;!</button>
     </section>
 
-    <article class="finder-job-sheet" id="finder-job-sheet" aria-labelledby="finder-job-sheet-title" aria-hidden="true">
+    <article class="finder-job-sheet<?= !empty($active_job_slug) ? ' is-open' : '' ?>" id="finder-job-sheet" aria-labelledby="finder-job-sheet-title" aria-hidden="<?= !empty($active_job_slug) ? 'false' : 'true' ?>">
         <header class="finder-job-sheet__hero">
             <h1 class="finder-job-sheet__title" id="finder-job-sheet-title">Le métier de consultant SEO</h1>
         </header>
@@ -279,10 +280,10 @@ require_once __DIR__ . '/../partials/header.php';
 
 <footer class="site-footer" id="footer">
     <div class="site-footer__brand">
-        <img src="assets/images/logos/Logo_digital_maker_lab_rectangle_noir.webp" alt="Digital Maker Lab">
+        <img src="<?= $assets_prefix ?>assets/images/logos/Logo_digital_maker_lab_rectangle_noir.webp" alt="Digital Maker Lab">
     </div>
     <div class="site-footer__logo">
-        <img src="assets/images/logos/Logo_digital_maker_lab_rectangle_noir.webp" alt="Digital Maker Lab">
+        <img src="<?= $assets_prefix ?>assets/images/logos/Logo_digital_maker_lab_rectangle_noir.webp" alt="Digital Maker Lab">
     </div>
     <div class="site-footer__content">
         <nav class="site-footer__nav" aria-label="Navigation pied de page">
@@ -293,10 +294,10 @@ require_once __DIR__ . '/../partials/header.php';
         </nav>
         <div class="site-footer__socials">
             <a href="#" aria-label="YouTube">
-                <img src="assets/images/icons/icon-white-youtube.svg" alt="">
+                <img src="<?= $assets_prefix ?>assets/images/icons/icon-white-youtube.svg" alt="">
             </a>
             <a href="https://www.instagram.com/digital_maker_lab?igsh=OTJsN2YzczlsZzVx" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <img src="assets/images/icons/icon-white-instagram.svg" alt="">
+                <img src="<?= $assets_prefix ?>assets/images/icons/icon-white-instagram.svg" alt="">
             </a>
         </div>
     </div>
@@ -320,5 +321,10 @@ require_once __DIR__ . '/../partials/header.php';
     </section>
 </div>
 
-<script src="assets/js/finder.js"></script>
-<script src="assets/js/orientation.js"></script>
+<?php if (!empty($active_job_slug)): ?>
+    <script>
+        window.activeJobSlug = '<?= htmlspecialchars($active_job_slug) ?>';
+    </script>
+<?php endif; ?>
+<script src="<?= $assets_prefix ?>assets/js/finder.js"></script>
+<script src="<?= $assets_prefix ?>assets/js/orientation.js"></script>

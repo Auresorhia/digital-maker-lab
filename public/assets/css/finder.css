@@ -32,8 +32,9 @@ button {
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    padding: 63px 29px 0 0;
+    padding: 63px 29px 25px 0;
     pointer-events: none;
+    background: var(--color-dark);
 }
 
 .menu-toggle {
@@ -202,7 +203,15 @@ button {
     font-weight: 500;
     line-height: 1.2;
     text-decoration: none;
-    transition: opacity 180ms ease;
+    transition: opacity 180ms ease, background 180ms ease;
+}
+
+.finder-sidebar__list a.is-active {
+    padding: 6px 10px;
+    margin: -6px -10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.18);
+    opacity: 1;
 }
 
 .finder-sidebar__list a:hover,
@@ -222,7 +231,7 @@ button {
     width: 100%;
 }
 
-.finder-sidebar.is-open ~ .finder-searchbar-wrapper {
+.finder-sidebar.is-open~.finder-searchbar-wrapper {
     z-index: 25;
 }
 
@@ -326,17 +335,22 @@ button {
 
 
 .finder-subsidebar {
-    display: none;
-    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 260px;
+    z-index: 30;
     width: 260px;
-    min-height: 100vh;
+    height: 100vh;
+    min-height: auto;
     padding: 40px 28px;
     background: #1a1a1a;
     color: var(--color-white);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
 }
 
 .finder-subsidebar.is-open {
-    display: block;
+    transform: translateX(0);
 }
 
 .finder-subsidebar__back {
@@ -355,7 +369,7 @@ button {
     color: var(--color-white);
     font-size: 14px;
     font-weight: 600;
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--color-orange-light);
     cursor: pointer;
 }
 
@@ -391,20 +405,9 @@ button {
 
 @media (max-width: 1023px) {
     .finder-subsidebar {
-        position: fixed;
-        top: 0;
         left: 0;
         z-index: 32;
-        width: 260px;
-        height: 100vh;
-        min-height: auto;
-        padding: 40px 28px;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-    }
-
-    .finder-subsidebar.is-open {
-        transform: translateX(0);
+        padding: 122px 28px;
     }
 
     .finder-subsidebar__back {
@@ -445,6 +448,7 @@ button {
     align-items: flex-start;
     gap: 12px;
     padding: 120px 28px 32px;
+    margin: 92px 0 37px;
 }
 
 .finder-job-sheet__title {
@@ -461,12 +465,12 @@ button {
 
 .finder-job-sheet__section-title {
     margin: 0 0 16px;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 700;
     line-height: 1.2;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--color-white);
+    color: var(--color-orange-light);
 }
 
 .finder-job-sheet__intro p {
@@ -482,7 +486,7 @@ button {
 }
 
 .finder-job-sheet__what {
-    padding: 0 28px 16px;
+    padding: 0 28px;
 }
 
 .finder-job-sheet__post-video {
@@ -501,8 +505,10 @@ button {
     margin-bottom: 0;
 }
 
-.finder-job-sheet__video {
-    padding: 0 28px 40px;
+.finder-job-sheet__video,
+.finder-job-sheet__interview,
+.finder-job-sheet__missions {
+    padding: 0 28px;
 }
 
 .finder-job-sheet__video video {
@@ -538,37 +544,52 @@ button {
     justify-content: space-between;
     width: 100%;
     padding: 14px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: var(--color-white);
+    border: 0;
+    border-radius: 12px;
+    color: var(--color-black);
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 700;
     text-align: left;
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--color-background);
     cursor: pointer;
-    transition: background 180ms ease;
+    transition: background 180ms ease, color 180ms ease;
 }
 
 .finder-job-sheet__accordion-trigger:hover,
 .finder-job-sheet__accordion-trigger:focus-visible {
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--color-creame);
 }
 
 .finder-job-sheet__accordion-trigger[aria-expanded="true"] {
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--color-creame);
+}
+
+.finder-job-sheet__accordion-trigger [aria-hidden="true"] {
+    display: inline-block;
+    font-size: 12px;
+    transition: transform 500ms ease;
+}
+
+.finder-job-sheet__accordion-trigger[aria-expanded="true"] [aria-hidden="true"] {
+    transform: rotate(90deg);
 }
 
 .finder-job-sheet__accordion-panel {
-    display: none;
-    padding: 16px;
+    max-height: 0;
+    padding: 0 16px;
+    overflow: hidden;
+    opacity: 0;
     font-size: 14px;
     font-weight: 300;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.85);
+    transition: max-height 600ms ease, opacity 450ms ease, padding 600ms ease;
 }
 
 .finder-job-sheet__accordion-panel.is-open {
-    display: block;
+    max-height: 800px;
+    padding: 16px;
+    opacity: 1;
 }
 
 .finder-job-sheet__accordion-panel p {
@@ -596,6 +617,20 @@ button {
     object-fit: cover;
     background: var(--color-black);
     border-radius: 8px;
+}
+
+.finder-job-sheet__video a,
+.finder-job-sheet__interview a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: text-decoration 180ms ease;
+}
+
+.finder-job-sheet__video a:hover,
+.finder-job-sheet__video a:focus-visible,
+.finder-job-sheet__interview a:hover,
+.finder-job-sheet__interview a:focus-visible {
+    text-decoration: none;
 }
 
 .finder-job-sheet__tag {
@@ -661,6 +696,10 @@ button {
     background: rgba(255, 255, 255, 0.08);
 }
 
+.finder-job-sheet__lead-magnet .finder-job-sheet__section-title {
+    color: var(--color-white);
+}
+
 .finder-job-sheet__lead-magnet p {
     margin: 0 0 16px;
     font-size: 14px;
@@ -682,9 +721,10 @@ button {
     font-size: 14px;
     font-weight: 700;
     text-decoration: none;
-    color: var(--color-white);
-    background: var(--color-orange);
+    color: var(--color-black);
+    background: var(--color-orange-light);
 }
+
 
 .finder-page:has(.finder-job-sheet.is-open) .finder-hero {
     display: none;
@@ -750,36 +790,36 @@ button {
 }
 
 .finder-hero__icon--mac {
-    left: 42px;
-    bottom: 110px;
-    width: 90px;
+    left: 56px;
+    width: 102px;
     transform: rotate(-12deg);
-    bottom: 388px;
+    bottom: 498px;
     filter: blur(1px);
 }
 
 .finder-hero__icon--like {
     right: 62px;
-    top: 451px;
-    width: 54px;
+    top: 521px;
+    width: 59px;
     transform: rotate(31deg);
     filter: blur(1px);
 }
 
 .finder-hero__icon--cursor {
-    right: 100px;
-    bottom: 367px;
-    width: 133px;
-    transform: rotate(3deg);
+    right: 126px;
+    bottom: 476px;
+    width: 145px;
+    transform: rotate(8deg);
 }
+
+
 
 @media (min-width: 1024px) {
     .site-header {
-        left: 260px;
-        width: calc(100% - 260px);
+        left: 440px;
+        width: calc(100% - 440px);
         justify-content: center;
-        padding: 24px 0 0;
-        background: var(--color-dark);
+        padding: 24px 0 27px;
     }
 
     .menu-toggle {
@@ -841,7 +881,7 @@ button {
     }
 
     .finder-page {
-        padding-left: 260px;
+        padding-left: 440px;
         background: var(--color-background);
     }
 
@@ -849,14 +889,23 @@ button {
         position: fixed;
         top: 0;
         left: 0;
+        z-index: 40;
         transform: none;
+        width: 220px;
         height: auto;
         height: 100vh;
         overflow-y: auto;
     }
 
     .finder-subsidebar {
-        padding: 107px 28px;
+        left: 220px;
+        width: 220px;
+        padding: 144px 28px;
+        transform: translateX(0);
+    }
+
+    .finder-searchbar-wrapper {
+        width: calc(220px - 56px);
     }
 
     .finder-hero {
@@ -891,6 +940,59 @@ button {
         right: 48px;
         bottom: 140px;
         width: 100px;
+    }
+
+    .finder-job-sheet__hero {
+        margin: 120px 0 48px;
+    }
+
+    .finder-job-sheet__title {
+        font-size: 43px;
+    }
+
+    .finder-job-sheet__intro,
+    .finder-job-sheet__what,
+    .finder-job-sheet__post-video,
+    .finder-job-sheet__video,
+    .finder-job-sheet__interview,
+    .finder-job-sheet__missions,
+    .finder-job-sheet__skills,
+    .finder-job-sheet__text-block {
+        padding-right: 48px;
+        padding-left: 48px;
+    }
+
+    .finder-job-sheet__section-title {
+        margin: 0 0 24px;
+        font-size: 22px;
+    }
+
+    .finder-job-sheet__accordion-trigger {
+        padding: 18px 22px;
+        font-size: 16px;
+    }
+
+    .finder-job-sheet__accordion-trigger [aria-hidden="true"] {
+        font-size: 14px;
+    }
+
+    .finder-job-sheet__accordion-panel.is-open {
+        max-height: 1000px;
+    }
+
+    .finder-job-sheet__lead-magnet {
+        margin: 0 48px 60px;
+        padding: 40px;
+    }
+
+    .finder-job-sheet__cta {
+        padding: 16px 28px;
+        font-size: 16px;
+    }
+
+    .finder-job-sheet__tag {
+        padding: 6px 14px;
+        font-size: 16px;
     }
 }
 
@@ -943,6 +1045,41 @@ button {
 
     .finder-hero__icon--cursor {
         width: 130px;
+    }
+
+    .finder-job-sheet__intro p,
+    .finder-job-sheet__post-video p,
+    .finder-job-sheet__missions-lead,
+    .finder-job-sheet__text-block p,
+    .finder-job-sheet__text-block ul,
+    .finder-job-sheet__lead-magnet p,
+    .finder-job-sheet__accordion-panel,
+    .finder-job-sheet__accordion-panel p,
+    .finder-job-sheet__accordion-panel ul,
+    .finder-job-sheet__accordion-panel li {
+        font-size: 18px;
+    }
+
+    .site-header {
+        left: 520px;
+        width: calc(100% - 520px);
+    }
+
+    .finder-page {
+        padding-left: 520px;
+    }
+
+    .finder-sidebar {
+        width: 260px;
+    }
+
+    .finder-subsidebar {
+        left: 260px;
+        width: 260px;
+    }
+
+    .finder-searchbar-wrapper {
+        width: calc(260px - 56px);
     }
 }
 
@@ -1052,6 +1189,7 @@ button {
         justify-content: space-between;
         position: relative;
         padding: 30px 40px;
+        z-index: 46;
     }
 
     .site-footer__brand {
