@@ -21,7 +21,10 @@ class OrientationController
                 'questions' => $this->model->findAllQuestionsWithAnswers(),
             ]);
         } catch (Throwable $exception) {
-            $this->jsonResponse(['error' => 'Questionnaire indisponible. Verifie que les scripts SQL ont ete importes.'], 500);
+            $this->jsonResponse([
+                'error' => 'Questionnaire indisponible. Verifie que les scripts SQL ont ete importes.',
+                'debug' => $exception->getMessage(),
+            ], 500);
         }
     }
 
@@ -38,7 +41,10 @@ class OrientationController
         try {
             $result = $this->model->calculateResult($answerIds, 1);
         } catch (Throwable $exception) {
-            $this->jsonResponse(['error' => 'Resultat indisponible. Verifie que les scripts SQL ont ete importes.'], 500);
+            $this->jsonResponse([
+                'error' => 'Resultat indisponible. Verifie que les scripts SQL ont ete importes.',
+                'debug' => $exception->getMessage(),
+            ], 500);
             return;
         }
 
