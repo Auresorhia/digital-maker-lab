@@ -38,6 +38,30 @@ class AdminSpecialtyController
     }
 
     /**
+     * Traite les données envoyées par le formulaire de création pour les insérer en BDD.
+     */
+    public function store(): void
+    {
+        // Vérification que la requête est bien en POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+            // Préparation des données du formulaire
+            $data = [
+                'specialty'  => $_POST['specialty'],
+                // Si le switch est coché, il vaut 1, sinon 0
+                'is_visible' => isset($_POST['is_visible']) ? 1 : 0
+            ];
+
+            // On demande au modèle d'insérer la nouvelle ligne en BDD
+            $this->specialtyModel->create($data);
+
+            // Redirection vers le listing des spécialités après l'ajout.
+            header('Location: /test_admin_specialties.php');
+            exit;
+        }
+    }
+
+    /**
      * Affiche le formulaire de modification pré-rempli.
      */
     public function edit(int $id): void
