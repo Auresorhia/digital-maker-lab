@@ -208,9 +208,11 @@ const attachJobClickHandlers = () => {
     const jobLinks = document.querySelectorAll('.finder-subsidebar__list a[data-job]');
     jobLinks.forEach((link) => {
         link.addEventListener('click', (event) => {
+            const href = link.getAttribute('href');
+            if (href && href !== '#') {
+                return;
+            }
             event.preventDefault();
-            const job = link.getAttribute('data-job');
-            openJobSheet(job);
         });
     });
 };
