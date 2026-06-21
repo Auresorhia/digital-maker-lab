@@ -2,50 +2,65 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Gestion des Spécialités - Back-Office</title>
-    <style>
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background-color: #f4f4f4; }
-        .btn { padding: 5px 10px; text-decoration: none; border-radius: 3px; color: white; }
-        .btn-add { background-color: #28a745; display: inline-block; margin-bottom: 15px; }
-        .btn-edit { background-color: #007bff; }
-        .btn-delete { background-color: #dc3545; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des spécialités</title>
+    <link rel="stylesheet" href="/assets/css/design-system.css">
+    <link rel="stylesheet" href="/assets/css/back-office-default-settings.css">
+    <link rel="stylesheet" href="/assets/css/back-office-form.css">
+    <link rel="stylesheet" href="/assets/css/back-office-list.css">
 </head>
 <body>
-    <h1>Liste des Spécialités</h1>
-    
-    <a href="/admin/specialties/create" class="btn btn-add">+ Ajouter une spécialité</a>
-
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nom de la Spécialité</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($specialties as $specialty): ?>
-                <tr>
-                    <td><?= htmlspecialchars($specialty['id_specialty']) ?></td>
-                    <td><?= htmlspecialchars($specialty['specialty']) ?></td>
-                    <td>
-                        <a href="/admin/specialties/<?= $specialty['id_specialty'] ?>/edit" class="btn btn-edit">Modifier</a>
-                        <form action="/admin/specialties/<?= $specialty['id_specialty'] ?>/delete" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-delete" onclick="return confirm('Attention, cela pourrait impacter les métiers liés. Supprimer ?');">Supprimer</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-
-            <?php if (empty($specialties)): ?>
-                <tr>
-                    <td colspan="3">Aucune spécialité enregistrée pour le moment.</td>
-                </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+    <div class="main-container">
+        <header>
+            <nav>
+                <a class="tab active">Spécialité</a>
+                <a class="tab">Métier</a>
+            </nav>
+        </header>
+        <main>
+            <div class="main-section-container">
+                <div class="main-title-container">
+                    <h1 class="main-title">Liste des spécialités</h1>
+                    <div></div>
+                </div>
+                <div class="jobs-container">
+                    <div class="job-container">
+                        <div class="job-name">UXPO</div>
+                        <div class="icon-interaction-with-job-container">
+                            <div class="icon-interaction-with-job position-centered pencil">
+                                <img src="assets/images/icons/icon-pencil.svg" alt="icon de crayon indiquant le bouton servant à la modification du métier">
+                            </div>
+                            <div class="icon-interaction-with-job position-centered eye">
+                                <img src="assets/images/icons/icon-eye-opened.svg" alt="icon d'un oeil ouvert ou fermé indiquant le bouton servant à la dissimulation ou à la l'affichage du métier">
+                            </div>
+                            <div class="icon-interaction-with-job position-centered trash">
+                                <img src="assets/images/icons/icon-trash.svg" alt="icon d'une poubelle indiquant le bouton servant à la suppression du métier">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="job-container">
+                        <div class="job-name">Développement</div>
+                        <div class="icon-interaction-with-job-container">
+                            <div class="icon-interaction-with-job position-centered pencil">
+                                <img src="assets/images/icons/icon-pencil.svg" alt="icon de crayon indiquant le bouton servant à la modification du métier">
+                            </div>
+                            <div class="icon-interaction-with-job position-centered eye">
+                                <img src="assets/images/icons/icon-eye-closed.svg" alt="icon d'un oeil ouvert ou fermé indiquant le bouton servant à la dissimulation ou à la l'affichage du métier">
+                            </div>
+                            <div class="icon-interaction-with-job position-centered trash">
+                                <img src="assets/images/icons/icon-trash.svg" alt="icon d'une poubelle indiquant le bouton servant à la suppression du métier">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-add-container">
+                    <button class="icon-interaction-with-job position-centered btn-add">
+                        <div class="plus-bar horizontal-bar"></div>
+                        <div class="plus-bar vertical-bar"></div>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
 </body>
 </html>
