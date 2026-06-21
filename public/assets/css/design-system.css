@@ -60,54 +60,73 @@
 }
 
 
-/* Change la couleur du bouton ☎ lorsqu'il est actif */
+
+/* ==========================================================================
+   DESIGN SYSTEM - ACCESSIBILITÉ AUDIO CORRIGÉ
+   ========================================================================== */
+
+/* 1. Casque par défaut (Non-actif) */
+.nav-icon-svg {
+    width: 24px !important;
+    height: 24px !important;
+    display: block;
+    color: #FF8B6B !important; /* Devient orange claire */
+    transition: all 0.2s ease-in-out;
+}
+
+/* 2. Casque quand il est ACTIVÉ (is-active) */
 .desktop-nav__support.is-active {
-    background-color: #ff6d3a; /* La couleur orange de leur charte */
-    color: white;
+    background-color: #FF8B6B !important; /* Fond orange */
     border-radius: 50%;
-    padding: 2px 6px;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* 1. Par défaut, le bouton micro est masqué et désactivé */
+/* L'icône passe en blanc à l'intérieur du fond orange */
+.desktop-nav__support.is-active .nav-icon-svg {
+    color: #ffffff !important; 
+}
+
+
+/* 3. Boutons de lecture de texte sur la page */
 .audio-micro-btn {
-    display: none !important;
+    display: none !important; /* Masqué par défaut */
 }
 
-/* 2. On l'affiche UNIQUEMENT si le body possède la classe active */
 body.audio-mode-active .audio-micro-btn {
-    display: inline-flex !important;
+    display: inline-flex !important; /* Visible si mode actif */
 }
 
-/* Le bouton de lecture audio modernisé */
 .audio-micro-btn {
-    display: none; /* Masqué par défaut */
-    background: #ff6d3a; /* Fond clair qui matche leur design */
-    color: #7a67ff; /* Couleur violette de la navbar */
+    background: #ffffff;
     border: none;
     border-radius: 50%;
     width: 32px;
     height: 32px;
-    font-size: 13px;
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
+    color: #FF8B6B !important; /* L'icône de son est orange claire par défaut */
     
-    /* Positionnement discret */
+    /* Tes positions d'origine conservées */
     position: absolute;
     z-index: 10;
 }
 
-/* Effet au survol (Hover) : passe à l'orange du site */
-.audio-micro-btn:hover {
-    transform: scale(1.1);
-    background: #ff6d3a; /* L'orange Digital Maker Lab */
-    color: white; /* L'icône passe en blanc */
-    box-shadow: 0 4px 12px rgba(255, 109, 58, 0.3);
+.audio-icon-svg {
+    width: 16px !important;
+    height: 16px !important;
+    display: block;
 }
 
-/* Règle d'affichage quand le mode est actif */
-body.audio-mode-active .audio-micro-btn {
-    display: inline-flex !important;
+/* 4. Effet de survol sur le bouton de lecture (Hover) */
+.audio-micro-btn:hover {
+    transform: scale(1.1);
+    background-color: #FF8B6B !important; /* Le fond devient orange */
+    color: #ffffff !important; /* L'icône devient blanche */
+    box-shadow: 0 4px 12px rgba(255, 139, 107, 0.3);
 }

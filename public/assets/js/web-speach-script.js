@@ -3,25 +3,31 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (!audioToggle) return;
 
-    // 1. Trouver et préparer tous les éléments cibles
+    // FIX : Déclaration indispensable de la variable pour récupérer les cibles !
     const audioElements = document.querySelectorAll(".audio-target");
-    
+
+    // 1. Préparer tous les éléments cibles
     audioElements.forEach(element => {
         const microBtn = document.createElement("button");
         microBtn.type = "button";
         microBtn.className = "audio-micro-btn";
-        microBtn.innerText = "🔊";
+        
+        // MODIFICATION : Colle ici le code SVG récupéré de Figma pour l'icône volume
+        microBtn.innerHTML = `
+            <svg class="audio-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+            </svg>
+        `;
         microBtn.setAttribute("aria-label", "Écouter le texte");
 
         microBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             
-            // SECURITY CHECK : Si le mode audio n'est pas actif sur le site, on ne fait rien !
             if (!document.body.classList.contains("audio-mode-active")) {
                 return; 
             }
             
-            let textToRead = element.innerText.replace("🎤", "").trim();
+            let textToRead = element.textContent.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
             speakText(textToRead);
         });
 
@@ -34,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
         audioToggle.classList.add("is-active"); 
     }
 
-    // 3. Gestion du clic sur le bouton ☎
+    // 3. Gestion du clic sur le casque
     audioToggle.addEventListener("click", (e) => {
         e.preventDefault(); 
 
