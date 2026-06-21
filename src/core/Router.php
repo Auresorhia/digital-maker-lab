@@ -17,6 +17,11 @@ class Router
             require_once '../src/Controllers/FinderController.php';
             $controller = new FinderController();
             $controller->index();
+        } elseif (preg_match('#^/metiers/([a-z0-9-]+)$#', $chemin, $matches)) {
+            $slug = $matches[1];
+            require_once '../src/Controllers/JobSheetController.php';
+            $controller = new JobSheetController();
+            $controller->show($slug);
         } elseif ($chemin === '/api/search') {
             require_once __DIR__ . '/../Controllers/SearchController.php';
             $controller = new SearchController();
