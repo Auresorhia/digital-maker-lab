@@ -55,3 +55,4 @@
     </nav>
 
     <script src="assets/js/menu.js"></script>
+    <script src="assets/js/web-speach-script.js" ></script>
