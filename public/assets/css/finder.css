@@ -837,31 +837,39 @@ button {
         position: relative;
         display: flex;
         align-items: center;
-        gap: 18px;
+        gap: 8px;
         min-height: 39px;
         margin: 0;
-        padding: 0 5px;
+        padding: 4px 6px;
         list-style: none;
-        background: linear-gradient(90deg, #3a3a3a 0%, #262626 100%);
-        border-radius: 10px;
+        background: rgba(243, 241, 234, 0.23);
+        border-radius: 12px;
+        box-shadow: 0 2px 3px 1px rgba(10, 10, 10, 0.1);
     }
 
     .desktop-nav__link {
         display: flex;
         align-items: center;
-        min-height: 39px;
-        padding: 0 12px;
-        border-radius: 8px;
-        color: var(--color-white);
+        min-height: 31px;
+        padding: 0 14px;
+        border-radius: 9999px;
+        color: var(--color-creame);
         font-size: 11px;
         font-weight: 400;
         position: relative;
         z-index: 1;
-        transition: color var(--transition-base);
+        transition: color 180ms ease, background 180ms ease;
+    }
+
+    .desktop-nav__link:hover,
+    .desktop-nav__link:focus-visible {
+        color: var(--color-white);
     }
 
     .desktop-nav__link.is-active {
-        color: var(--color-brand-orange);
+        color: var(--color-white);
+        font-weight: 700;
+        background: var(--color-brand-orange);
     }
 
     .nav-pill {
