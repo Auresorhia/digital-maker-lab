@@ -65,11 +65,11 @@ const jobSlugs = {
 };
 
 const jobsByCategory = {
-    marketing: ['Chef de projet digital', 'Consultant SEO', 'Community Manager', 'Content Manager'],
-    uxpo: ['UX Designer', 'UI Designer', 'Product Owner', 'UX Researcher'],
-    videos: ['Motion Designer', 'Animateur 2D', 'Animateur 3D', 'Monteur Vidéo'],
-    design: ['Graphiste', 'Motion Designer', 'Directeur artistique', 'Webdesigner'],
-    developpement: ['Développeur Front-end', 'Développeur Back-end', 'Développeur Full-stack', 'DevOps']
+    marketing: ['Consultant SEO'],
+    uxpo: [],
+    videos: [],
+    design: [],
+    developpement: []
 };
 
 const openSubSidebar = (category, label) => {
@@ -140,47 +140,11 @@ const jobSheetTitle = document.getElementById('finder-job-sheet-title');
 const jobSheetIntro = document.querySelector('.finder-job-sheet__intro');
 
 const jobDescriptions = {
-    'Chef de projet digital': 'Le chef de projet digital coordonne les équipes et les ressources pour mener à bien les projets numériques. Il définit les plannings, les budgets et les livrables tout en assurant la communication entre les parties prenantes.',
-    'Consultant SEO': 'Consultant SEO, spécialiste SEO, expert SEO, référenceur web… Ce métier peut porter plusieurs noms différents, mais dans la finalité, sa mission reste la même : celle d’augmenter la visibilité et le trafic des sites web.<br><br>Alors, si tu aimes manier les mots, découvrir comment fonctionne le web, analyser des données et comprendre pourquoi certains contenus apparaissent sur les moteurs de recherche et d’autres non…<br><br>Peut-être que le métier de consultant SEO est fait pour toi !',
-    'Community Manager': 'Le Community Manager anime les réseaux sociaux d’une marque. Il crée du contenu, modère les échanges et analyse l’engagement de la communauté.',
-    'Content Manager': 'Le Content Manager pilote la production et la diffusion des contenus. Il veille à la cohérence éditoriale et à l’optimisation des supports.',
-    'UX Designer': 'L’UX Designer conçoit des expériences utilisateur fluides et intuitives. Il réalise des recherches, des prototypes et des tests pour améliorer les produits numériques.',
-    'UI Designer': 'L’UI Designer définit l’interface graphique des applications. Il choisit les couleurs, typographies et composants pour créer un design cohérent.',
-    'Product Owner': 'Le Product Owner priorise les fonctionnalités du produit. Il représente les besoins utilisateurs et valide les livrables avec l’équipe de développement.',
-    'UX Researcher': 'L’UX Researcher étudie les comportements utilisateurs pour guider les décisions de conception. Il mène des entretiens et analyse les données qualitatives.',
-    'Motion Designer': 'Le Motion Designer crée des animations et des contenus vidéo dynamiques. Il travaille sur les transitions, les effets visuels et les supports promotionnels.',
-    'Animateur 2D': 'L’Animateur 2D donne vie à des personnages et des décors en deux dimensions. Il réalise des storyboards, des animations et des séquences graphiques.',
-    'Animateur 3D': 'L’Animateur 3D modélise et anime des éléments en trois dimensions. Il intervient dans le cinéma, le jeu vidéo ou la publicité.',
-    'Monteur Vidéo': 'Le Monteur Vidéo assemble les plans, ajoute les effets et finalise les productions audiovisuelles. Il travaille sur le rythme, le son et la narration.',
-    'Graphiste': 'Le Graphiste conçoit des supports visuels print et digital. Il maîtrise la composition, la typographie et les outils de création.',
-    'Directeur artistique': 'Le Directeur artistique supervise l’identité visuelle et la direction créative. Il coordonne les équipes de designers et valide les propositions.',
-    'Webdesigner': 'Le Webdesigner conçoit l’apparence des sites web. Il allie esthétique, ergonomie et contraintes techniques pour créer des interfaces attractives.',
-    'Développeur Front-end': 'Le Développeur Front-end développe la partie visible des sites et applications. Il maîtrise HTML, CSS et JavaScript pour créer des interfaces interactives.',
-    'Développeur Back-end': 'Le Développeur Back-end gère la partie serveur des applications. Il conçoit les bases de données, les API et la logique métier.',
-    'Développeur Full-stack': 'Le Développeur Full-stack maîtrise à la fois le front-end et le back-end. Il est capable de concevoir une application complète de bout en bout.',
-    'DevOps': 'Le DevOps automatise les déploiements et optimise l’infrastructure. Il assure la fiabilité, la sécurité et la scalabilité des systèmes.'
+    'Consultant SEO': 'Consultant SEO, spécialiste SEO, expert SEO, référenceur web… Ce métier peut porter plusieurs noms différents, mais dans la finalité, sa mission reste la même : celle d’augmenter la visibilité et le trafic des sites web.<br><br>Alors, si tu aimes manier les mots, découvrir comment fonctionne le web, analyser des données et comprendre pourquoi certains contenus apparaissent sur les moteurs de recherche et d’autres non…<br><br>Peut-être que le métier de consultant SEO est fait pour toi !'
 };
 
 const jobTitleMap = {
-    'Consultant SEO': 'Le métier de consultant SEO',
-    'Chef de projet digital': 'Le métier de chef de projet digital',
-    'Community Manager': 'Le métier de community manager',
-    'Content Manager': 'Le métier de content manager',
-    'UX Designer': 'Le métier d’UX designer',
-    'UI Designer': 'Le métier d’UI designer',
-    'Product Owner': 'Le métier de product owner',
-    'UX Researcher': 'Le métier d’UX researcher',
-    'Motion Designer': 'Le métier de motion designer',
-    'Animateur 2D': 'Le métier d’animateur 2D',
-    'Animateur 3D': 'Le métier d’animateur 3D',
-    'Monteur Vidéo': 'Le métier de monteur vidéo',
-    'Graphiste': 'Le métier de graphiste',
-    'Directeur artistique': 'Le métier de directeur artistique',
-    'Webdesigner': 'Le métier de webdesigner',
-    'Développeur Front-end': 'Le métier de développeur front-end',
-    'Développeur Back-end': 'Le métier de développeur back-end',
-    'Développeur Full-stack': 'Le métier de développeur full-stack',
-    'DevOps': 'Le métier de DevOps'
+    'Consultant SEO': 'Le métier de consultant SEO'
 };
 
 const openJobSheet = (job) => {
