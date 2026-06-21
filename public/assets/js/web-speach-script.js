@@ -1,20 +1,26 @@
 document.addEventListener("DOMContentLoaded", () => {
     const audioToggle = document.getElementById("audio-toggle");
     
-    if (!audioToggle) return; // Sécurité si le nav_support n'est pas affiché sur une page
+    if (!audioToggle) return;
 
-    // 1. Trouver et préparer tous les éléments cibles existants sur la page
+    // 1. Trouver et préparer tous les éléments cibles
     const audioElements = document.querySelectorAll(".audio-target");
     
     audioElements.forEach(element => {
         const microBtn = document.createElement("button");
         microBtn.type = "button";
         microBtn.className = "audio-micro-btn";
-        microBtn.innerText = "🎤";
+        microBtn.innerText = "🔊";
         microBtn.setAttribute("aria-label", "Écouter le texte");
 
         microBtn.addEventListener("click", (e) => {
             e.stopPropagation();
+            
+            // SECURITY CHECK : Si le mode audio n'est pas actif sur le site, on ne fait rien !
+            if (!document.body.classList.contains("audio-mode-active")) {
+                return; 
+            }
+            
             let textToRead = element.innerText.replace("🎤", "").trim();
             speakText(textToRead);
         });
@@ -22,17 +28,16 @@ document.addEventListener("DOMContentLoaded", () => {
         element.appendChild(microBtn);
     });
 
-    // 2. Vérifier la mémoire locale (localStorage) au chargement de la page
+    // 2. Vérifier la mémoire locale (localStorage)
     if (localStorage.getItem("audioMode") === "enabled") {
         document.body.classList.add("audio-mode-active");
-        audioToggle.classList.add("is-active"); // Style visuel pour montrer qu'il est ON
+        audioToggle.classList.add("is-active"); 
     }
 
-    // 3. Gestion du clic sur le bouton ☎ (On/Off toggle)
+    // 3. Gestion du clic sur le bouton ☎
     audioToggle.addEventListener("click", (e) => {
-        e.preventDefault(); // Empêche le lien de recharger la page ou de remonter en haut
+        e.preventDefault(); 
 
-        // On bascule l'état actif
         const isActive = document.body.classList.toggle("audio-mode-active");
         audioToggle.classList.toggle("is-active", isActive);
 
@@ -41,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             speakText("Mode audio activé.");
         } else {
             localStorage.setItem("audioMode", "disabled");
-            window.speechSynthesis.cancel(); // Coupe le son immédiatement
+            window.speechSynthesis.cancel(); 
         }
     });
 

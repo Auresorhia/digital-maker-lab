@@ -13,7 +13,7 @@ $nav_links = [
 require_once __DIR__ . '/../partials/header.php';
 ?>
 
-<main class="home-page">
+<main class="home-page audio-target">
     <section class="hero" id="hero" aria-labelledby="hero-title">
         <span class="hero__decor hero__decor--left"></span>
         <span class="hero__decor hero__decor--right"></span>
@@ -38,7 +38,7 @@ require_once __DIR__ . '/../partials/header.php';
     <section class="home-section about" id="about" aria-labelledby="about-title">
         <p class="section-label">// 01</p>
         <h2 class="section-title" id="about-title">Digital Maker Lab c’est quoi ?</h2>
-        <div class="section-content">
+        <div class="section-content audio-target">
             <p>Le digital regroupe tous les métiers liés aux technologies numériques : création de sites web, applications, réseaux sociaux, vidéos, design, marketing ou encore intelligence artificielle.</br></br>
                 Média indépendant, nous décryptons les métiers du digital pour rendre l'information accessible à tous. Créé par des étudiants et pour des étudiants, notre média informe, guide et accompagne les jeunes dans leur orientation grâce à des contenus pédagogiques, des témoignages et des analyses du secteur numérique.</p>
         </div>
@@ -53,35 +53,35 @@ require_once __DIR__ . '/../partials/header.php';
         <div class="jobs__slider" aria-label="Familles de métiers du digital">
             <figure class="job-card">
                 <img class="job-card__image" src="assets/images/home/cards/card-uxpo.svg" alt="">
-                <figcaption class="job-card__caption">
+                <figcaption class="job-card__caption audio-target">
                     <strong>UXPO</strong>
                     <span>Concevoir des expériences intuitives.</span>
                 </figcaption>
             </figure>
             <figure class="job-card">
                 <img class="job-card__image" src="assets/images/home/cards/card-marketing.svg" alt="">
-                <figcaption class="job-card__caption">
+                <figcaption class="job-card__caption audio-target">
                     <strong>Marketing</strong>
                     <span>Promouvoir des produits et analyser les audiences.</span>
                 </figcaption>
             </figure>
             <figure class="job-card">
                 <img class="job-card__image" src="assets/images/home/cards/card-video.svg" alt="">
-                <figcaption class="job-card__caption">
+                <figcaption class="job-card__caption audio-target">
                     <strong>Vidéo</strong>
                     <span>Créer des contenus audiovisuels.</span>
                 </figcaption>
             </figure>
             <figure class="job-card">
                 <img class="job-card__image" src="assets/images/home/cards/card-dev.svg" alt="">
-                <figcaption class="job-card__caption">
+                <figcaption class="job-card__caption audio-target">
                     <strong>Développement</strong>
                     <span>Créer des sites et applications.</span>
                 </figcaption>
             </figure>
             <figure class="job-card">
                 <img class="job-card__image" src="assets/images/home/cards/card-design.svg" alt="">
-                <figcaption class="job-card__caption">
+                <figcaption class="job-card__caption audio-target">
                     <strong>Design</strong>
                     <span>Imaginer des interfaces visuelles.</span>
                 </figcaption>
