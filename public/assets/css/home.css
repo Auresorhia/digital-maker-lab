@@ -758,11 +758,12 @@ button {
     }
 
     .about .section-label {
-        margin-bottom: 17px;
+        margin-bottom: 0;
     }
 
     .about .section-title {
-        margin-bottom: 34px;
+        margin-top: 10px;
+        margin-bottom: 44px;
     }
 
     .about .section-content {
@@ -930,7 +931,7 @@ button {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         column-gap: clamp(60px, 10vw, 240px);
         margin: 25px 0;
-        padding: 0 clamp(40px, 8vw, 200px);
+        padding: 0 39px;
         align-content: start;
         row-gap: 0;
     }
@@ -942,6 +943,7 @@ button {
 
     .about .section-title {
         margin-top: 10px;
+        margin-bottom: 44px;
     }
 
     .about .section-content {
