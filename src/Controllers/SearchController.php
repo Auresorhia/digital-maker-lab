@@ -20,4 +20,16 @@ class SearchController extends Controller {
 
         echo json_encode($resultats);
     }
+
+    public function results(): void {
+        $query    = trim($_GET['q'] ?? '');
+        $resultats = [];
+
+        if (mb_strlen($query) >= 1) {
+            $model    = new MetierModel();
+            $resultats = $model->rechercherParContenu($query);
+        }
+
+        require_once __DIR__ . '/../Views/front/search-results.php';
+    }
 }
