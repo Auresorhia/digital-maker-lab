@@ -251,3 +251,9 @@ document.addEventListener('finder:openJob', (e) => {
         openJobSheet(titre);
     }
 });
+
+const urlParams = new URLSearchParams(window.location.search);
+const jobParam  = urlParams.get('job');
+if (jobParam) {
+    openJobSheet(jobParam);
+}

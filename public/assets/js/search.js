@@ -21,11 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(resultats => {
                     dropdown.innerHTML = '';
 
-                    if (resultats.length === 0) {
-                        dropdown.classList.add('search-dropdown--hidden');
-                        return;
-                    }
-
                     resultats.forEach(metier => {
                         const item = document.createElement('li');
                         item.classList.add('search-dropdown__item');
@@ -48,6 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         dropdown.appendChild(item);
                     });
 
+                    const voirTout = document.createElement('li');
+                    voirTout.classList.add('search-dropdown__item', 'search-dropdown__item--voir-tout');
+                    voirTout.innerHTML = `
+                        <span class="search-dropdown__icon">&#128269;</span>
+                        <span class="search-dropdown__titre">Voir tous les résultats pour <strong>${highlighterTexte(query, query)}</strong></span>
+                    `;
+                    voirTout.addEventListener('mousedown', (e) => {
+                        e.preventDefault();
+                        window.location.href = `/recherche?q=${encodeURIComponent(query)}`;
+                    });
+                    dropdown.appendChild(voirTout);
+
                     dropdown.classList.remove('search-dropdown--hidden');
                 })
                 .catch(() => {
@@ -65,6 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('focus', () => {
         if (dropdown.children.length > 0) {
             dropdown.classList.remove('search-dropdown--hidden');
+        }
+    });
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const q = input.value.trim();
+            if (q.length >= 1) {
+                window.location.href = `/recherche?q=${encodeURIComponent(q)}`;
+            }
         }
     });
 
