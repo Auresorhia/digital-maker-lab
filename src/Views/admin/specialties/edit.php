@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter une Spécialité</title>
+    <title>Modifier une Spécialité</title>
     <link rel="stylesheet" href="/assets/css/design-system.css">
     <link rel="stylesheet" href="/assets/css/back-office-default-settings.css">
     <link rel="stylesheet" href="/assets/css/back-office-form.css">
@@ -22,14 +22,15 @@
                     <div>←</div>
                     <div>Retour vers la liste des spécialités</div>
                 </a>
-                <h1 class="main-title">Ajouter une nouvelle spécialité</h1>
+                <h1 class="main-title">Modifier la spécialité</h1>
                 <div></div>
             </div>
 
-            <form action="/admin/specialties/store" method="POST" class="form-container">
+            <form action="/admin/specialties/<?= $specialty['id_specialty'] ?>/update" method="POST" class="form-container">
+                
                 <div class="form-label-input-container">
-                    <label for="input-add-specialty" class="input-title">Nom de la spécialité à ajouter en base</label>
-                    <input type="text" id="input-add-specialty" name="specialty" class="input" placeholder="Ex: Motion Designer" required>
+                    <label for="input-add-specialty" class="input-title">Nom de la spécialité</label>
+                    <input type="text" id="input-add-specialty" name="specialty" class="input" placeholder="Ex: Motion Designer" value="<?= htmlspecialchars($specialty['specialty'] ?? '') ?>" required>
                 </div>
                 
                 <div class="switch-container">
@@ -37,7 +38,7 @@
                     <div class="switch-choices-container">
                         <div class="switch-choices">Non</div>
                         <label class="switch">
-                            <input type="checkbox" id="input-visibility" name="is_visible" value="1">
+                            <input type="checkbox" id="input-visibility" name="is_visible" value="1" <?= (!empty($specialty['is_visible'])) ? 'checked' : '' ?>>
                             <span class="slider"></span>
                         </label>
                         <div class="switch-choices">Oui</div>
@@ -45,8 +46,9 @@
                 </div>
                 
                 <div class="btn-container">
-                    <button type="submit" class="btn-validation">Ajouter la nouvelle spécialité</button>
+                    <button type="submit" class="btn-validation">Enregistrer les modifications</button>
                 </div>
+                
             </form>
         </main>
     </div>
