@@ -26,6 +26,10 @@ class Router
             require_once __DIR__ . '/../Controllers/SearchController.php';
             $controller = new SearchController();
             $controller->autocomplete();
+        } elseif ($chemin === '/recherche') {
+            require_once __DIR__ . '/../Controllers/SearchController.php';
+            $controller = new SearchController();
+            $controller->results();
 
 
             //Page admin dashbord
