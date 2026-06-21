@@ -28,7 +28,7 @@ button {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 50;
+    z-index: 31;
     display: flex;
     justify-content: flex-end;
     width: 100%;
@@ -74,7 +74,7 @@ button {
 .mobile-menu {
     position: fixed;
     inset: 0;
-    z-index: 50;
+    z-index: 51;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -224,7 +224,7 @@ button {
     top: 85px;
     left: 28px;
     width: calc(260px - 56px);
-    z-index: 35;
+    z-index: 40;
 }
 
 .finder-searchbar-wrapper .search-wrapper {
@@ -252,7 +252,7 @@ button {
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 30;
+        z-index: 31;
         width: 260px;
         height: 100vh;
         min-height: auto;
@@ -816,8 +816,8 @@ button {
 
 @media (min-width: 1024px) {
     .site-header {
-        left: 440px;
-        width: calc(100% - 440px);
+        left: 220px;
+        width: calc(100% - 220px);
         justify-content: center;
         padding: 24px 0 27px;
     }
@@ -1058,11 +1058,6 @@ button {
     .finder-job-sheet__accordion-panel ul,
     .finder-job-sheet__accordion-panel li {
         font-size: 18px;
-    }
-
-    .site-header {
-        left: 520px;
-        width: calc(100% - 520px);
     }
 
     .finder-page {
