@@ -32,6 +32,7 @@ nav {
     color: var(--color-creame);
     cursor: pointer;
     padding: 9px 22px;
+    text-decoration: none;
 }
 
 .tab.active {

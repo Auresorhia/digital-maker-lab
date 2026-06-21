@@ -125,6 +125,7 @@ input:checked + .slider:before {
 }
 
 .btn-validation {
+    margin-bottom: 64px;
     padding: 24px 32px;
     border-radius: 18px;
     background-color: #E1F7DF;
@@ -134,6 +135,7 @@ input:checked + .slider:before {
 }
 
 .btn-validation:hover {
+    margin-bottom: 64px;
     padding: 24px 32px;
     border-radius: 18px;
     background-color: #d8efd6;

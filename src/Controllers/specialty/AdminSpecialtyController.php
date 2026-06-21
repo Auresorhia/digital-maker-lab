@@ -36,4 +36,45 @@ class AdminSpecialtyController
         // On charge simplement la vue du formulaire
         require_once __DIR__ . '/../../Views/admin/specialties/create.php';
     }
+
+    /**
+     * Affiche le formulaire de modification pré-rempli.
+     */
+    public function edit(int $id): void
+    {
+        // Récupération de la spécialité spécifique via son ID
+        $specialty = $this->specialtyModel->findById($id);
+
+        // Sécurité : Si l'ID tapé n'existe pas
+        if (!$specialty) {
+            die("Erreur 404 : Cette spécialité n'existe pas.");
+        }
+
+        // Chargement de la vue d'édition
+        require_once __DIR__ . '/../../Views/admin/specialties/edit.php';
+    }
+
+    /**
+     * Traite les données envoyées par le formulaire de modification.
+     */
+    public function update(int $id): void
+    {
+        // Vérification que la requête est bien en POST.
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+            // Préparation du tableau de données avec ce qui vient du formulaire.
+            $data = [
+                'specialty'  => $_POST['specialty'],
+                // GESTION DU SWITCH : Si la case est cochée, $_POST['is_visible'] existe (donc 1). Sinon, c'est 0.
+                'is_visible' => isset($_POST['is_visible']) ? 1 : 0
+            ];
+
+            // On demande au modèle de mettre à jour la BDD.
+            $this->specialtyModel->update($id, $data);
+
+            // Redirige l'utilisateur vers la liste des spécialités.
+            header('Location: /test_admin_specialties.php');
+            exit;
+        }
+    }
 }
