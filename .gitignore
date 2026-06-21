@@ -13,7 +13,7 @@ Thumbs.db
 arborescence.txt
 
 # Credentials BDD — ne jamais committer
-/config/config.php
+#/config/config.php
 
 #fichiers sql
 /sql/job.sql
