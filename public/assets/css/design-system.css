@@ -99,34 +99,34 @@ body.audio-mode-active .audio-micro-btn {
     display: inline-flex !important; /* Visible si mode actif */
 }
 
+/* Style du bouton flottant (Volume up) Inversé pour plus de visibilité */
 .audio-micro-btn {
-    background: #ffffff;
+    background: #FF8B6B !important; /* Devient orange claire plein */
+    color: #ffffff !important; /* L'icône passe en blanc */
     border: none;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    width: 36px; /* Légèrement plus grand pour marquer */
+    height: 36px;
     cursor: pointer;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(255, 139, 107, 0.25); /* Ombre plus visible pour l'effet flottant */
     transition: all 0.2s ease-in-out;
-    color: #FF8B6B !important; /* L'icône de son est orange claire par défaut */
     
     /* Tes positions d'origine conservées */
     position: absolute;
     z-index: 10;
 }
 
+/* L'icône de volume reste fine à l'intérieur */
 .audio-icon-svg {
-    width: 16px !important;
-    height: 16px !important;
+    width: 18px !important;
+    height: 18px !important;
     display: block;
 }
 
-/* 4. Effet de survol sur le bouton de lecture (Hover) */
+/* Effet au survol (Hover) : un simple effet de zoom et d'ombre */
 .audio-micro-btn:hover {
     transform: scale(1.1);
-    background-color: #FF8B6B !important; /* Le fond devient orange */
-    color: #ffffff !important; /* L'icône devient blanche */
-    box-shadow: 0 4px 12px rgba(255, 139, 107, 0.3);
+    box-shadow: 0 6px 14px rgba(255, 139, 107, 0.35);
 }
