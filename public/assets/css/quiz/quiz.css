@@ -1,0 +1,426 @@
+/* ==========================================================================
+   1. POLICES & CONFIGURATION DE BASE
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap');
+
+:root {
+    --Accents-Green: #34C759;
+    --Accents-Red: #FF383C;
+    --Font-Inter: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f3f4f6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   2. STRUCTURE DE LA POP-UP (OVERLAY & CONTAINER)
+   ========================================================================== */
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-container {
+    position: relative; /* Absolument requis pour caler le bouton fermer et le titre */
+    width: 637px;
+    height: 573px; 
+    background-color: #ffffff;
+    border-radius: 16px; 
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    transition: height 0.3s ease, width 0.3s ease;
+}
+
+.popup-container-results {
+    position: relative; /* Requis également sur le bloc final */
+    width: 637px;
+    height: 857px;
+    background-color: #ffffff;
+    border-radius: 16px; 
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow: hidden;
+    transition: height 0.3s ease, width 0.3s ease;
+}
+
+/* ==========================================================================
+   3. COMPOSANTS INTERNES, BANNIÈRE & BOUTON FERMER (FIGMA)
+   ========================================================================== */
+
+.popup-banner {
+    width: 100%;        
+    height: 237px;      
+    object-fit: cover;  
+    border-radius: 16px 16px 0 0; 
+    display: block;
+}
+
+/* ✖️ Le bouton de fermeture circulaire et translucide de la maquette */
+.popup-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 100px;
+    background: rgba(255, 255, 255, 0.40); /* Reste à 40% tout le temps */
+    border: none;
+    cursor: pointer;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Croix noire en SVG natif centré */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none'%3E%3Cpath d='M13 1L1 13M1 1L13 13' stroke='%23000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    /* On garde uniquement la transition sur le transform pour le clic */
+    transition: transform 0.1s ease;
+}
+
+/* On ne touche plus au background-color ici, le bouton reste gris/translucide */
+.popup-close-btn:hover {
+    transform: scale(1.05);
+}
+
+.popup-close-btn:active {
+    transform: scale(0.95);
+}
+
+.popup-container-results .popup-close-btn {
+    background-color: rgba(185, 182, 171, 0.24);
+}
+
+/* Texte du métier en haut à gauche de la bannière */
+.banner-job-title {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    color: #FFFFFF;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 10;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 10px 16px; 
+}
+
+#quiz-game-container {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.question-step {
+    display: none;
+}
+
+.question-step.active {
+    display: flex !important;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-bottom: 10px;
+}
+
+/* Bloc Conteneur des textes de la Question */
+.question-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+/* Compteur (JetBrains Mono 14px) */
+.question-counter {
+    color: #000000;
+    font-family: "JetBrains Mono", monospace; 
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 16px; 
+}
+
+/* Texte de l'intitulé de la question */
+.question-text {
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Description générique (hors zone de correction) */
+.popup-description {
+    color: #4b5563;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   4. ETAT UNIQUE DE RÉPONSE / CORRECTION (PROPRIÉTÉS FIGMA)
+   ========================================================================== */
+
+.response-container {
+    display: flex;
+    padding-bottom: 10px;
+    flex-direction: column;
+    justify-content: flex-start; 
+    align-items: flex-start;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+/* Titre de la réponse (ex: Johnathan) */
+[id^="verdict-title-"] {
+    font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 8px;
+    
+    /* Effet de texte en dégradé */
+    background: var(--cta, linear-gradient(87deg, #C5B0FF 3.49%, #6B7FFF 54.14%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Explication à l'intérieur du bloc réponse */
+.response-container .response-explanation {
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: auto;
+}
+
+/* ==========================================================================
+   5. STYLES DES BOUTONS (CHOIX & ACTIONS)
+   ========================================================================== */
+
+.popup-actions {
+    display: flex;
+    flex-direction: row; 
+    gap: 10px; 
+    width: 100%;      
+    margin-top: auto; 
+}
+
+/* Boutons de choix (Vrai / Faux) */
+.quiz-btn {
+    display: flex;
+    height: 56px;
+    padding: 0 16px;
+    justify-content: center;
+    align-items: center; 
+    flex: 1 0 0;          
+    
+    border: 2px solid transparent;
+    background: 
+        linear-gradient(#fff, #fff) padding-box, 
+        linear-gradient(87deg, #C5B0FF 3.49%, #6B7FFF 54.14%) border-box;
+    border-radius: 8px; 
+
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.quiz-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+}
+
+.question-btn {
+    display: flex;
+    padding: 8px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    border-radius: 8px;
+    background: rgba(185, 182, 171, 0.24);
+    color: #000000;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.question-btn:hover {
+    background: rgba(185, 182, 171, 0.35);
+}
+
+/* ==========================================================================
+   6. SECTION RÉCAPITULATIF DES RÉPONSES (PAGE DE RÉSULTATS FIGMA)
+   ========================================================================== */
+
+#quiz-results-container {
+    width: 100%;
+    height: 100%;
+}
+
+.results-wrapper {
+    width: 100%;
+    padding: 0 16px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 16px;
+    display: flex;
+}
+
+.results-header-box {
+    align-self: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 16px;
+    display: flex;
+}
+
+.results-header-title {
+    align-self: stretch;
+    height: 34px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    display: inline-flex;
+}
+
+.results-title-text {
+    color: #000000;
+    font-size: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    word-wrap: break-word;
+}
+
+/* 📊 GRILLE PRINCIPALE EN 2 COLONNES PARALLÈLES CONFORME À TA CAPTURE */
+.responses-list {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+    max-height: 440px;
+    overflow-y: auto;
+}
+
+/* 💠 BADGE DE RÉPONSE UNIQUE */
+.response-card-badge {
+    display: flex;
+    height: 75px;
+    padding: 0 16px; 
+    align-items: center;
+    gap: 10px;
+    grid-row: span 1;
+    grid-column: span 1;
+    justify-self: stretch;
+    border-radius: 16px;
+    box-sizing: border-box;
+}
+
+.card-badge-icon-wrapper {
+    display: flex;
+    width: 16px;
+    height: 16px;
+    border-radius: 100px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.card-badge-question-num {
+    color: #000000;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.card-badge-user-value {
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    margin-left: auto; /* Pousse la valeur "Vrai/Faux" tout à droite */
+}
+
+/* 🟢 Déclinaison : Réponse Correcte */
+.response-card-badge.is-correct {
+    background: rgba(52, 199, 89, 0.40);
+    border: 2px solid var(--Accents-Green, #34C759);
+}
+
+.response-card-badge.is-correct .card-badge-icon-wrapper {
+    background: #0E8C2E;
+}
+
+.response-card-badge.is-correct .card-badge-user-value {
+    color: #0E8C2E;
+}
+
+/* 🔴 Déclinaison : Réponse Fausse */
+.response-card-badge.is-wrong {
+    background: rgba(255, 56, 60, 0.40);
+    border: 2px solid var(--Accents-Red, #FF383C);
+}
+
+.response-card-badge.is-wrong .card-badge-icon-wrapper {
+    background: #B3181B;
+}
+
+.response-card-badge.is-wrong .card-badge-user-value {
+    color: #B3181B;
+}
