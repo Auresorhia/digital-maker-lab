@@ -34,10 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         item.addEventListener('mousedown', (e) => {
                             e.preventDefault();
-                            dropdown.innerHTML = '';
-                            dropdown.classList.add('search-dropdown--hidden');
-                            input.value = '';
-                            document.dispatchEvent(new CustomEvent('finder:openJob', { detail: { titre: metier.titre } }));
+                            window.location.href = `/metiers/${metier.slug}`;
                         });
 
                         dropdown.appendChild(item);
