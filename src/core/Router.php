@@ -27,24 +27,13 @@ class Router
             $controller->index();
         } elseif ($chemin === '/metiers') {
             echo "Voici la page des métiers";
-        } elseif ($chemin === '/demo-assistant') {
-            require_once '../src/Views/front/metiers/demo-assistant.php';
-        } elseif (preg_match('#^/api/assistant/jobs/(\d+)$#', $chemin, $matches)) {
-            require_once '../config/database.php';
-            require_once '../src/Models/AssistantIA/AssistantIAModel.php';
-            require_once '../src/Controllers/AssistantIA/AssistantIAController.php';
-            $controller = new \Controllers\AssistantIA\AssistantIAController(Database::getInstance());
-            $controller->getJobs((int) $matches[1]);
-        } elseif (preg_match('#^/api/assistant/(\d+)$#', $chemin, $matches)) {
-            require_once '../config/database.php';
-            require_once '../src/Models/AssistantIA/AssistantIAModel.php';
-            require_once '../src/Controllers/AssistantIA/AssistantIAController.php';
-            $controller = new \Controllers\AssistantIA\AssistantIAController(Database::getInstance());
-            $controller->getApps((int) $matches[1]);
         } elseif ($chemin === '/api/search') {
             require_once __DIR__ . '/../Controllers/SearchController.php';
             $controller = new SearchController();
             $controller->autocomplete();
+
+     
+
         } else {
             echo "<h1>Erreur 404</h1><p>Page introuvable.</p>";
         }
