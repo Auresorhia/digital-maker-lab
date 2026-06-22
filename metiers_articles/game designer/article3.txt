@@ -1,0 +1,180 @@
+<h1>Comment faire un bon portfolio en Game Design ? Le guide pour te démarquer</h1>
+<p>
+Pour décrocher ton premier poste en tant que Game Designer, la passion et les diplômes ne
+suffisent pas. Dans ce métier du digital très convoité, les recruteurs cherchent avant tout à
+comprendre ta façon de penser et de créer.
+</p>
+<p>
+Avant d'aller plus loin, si tu veux te rafraîchir la mémoire sur les missions du métier, consulte
+notre <a href="#">Fiche métier Game Designer</a>. Tu y retrouveras toutes les bases de la
+profession.
+</p>
+<p>
+Ce qui compte vraiment pour les studios de développement, c'est ton portfolio : prototypes,
+documents de conception et capacité à résoudre des problèmes concrets. Tu dois montrer
+ce que tu sais faire, pas seulement ce que tu as appris.
+</p>
+<p>
+Alors, comment construire la vitrine parfaite pour tes compétences ? Voici les clés pour te
+démarquer.
+</p>
+<h2>1. Comprendre le but de ton portfolio : prouver ta méthode de travail</h2>
+<p>
+Beaucoup de candidats pensent qu'un portfolio sert uniquement à montrer de belles images.
+C'est une erreur.
+</p>
+<p>
+Le côté esthétique appartient aux graphistes et concept artists. En tant que Game Designer,
+ton rôle est de penser l'expérience du joueur de bout en bout.
+</p>
+<p>
+Ton portfolio doit donc raconter une histoire : celle de ton raisonnement, de ta méthode et de
+ta capacité à résoudre des problèmes.
+</p>
+<p>
+Un recruteur veut comprendre comment tu es arrivé à ton résultat, pas seulement voir le
+résultat final.
+</p>
+<p>
+
+C'est cette boucle de création (imaginer, tester, ajuster, recommencer) que ton portfolio doit
+mettre en avant.
+</p>
+<h2>2. Que doit absolument contenir ton portfolio ?</h2>
+<p>
+Un bon portfolio privilégie toujours la qualité à la quantité. Voici les éléments essentiels à
+inclure.
+</p>
+<h3>Prototypes jouables ou vidéos de gameplay</h3>
+<p>
+La meilleure preuve de ton travail, ce sont tes mécaniques en action.
+</p>
+<p>
+Même des prototypes simples suffisent : l'important est de montrer tes idées en
+fonctionnement.
+</p>
+<ul>
+<li>Vidéos courtes de gameplay</li>
+<li>Extraits montrant une mécanique précise</li>
+<li>Tests de prototypes même non finalisés</li>
+</ul>
+<p>
+Précise les outils utilisés comme <strong>Unity</strong> ou <strong>Unreal
+Engine</strong>, et montre ta capacité à tester et itérer.
+</p>
+<h3>Extraits de documents de conception (GDD)</h3>
+<p>
+Le Game Design Document (GDD) est la base de tout projet. Il structure les règles, la
+progression et les mécaniques du jeu.
+</p>
+<p>
+Évite les documents trop longs. Préfère des extraits clairs, visuels et bien présentés.
+</p>
+<p>
+Mets en avant tes outils d'organisation :
+</p>
+
+<ul>
+<li>Notion</li>
+<li>Confluence</li>
+<li>Miro</li>
+<li>Draw.io</li>
+</ul>
+<h3>Analyses et équilibrage de gameplay</h3>
+<p>
+Le Game Design repose aussi sur l'analyse et l'équilibrage des systèmes de jeu.
+</p>
+<p>
+Tu dois montrer ta capacité à résoudre des problèmes concrets :
+</p>
+<ul>
+<li>Courbes d'expérience</li>
+<li>Équilibrage des armes</li>
+<li>Économie du jeu</li>
+</ul>
+<p>
+Explique toujours : problème → logique → solution.
+</p>
+<p>
+Utilise des outils comme Excel ou Google Sheets pour appuyer ton raisonnement.
+</p>
+<h2>3. La forme compte autant que le fond : l'expérience utilisateur</h2>
+<p>
+Ton portfolio est ta première création en tant que Game Designer.
+</p>
+<p>
+S'il est difficile à lire ou à naviguer, le recruteur doutera de ta capacité à concevoir des
+expériences fluides.
+</p>
+<h3>Clarté et lisibilité</h3>
+<p>
+Dès la page d'accueil, on doit comprendre qui tu es, tes compétences et ta vision du design.
+</p>
+
+<h3>Précise tes contributions</h3>
+<p>
+Dans les projets d'équipe, indique clairement ton rôle exact :
+</p>
+<ul>
+<li>Conception du gameplay</li>
+<li>Organisation des tests</li>
+<li>Écriture du GDD</li>
+</ul>
+<h3>Ajoute des post-mortems</h3>
+<p>
+Un bon portfolio inclut aussi des analyses de fin de projet.
+</p>
+<p>
+Explique :
+</p>
+<ul>
+<li>Les retours reçus</li>
+<li>Les compromis réalisés</li>
+<li>Les contraintes techniques rencontrées</li>
+</ul>
+<p>
+Cela montre ta maturité professionnelle et ta capacité d'adaptation.
+</p>
+<h2>4. Se projeter : évolution et opportunités</h2>
+<p>
+Un bon portfolio ne sert pas uniquement à obtenir ton premier poste.
+</p>
+<p>
+Il peut aussi influencer ton évolution de carrière et ton positionnement salarial.
+</p>
+<p>
+En début de carrière, un Game Designer gagne généralement entre <strong>26 000 € et 32
+000 € bruts annuels</strong>.
+</p>
+<p>
+
+Un portfolio solide peut renforcer ta position lors des négociations.
+</p>
+<p>
+Avec le temps, tes projets peuvent t’orienter vers des spécialisations comme le Level Design
+ou la direction de jeu.
+</p>
+<p>
+Les compétences acquises sont aussi transférables vers d'autres secteurs du digital :
+</p>
+<ul>
+<li>UX/UI Design</li>
+<li>Applications mobiles</li>
+<li>Gamification</li>
+<li>Expériences interactives</li>
+</ul>
+<h2>En résumé</h2>
+<p>
+Construire ton portfolio, c’est déjà ton premier exercice professionnel.
+</p>
+<p>
+Considère le recruteur comme ton premier joueur : guide-le, simplifie son expérience et
+donne-lui envie d’aller jusqu’à l’entretien.
+</p>
+<p>
+Un bon portfolio ne montre pas seulement ce que tu sais faire, il montre comment tu
+réfléchis.
+</p>
+<p>
+À toi de jouer.
+</p>

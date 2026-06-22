@@ -67,7 +67,7 @@ require_once __DIR__ . '/../partials/header.php';
             <?php foreach ($resultats as $metier): ?>
                 <li class="search-results-card">
                     <a class="search-results-card__link"
-                       href="/metiers?job=<?= urlencode($metier['titre']) ?>">
+                       href="/metiers/<?= htmlspecialchars($metier['slug'], ENT_QUOTES, 'UTF-8') ?>">
                         <div class="search-results-card__header">
                             <h2 class="search-results-card__title">
                                 <?= highlighterTitrePhp($metier['titre'], $rawQuery) ?>

@@ -18,7 +18,7 @@
         </header>
         <main>
             <div class="go-back-and-main-title-container">
-                <a href="/test_admin_specialties.php" class="go-back">
+                <a href="/admin/specialties" class="go-back">
                     <div>←</div>
                     <div>Retour vers la liste des spécialités</div>
                 </a>
@@ -26,7 +26,7 @@
                 <div></div>
             </div>
 
-            <form action="/test_admin_specialties.php?action=update&id=<?= $specialty['id_specialty'] ?>" method="POST" class="form-container">
+            <form action="/admin/specialties/<?= $specialty['id_specialty'] ?>/update" method="POST" class="form-container">
                 
                 <div class="form-label-input-container">
                     <label for="input-add-specialty" class="input-title">Nom de la spécialité</label>
@@ -38,7 +38,7 @@
                     <div class="switch-choices-container">
                         <div class="switch-choices">Non</div>
                         <label class="switch">
-                            <input type="checkbox" id="input-visibility" name="display" value="1" <?= (isset($specialty['display']) && $specialty['display'] == 1) ? 'checked' : '' ?>>
+                            <input type="checkbox" id="input-visibility" name="is_visible" value="1" <?= (isset($specialty['display']) && $specialty['display'] == 1) ? 'checked' : '' ?>>
                             <span class="slider"></span>
                         </label>
                         <div class="switch-choices">Oui</div>

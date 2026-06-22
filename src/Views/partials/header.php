@@ -31,6 +31,7 @@
                     <li><a class="desktop-nav__link" href="<?= $nav_prefix ?? '' ?>#about">À Propos</a></li>
                     <li><a class="desktop-nav__link" href="<?= $nav_prefix ?? '' ?>#jobs">Métiers Du Digital</a></li>
                     <li><a class="desktop-nav__link" href="<?= $nav_prefix ?? '' ?>#news">Actualités</a></li>
+                    <li><a class="desktop-nav__link" href="/blog">Blog</a></li>
                 </ul>
                 <a class="desktop-nav__support" id="audio-toggle" href="#" aria-label="Activer l'accessibilité audio">
                     <svg width="34" height="35" viewBox="0 0 34 35" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="nav-icon-svg">

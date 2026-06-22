@@ -3,20 +3,15 @@ namespace Controllers;
 
 use Models\JobModel;
 use Models\SpecialtyModel;
-use PDO;
 
 class AdminJobController
 {
     private JobModel $jobModel;
-    private PDO $db;
+    private \PDO $db;
 
-    /**
-     * On instancie le modèle en lui passant la connexion à la base de données.
-     *
-     * @param PDO $db
-     */
-    public function __construct(PDO $db)
+    public function __construct()
     {
+        $db = \Database::getInstance();
         $this->db = $db;
         $this->jobModel = new JobModel($db);
     }
@@ -91,7 +86,7 @@ class AdminJobController
             // On envoie les deux tableaux au modèle.
             $this->jobModel->createWithContent($jobData, $contentData);
 
-            header('Location: /test_admin_jobs.php');
+            header('Location: /admin/jobs');
             exit;
         }
     }
@@ -158,7 +153,7 @@ class AdminJobController
             $this->jobModel->updateWithContent($id, $jobData, $contentData);
 
             // 4. Redirection
-            header('Location: /test_admin_jobs.php');
+            header('Location: /admin/jobs');
             exit;
         }
     }
@@ -178,5 +173,21 @@ class AdminJobController
             echo json_encode(['success' => $success]);
             exit; 
         }
+    }
+
+    /**
+     * Supprime un métier et redirige.
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        // Appel au modèle
+        $this->jobModel->delete($id);
+
+        // Redirection vers la liste
+        header('Location: /admin/jobs');
+        exit;
     }
 }

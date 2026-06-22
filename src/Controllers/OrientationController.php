@@ -1,4 +1,5 @@
 <?php
+namespace Controllers;
 
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../Models/Test-dorientation/OrientationQuestionnaireModel.php';
@@ -11,7 +12,7 @@ class OrientationController
 
     public function __construct()
     {
-        $this->model = new OrientationQuestionnaireModel(Database::getInstance());
+        $this->model = new OrientationQuestionnaireModel(\Database::getInstance());
     }
 
     public function questions(): void
@@ -20,7 +21,7 @@ class OrientationController
             $this->jsonResponse([
                 'questions' => $this->model->findAllQuestionsWithAnswers(),
             ]);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->jsonResponse([
                 'error' => 'Questionnaire indisponible. Verifie que les scripts SQL ont ete importes.',
                 'debug' => $exception->getMessage(),
@@ -40,7 +41,7 @@ class OrientationController
 
         try {
             $result = $this->model->calculateResult($answerIds, 1);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             $this->jsonResponse([
                 'error' => 'Resultat indisponible. Verifie que les scripts SQL ont ete importes.',
                 'debug' => $exception->getMessage(),

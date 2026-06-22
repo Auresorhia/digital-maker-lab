@@ -1,9 +1,10 @@
 <?php
+namespace Controllers;
 
 require_once __DIR__ . '/../Models/MetierModel.php';
 require_once __DIR__ . '/../core/Controller.php';
 
-class SearchController extends Controller {
+class SearchController extends \Core\Controller {
 
     public function autocomplete(): void {
         header('Content-Type: application/json; charset=utf-8');
@@ -15,7 +16,7 @@ class SearchController extends Controller {
             return;
         }
 
-        $model = new MetierModel();
+        $model = new \MetierModel();
         $resultats = $model->rechercherParTitre($query);
 
         echo json_encode($resultats);
@@ -26,7 +27,7 @@ class SearchController extends Controller {
         $resultats = [];
 
         if (mb_strlen($query) >= 1) {
-            $model    = new MetierModel();
+            $model    = new \MetierModel();
             $resultats = $model->rechercherParContenu($query);
         }
 
