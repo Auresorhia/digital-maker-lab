@@ -15,8 +15,8 @@
     <div class="main-container">
         <header>
             <nav>
-                <a href="/test_admin_specialties.php" class="tab">Spécialité</a>
-                <a href="/test_admin_jobs.php" class="tab active">Métier</a>
+                <a href="/admin/specialties" class="tab">Spécialité</a>
+                <a href="/admin/jobs" class="tab active">Métier</a>
             </nav>
         </header>
         <main>
@@ -35,7 +35,7 @@
                                 
                                 <div class="icon-interaction-with-job-container">
                                     
-                                    <a href="/test_admin_jobs.php?action=edit&id=<?= $job['id_job'] ?>" class="icon-interaction-with-job position-centered pencil">
+                                    <a href="/admin/jobs/<?= $job['id_job'] ?>/edit" class="icon-interaction-with-job position-centered pencil">
                                         <img src="/assets/images/icons/icon-pencil.svg" alt="Modifier le métier">
                                     </a>
                                     
@@ -51,7 +51,7 @@
                                         <?php endif; ?>
                                     </div>
                                     
-                                    <a href="/test_admin_jobs.php?action=delete&id=<?= $job['id_job'] ?>" class="icon-interaction-with-job position-centered trash" onclick="return confirm('Es-tu sûr de vouloir supprimer ce métier ?');">
+                                    <a href="/admin/jobs/<?= $job['id_job'] ?>/delete" class="icon-interaction-with-job position-centered trash" onclick="return confirm('Es-tu sûr de vouloir supprimer ce métier ?');">
                                         <img src="/assets/images/icons/icon-trash.svg" alt="Supprimer le métier">
                                     </a>
                                     
@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="btn-add-container">
-                    <a href="/test_admin_jobs.php?action=create" class="icon-interaction-with-job position-centered btn-add">
+                    <a href="/admin/jobs/create" class="icon-interaction-with-job position-centered btn-add">
                         <div class="plus-bar horizontal-bar"></div>
                         <div class="plus-bar vertical-bar"></div>
                     </a>

@@ -18,7 +18,7 @@
         </header>
         <main>
             <div class="go-back-and-main-title-container">
-                <a href="/test_admin_specialties.php" class="go-back">
+                <a href="/admin/specialties" class="go-back">
                     <div>←</div>
                     <div>Retour vers la liste des spécialités</div>
                 </a>
@@ -26,7 +26,7 @@
                 <div></div>
             </div>
 
-            <form action="/test_admin_specialties.php?action=store" method="POST" class="form-container">
+            <form action="/admin/specialties/store" method="POST" class="form-container">
                 <div class="form-label-input-container">
                     <label for="input-add-specialty" class="input-title">Nom de la spécialité à ajouter en base</label>
                     <input type="text" id="input-add-specialty" name="specialty" class="input" placeholder="Ex: Motion Designer" required>

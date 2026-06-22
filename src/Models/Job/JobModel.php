@@ -211,16 +211,33 @@ class JobModel
     }
 
     /**
-     * Supprimer un métier en fonction de son id.
+     * Supprime un métier ET tout son contenu associé.
      *
      * @param integer $id
      * @return boolean
      */
     public function delete(int $id): bool
     {
-        $sql = "DELETE FROM job WHERE id_job = :id";
-        $stmt = $this->db->prepare($sql);
-        
-        return $stmt->execute(['id' => $id]);
+        try {
+            $this->db->beginTransaction();
+
+            // On supprime d'abord les contenus enfants pour éviter les erreurs SQL
+            $sqlContent = "DELETE FROM job_content WHERE job_id = :id";
+            $stmtContent = $this->db->prepare($sqlContent);
+            $stmtContent->execute(['id' => $id]);
+
+            // Ensuite, on supprime le métier parent
+            $sqlJob = "DELETE FROM job WHERE id_job = :id";
+            $stmtJob = $this->db->prepare($sqlJob);
+            $stmtJob->execute(['id' => $id]);
+
+            // Tout est bon, on valide !
+            $this->db->commit();
+            return true;
+
+        } catch (\Exception $e) {
+            $this->db->rollBack();
+            throw $e; 
+        }
     }
 }

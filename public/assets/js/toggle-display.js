@@ -10,11 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
             let currentDisplay = parseInt(this.getAttribute('data-display'));
             const imgElement = this.querySelector('img');
 
-            // On détermine le bon fichier PHP à appeler selon le type
-            const endpoint = (type === 'job') ? '/test_admin_jobs.php' : '/test_admin_specialties.php';
+            // On construit la "belle URL" prise en charge par le Routeur
+            const urlTarget = (type === 'job') ? `/admin/jobs/${id}/toggle` : `/admin/specialties/${id}/toggle`;
 
             // Envoi de la requête AJAX vers la bonne URL
-            fetch(`${endpoint}?action=toggle&id=${id}`, {
+            fetch(urlTarget, {
                 method: 'POST'
             })
             .then(response => response.json())

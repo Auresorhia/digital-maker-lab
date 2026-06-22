@@ -26,7 +26,7 @@
                 <div></div>
             </div>
 
-            <form action="/test_admin_jobs.php?action=store" method="POST" class="form-container">
+            <form action="/admin/jobs/store" method="POST" class="form-container">
                 
                 <div class="form-label-input-container">
                     <label for="input-main-title" class="input-title">Titre principal</label>
