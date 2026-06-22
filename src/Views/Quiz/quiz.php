@@ -6,7 +6,7 @@
 $totalQuestions = count($questions);
 ?>
 
-<div class="popup-overlay" id="js-quiz-overlay">
+<div class="popup-overlay" id="js-quiz-overlay" style="display: none;">
     
     <div class="popup-container" id="main-popup-container">
         
@@ -82,22 +82,27 @@ $totalQuestions = count($questions);
             </div>
 
             <div id="quiz-results-container" style="display: none; width: 100%;">
-                
-                <div style="height: 38px; width: 100%; flex-shrink: 0;"></div>
 
-                <div style="height: 130px; width: 100%; margin-top: 16px; margin-bottom: 16px; flex-shrink: 0; display: flex; justify-content: center; align-items: center;">
-                    <img src="/assets/images/quiz/" alt="Score final" style="height: 130px; width: 405px; display: block; object-fit: contain;">
+                <!-- Job name header -->
+                <div style="padding: 20px 60px 0 20px; flex-shrink: 0;">
+                    <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; color: #000;">
+                        <?= htmlspecialchars($specialtyTitle ?? '') ?>
+                    </span>
                 </div>
 
-                <div style="width: 100%; padding: 0 16px; overflow: hidden; flex-direction: column; display: flex; gap: 16px;">
-                    <div style="align-self: stretch; display: flex; align-items: center; gap: 10px; height: 34px;">
-                        <div style="color: #000000; font-size: 14px; font-family: 'JetBrains Mono', monospace; font-weight: 700; text-transform: uppercase;">VOS RÉPONSES</div>
-                    </div>
+                <!-- Banner image -->
+                <div style="padding: 16px 20px 12px; flex-shrink: 0;">
+                    <img src="/assets/images/quiz/banniere-quiz.svg" alt="Score" style="width: 100%; height: 130px; border-radius: 12px; object-fit: cover; display: block;">
+                </div>
 
+                <!-- VOS RÉPONSES + scrollable grid -->
+                <div style="padding: 0 20px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 12px;">
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; text-transform: uppercase; color: #000; flex-shrink: 0;">VOS RÉPONSES</div>
                     <div id="js-responses-grid" class="responses-list"></div>
                 </div>
 
-                <div style="margin-top: auto; display: flex; justify-content: flex-start; align-items: flex-start; padding: 24px 16px; width: 100%;">
+                <!-- Ressayer -->
+                <div style="padding: 20px; flex-shrink: 0;">
                     <button type="button" class="question-btn" onclick="window.location.reload();">
                         Réessayer ↻
                     </button>
@@ -191,7 +196,7 @@ function buildAndShowFigmaRecap() {
     
     const popup = document.getElementById('main-popup-container');
     popup.className = 'popup-container-results'; 
-    popup.style.height = '880px';
+    popup.style.height = 'auto';
     popup.style.width = '637px';
     
     const gridContainer = document.getElementById('js-responses-grid');

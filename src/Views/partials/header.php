@@ -16,6 +16,12 @@
     <?php if (!empty($extra_css)): ?>
         <link rel="stylesheet" href="<?= $assets_prefix ?? '' ?>assets/css/<?= $extra_css ?>">
     <?php endif; ?>
+    <?php if (!empty($extra_css_2)): ?>
+        <link rel="stylesheet" href="<?= $assets_prefix ?? '' ?>assets/css/<?= $extra_css_2 ?>">
+    <?php endif; ?>
+    <?php if (!empty($extra_css_3)): ?>
+        <link rel="stylesheet" href="<?= $assets_prefix ?? '' ?>assets/css/<?= $extra_css_3 ?>">
+    <?php endif; ?>
 </head>
 
 <body>

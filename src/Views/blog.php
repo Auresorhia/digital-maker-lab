@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 $metiersPath = __DIR__ . '/../../metiers_articles';
 
 function blogEscape($value)

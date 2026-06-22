@@ -1,6 +1,6 @@
 <div class="search-wrapper">
     <div class="search-container">
-        <span class="search-icon">&#128269;</span>
+        <img class="search-icon" src="/assets/images/icons/loupe.svg" alt="" aria-hidden="true">
         <input
             type="text"
             id="search-input"

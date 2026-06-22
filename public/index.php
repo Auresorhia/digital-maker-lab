@@ -17,6 +17,7 @@ require_once '../src/Models/Test-dorientation/OrientationQuestionnaireModel.php'
 
 // --- Contrôleurs ---
 require_once '../src/Controllers/HomeController.php';
+require_once '../src/Controllers/BlogController.php';
 require_once '../src/Controllers/FinderController.php';
 require_once '../src/Controllers/SearchController.php';
 require_once '../src/Controllers/JobSheetController.php';
@@ -32,6 +33,7 @@ $router = new \Core\Router();
 
 // Routes frontend
 $router->add('GET', '/',              'HomeController',   'index');
+$router->add('GET', '/blog',          'BlogController',   'index');
 $router->add('GET', '/metiers',       'FinderController', 'index');
 $router->add('GET', '/metiers/{slug}','JobSheetController','show');
 $router->add('GET', '/api/search',    'SearchController', 'autocomplete');
