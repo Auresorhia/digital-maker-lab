@@ -1,7 +1,7 @@
 <?php
 $page_title       = 'Digital Maker Lab';
 $page_css         = 'finder.css';
-$extra_css        = '';
+$extra_css        = 'orientation.css';
 $header_class     = 'site-header';
 $show_desktop_nav = true;
 $nav_prefix       = $nav_prefix ?? '../';
@@ -18,6 +18,18 @@ $specialtiesWithJobs = $specialtiesWithJobs ?? [];
 $job_data = $job_data ?? [];
 $hasJobSheet = !empty($job_data);
 
+$quizQuestions = [];
+$quizSpecialtyTitle = '';
+if ($hasJobSheet && !empty($job_data['id_job'])) {
+    require_once __DIR__ . '/../../Models/Quiz/QuizModel.php';
+    $quizModel = new QuizModel();
+    $quizQuestions = $quizModel->findByJobWithAnswers((int)$job_data['id_job']);
+    $quizSpecialtyTitle = $job_data['job_name'] ?? '';
+}
+
+$extra_css_2 = !empty($quizQuestions) ? 'quiz/quiz.css' : '';
+$extra_css_3 = ($hasJobSheet && !empty($job_data['id_job'])) ? 'assistant-ia.css' : '';
+
 $e = static function ($value): string {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
 };
@@ -33,7 +45,6 @@ foreach ($specialtiesWithJobs as $specialty) {
 
 require_once __DIR__ . '/../partials/header.php';
 ?>
-<link rel="stylesheet" href="<?= $e($assets_prefix) ?>assets/css/orientation.css">
 
 <main class="finder-page">
     <button class="finder-sidebar__toggle" type="button" aria-label="Ouvrir les catégories" aria-controls="finder-sidebar" aria-expanded="false">
@@ -221,7 +232,14 @@ require_once __DIR__ . '/../partials/header.php';
                     Tu veux savoir si le métier de <?= $e($job_data['job_name'] ?? 'ce métier') ?> est vraiment fait pour toi ?
                 </h2>
                 <p>Découvrir un métier ne suffit pas toujours pour savoir si l'on peut s'y projeter.</p>
-                <a class="finder-job-sheet__cta" href="#">Télécharger le guide</a>
+                <div class="finder-job-sheet__cta-row">
+                    <button id="btn-quiz" type="button" class="finder-job-sheet__cta finder-job-sheet__cta--outline">
+                        Commencer le quiz
+                    </button>
+                    <button id="btn-assistant" type="button" class="finder-job-sheet__cta finder-job-sheet__cta--assistant">
+                        Votre assistant Digital Maker Lab
+                    </button>
+                </div>
             </section>
         <?php endif; ?>
     </article>
@@ -281,5 +299,39 @@ require_once __DIR__ . '/../partials/header.php';
     window.activeJobSlug = '<?= $e($active_job_slug) ?>';
     <?php endif; ?>
 </script>
+<?php if ($hasJobSheet && !empty($job_data['id_job'])): ?>
+<?php $jobId = $job_data['id_job']; require_once __DIR__ . '/../partials/assistant/assistant-ia-bubble.php'; ?>
+<?php endif; ?>
+<?php if ($hasJobSheet && !empty($quizQuestions)):
+    $questions      = $quizQuestions;
+    $specialtyTitle = $quizSpecialtyTitle;
+    $jobId          = (int)($job_data['id_job'] ?? 0);
+    require_once __DIR__ . '/../Quiz/quiz.php';
+endif; ?>
+<script>
+function openQuizPopup() {
+    var el = document.getElementById('js-quiz-overlay');
+    if (el) { el.style.display = 'flex'; }
+}
+</script>
 <script src="<?= $e($assets_prefix) ?>assets/js/finder.js"></script>
 <script src="<?= $e($assets_prefix) ?>assets/js/orientation.js"></script>
+<?php if ($hasJobSheet && !empty($job_data['id_job'])): ?>
+<script src="<?= $e($assets_prefix) ?>assets/js/assistant-ia.js"></script>
+<?php endif; ?>
+<script>
+    (function () {
+        var quizBtn = document.getElementById('btn-quiz');
+        var asstBtn = document.getElementById('btn-assistant');
+        var bubble  = document.querySelector('.ai-bubble');
+        if (quizBtn) {
+            quizBtn.addEventListener('click', function () {
+                if (typeof openQuizPopup === 'function') openQuizPopup();
+                else if (typeof openOrientationModal === 'function') openOrientationModal();
+            });
+        }
+        if (asstBtn && bubble) {
+            asstBtn.addEventListener('click', function () { bubble.click(); });
+        }
+    })();
+</script>

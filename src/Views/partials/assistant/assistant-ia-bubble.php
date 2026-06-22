@@ -1,11 +1,11 @@
-﻿<?php
+<?php
 $safeJobId = isset($jobId) ? (int) $jobId : 0;
 if ($safeJobId <= 0) return;
 ?>
 
-<div class="ai-overlay" aria-hidden="true"></div>
+<div class="ai-overlay" aria-hidden="true" style="position:fixed;"></div>
 
-<div class="ai-modal" role="dialog" aria-modal="true" aria-label="Assistant Digital Maker Lab" aria-hidden="true">
+<div class="ai-modal" role="dialog" aria-modal="true" aria-label="Assistant Digital Maker Lab" aria-hidden="true" style="position:fixed;">
     <div class="ai-modal__card">
 
         <div class="ai-modal__header">
@@ -41,7 +41,7 @@ if ($safeJobId <= 0) return;
     </div>
 </div>
 
-<button class="ai-bubble" type="button" data-metier-id="<?= $safeJobId ?>" aria-expanded="false" aria-label="Ouvrir l'assistant Digital Maker Lab">
+<button class="ai-bubble" type="button" data-metier-id="<?= $safeJobId ?>" aria-expanded="false" aria-label="Ouvrir l'assistant Digital Maker Lab" style="display:none;">
     <span class="ai-bubble__label">Votre assistant Digital Maker Lab</span>
     <span class="ai-bubble__icon" aria-hidden="true">&#10022;</span>
 </button>
