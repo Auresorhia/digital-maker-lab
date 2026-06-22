@@ -51,16 +51,23 @@ class AdminJobController
      */
     public function store(): void
     {
-        // Vérification de la méthode de la requête
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
-            // Récupération et assainissement des données du formulaire
-            $data = [
-                'specialty_id'             => $_POST['specialty_id'] ?? null,
-                'main_title'               => $_POST['main_title'] ?? '',
+            // Les données principales pour la table `job`.
+            $jobData = [
+                // Le formulaire envoie 'main_title', on le met dans 'job_name'.
+                'job_name'     => $_POST['main_title'] ?? '', 
+                'specialty_id' => $_POST['specialty_id'] ?? null,
+                'display'      => 1 // Par défaut visible
+            ];
+
+            // Les données de contenu pour la table `job_content`.
+            $contentData = [
+                'specialty_icon'           => $_POST['specialty_icon'] ?? '',
                 'explainer_title'          => $_POST['explainer_title'] ?? '',
                 'explainer_text'           => $_POST['explainer_text'] ?? '',
                 'interview_pro_title'      => $_POST['interview_pro_title'] ?? '',
+                'interview_pro_link'       => $_POST['interview_pro_link'] ?? '',
                 'qualities_title'          => $_POST['qualities_title'] ?? '',
                 'quality_1_title'          => $_POST['quality_1_title'] ?? '',
                 'quality_1_text'           => $_POST['quality_1_text'] ?? '',
@@ -71,21 +78,20 @@ class AdminJobController
                 'working_site_title'       => $_POST['working_site_title'] ?? '',
                 'working_site_text'        => $_POST['working_site_text'] ?? '',
                 'student_video_title'      => $_POST['student_video_title'] ?? '',
+                'student_video_link'       => $_POST['student_video_link'] ?? '',
                 'money_title'              => $_POST['money_title'] ?? '',
                 'money_text'               => $_POST['money_text'] ?? '',
                 'career_development_title' => $_POST['career_development_title'] ?? ''
             ];
 
-            // Validation de base : le titre et la spécialité sont obligatoires
-            if (empty($data['main_title']) || empty($data['specialty_id'])) {
-                die("Erreur : Le titre principal et la spécialité associée sont obligatoires.");
+            if (empty($jobData['job_name']) || empty($jobData['specialty_id'])) {
+                die("Erreur : Le titre principal et la spécialité sont obligatoires.");
             }
 
-            // Appel au modèle pour l'insertion en BDD
-            $this->jobModel->create($data);
+            // On envoie les deux tableaux au modèle.
+            $this->jobModel->createWithContent($jobData, $contentData);
 
-            // Redirection vers ton script de test des métiers pour éviter la boucle infinie au rafraîchissement
-            header('Location: /test_admin_jobs.php');
+            header('Location: /admin/jobs');
             exit;
         }
     }
@@ -129,8 +135,7 @@ class AdminJobController
             $this->jobModel->update($id, $data);
 
             // Redirige l'utilisateur vers la liste des métiers.
-            // (Ajuste l'URL de redirection en fonction de tes fichiers de test actuels)
-            header('Location: /test_admin_jobs.php');
+            header('Location: /admin/jobs');
             exit;
         }
     }

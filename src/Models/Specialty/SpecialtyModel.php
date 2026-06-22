@@ -25,7 +25,7 @@ class SpecialtyModel
      */
     public function findAll(): array
     {
-        $sql = "SELECT id_specialty, specialty FROM specialty ORDER BY created_at DESC";
+        $sql = "SELECT id_specialty, specialty, display FROM specialty ORDER BY created_at DESC";
         $stmt = $this->db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -38,7 +38,7 @@ class SpecialtyModel
      */
     public function findById(int $id): ?array
     {
-        $sql = "SELECT id_specialty, specialty FROM specialty WHERE id_specialty = :id";
+        $sql = "SELECT id_specialty, specialty, display FROM specialty WHERE id_specialty = :id";
         $stmt = $this->db->prepare($sql);
         $stmt->execute(['id' => $id]);
         
@@ -47,24 +47,26 @@ class SpecialtyModel
     }
 
     /**
-     * Ajoute en base de données la nouvelle spécialité créée.
+     * Insère une nouvelle spécialité
      *
      * @param array $data
      * @return boolean
      */
     public function create(array $data): bool
     {
-        $sql = "INSERT INTO specialty (specialty) 
-                VALUES (:specialty)";
+        $sql = "INSERT INTO specialty (specialty, display) 
+                VALUES (:specialty, :display)";
+        
         $stmt = $this->db->prepare($sql);
+        
         return $stmt->execute([
-            'specialty' => $data['specialty']
+            'specialty' => $data['specialty'],
+            'display'   => $data['display']
         ]);
     }
 
     /**
-     * Modifie en base de données la cellule de la spécialité identifiée grâce à son id.
-     * Cellule modifiée par les données récupérées par le formulaire.
+     * Met à jour une spécialité existante.
      *
      * @param integer $id
      * @param array $data
@@ -73,13 +75,34 @@ class SpecialtyModel
     public function update(int $id, array $data): bool
     {
         $sql = "UPDATE specialty 
-                SET specialty = :specialty, updated_at = NOW()
+                SET specialty = :specialty, 
+                    display = :display, 
+                    updated_at = NOW() 
                 WHERE id_specialty = :id";
+        
         $stmt = $this->db->prepare($sql);
+        
         return $stmt->execute([
-            'id'        => $id,
-            'specialty' => $data['specialty']
+            'specialty' => $data['specialty'],
+            'display'   => $data['display'],
+            'id'        => $id
         ]);
+    }
+
+    /**
+     * Inverse le statut de visibilité d'une spécialité (0 devient 1, 1 devient 0)
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function toggleDisplay(int $id): bool
+    {
+        $sql = "UPDATE specialty 
+                SET display = 1 - display, updated_at = NOW() 
+                WHERE id_specialty = :id";
+        
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute(['id' => $id]);
     }
 
     /**
