@@ -47,16 +47,20 @@ class AdminSpecialtyController
             
             // Préparation des données du formulaire
             $data = [
-                'specialty'  => $_POST['specialty'],
+                'specialty' => trim($_POST['specialty'] ?? ''),
                 // Si le switch est coché, il vaut 1, sinon 0
-                'is_visible' => isset($_POST['is_visible']) ? 1 : 0
+                'display' => isset($_POST['is_visible']) ? 1 : 0
             ];
+
+            if (empty($data['specialty'])) {
+                die("Erreur : Le nom de la spécialité est obligatoire.");
+            }
 
             // On demande au modèle d'insérer la nouvelle ligne en BDD
             $this->specialtyModel->create($data);
 
             // Redirection vers le listing des spécialités après l'ajout.
-            header('Location: /test_admin_specialties.php');
+            header('Location: /admin/specialties');
             exit;
         }
     }
@@ -88,17 +92,45 @@ class AdminSpecialtyController
             
             // Préparation du tableau de données avec ce qui vient du formulaire.
             $data = [
-                'specialty'  => $_POST['specialty'],
-                // GESTION DU SWITCH : Si la case est cochée, $_POST['is_visible'] existe (donc 1). Sinon, c'est 0.
-                'is_visible' => isset($_POST['is_visible']) ? 1 : 0
+                'specialty' => trim($_POST['specialty'] ?? ''),
+                'display'   => isset($_POST['is_visible']) ? 1 : 0
             ];
+
+            if (empty($data['specialty'])) {
+                die("Erreur : Le nom de la spécialité est obligatoire.");
+            }
 
             // On demande au modèle de mettre à jour la BDD.
             $this->specialtyModel->update($id, $data);
 
             // Redirige l'utilisateur vers la liste des spécialités.
-            header('Location: /test_admin_specialties.php');
+            header('Location: /admin/specialties');
             exit;
+        }
+    }
+
+    /**
+     * Traite la requête AJAX pour inverser la visibilité
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function toggle(int $id): void
+    {
+        // On vérifie que la requête vient bien en POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+            // On appelle la méthode du modèle
+            $success = $this->specialtyModel->toggleDisplay($id);
+            
+            // On prévient le navigateur qu'on lui parle en JSON, pas en HTML
+            header('Content-Type: application/json');
+            
+            // On renvoie un tableau converti en JSON : {"success": true}
+            echo json_encode(['success' => $success]);
+            
+            // On arrête immédiatement le script pour ne pas afficher de HTML
+            exit; 
         }
     }
 }

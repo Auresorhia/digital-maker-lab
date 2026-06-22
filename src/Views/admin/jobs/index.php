@@ -27,37 +27,37 @@
                     <div class="job-container">
                         <div class="job-name">Chef d'entreprise</div>
                         <div class="icon-interaction-with-job-container">
-                            <div class="icon-interaction-with-job position-centered pencil">
-                                <img src="assets/images/icons/icon-pencil.svg" alt="icon de crayon indiquant le bouton servant à la modification du métier">
-                            </div>
+                            <a href="/admin/jobs/<?= $job['id_job'] ?>/edit" class="icon-interaction-with-job position-centered pencil">
+                                <img src="/assets/images/icons/icon-pencil.svg" alt="icon de crayon indiquant le bouton servant à la modification du métier">
+                            </a>
                             <div class="icon-interaction-with-job position-centered eye">
-                                <img src="assets/images/icons/icon-eye-opened.svg" alt="icon d'un oeil ouvert ou fermé indiquant le bouton servant à la dissimulation ou à la l'affichage du métier">
+                                <img src="/assets/images/icons/icon-eye-opened.svg" alt="icon d'un oeil ouvert ou fermé indiquant le bouton servant à la dissimulation ou à la l'affichage du métier">
                             </div>
                             <div class="icon-interaction-with-job position-centered trash">
-                                <img src="assets/images/icons/icon-trash.svg" alt="icon d'une poubelle indiquant le bouton servant à la suppression du métier">
+                                <img src="/assets/images/icons/icon-trash.svg" alt="icon d'une poubelle indiquant le bouton servant à la suppression du métier">
                             </div>
                         </div>
                     </div>
                     <div class="job-container">
                         <div class="job-name">Developper Fullstack</div>
                         <div class="icon-interaction-with-job-container">
-                            <div class="icon-interaction-with-job position-centered pencil">
-                                <img src="assets/images/icons/icon-pencil.svg" alt="icon de crayon indiquant le bouton servant à la modification du métier">
-                            </div>
+                            <a href="/admin/jobs/<?= $job['id_job'] ?>/edit" class="icon-interaction-with-job position-centered pencil">
+                                <img src="/assets/images/icons/icon-pencil.svg" alt="icon de crayon indiquant le bouton servant à la modification du métier">
+                            </a>
                             <div class="icon-interaction-with-job position-centered eye">
-                                <img src="assets/images/icons/icon-eye-closed.svg" alt="icon d'un oeil ouvert ou fermé indiquant le bouton servant à la dissimulation ou à la l'affichage du métier">
+                                <img src="/assets/images/icons/icon-eye-closed.svg" alt="icon d'un oeil ouvert ou fermé indiquant le bouton servant à la dissimulation ou à la l'affichage du métier">
                             </div>
                             <div class="icon-interaction-with-job position-centered trash">
-                                <img src="assets/images/icons/icon-trash.svg" alt="icon d'une poubelle indiquant le bouton servant à la suppression du métier">
+                                <img src="/assets/images/icons/icon-trash.svg" alt="icon d'une poubelle indiquant le bouton servant à la suppression du métier">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="btn-add-container">
-                    <button class="icon-interaction-with-job position-centered btn-add">
+                    <a href="/admin/jobs/create" class="icon-interaction-with-job position-centered btn-add">
                         <div class="plus-bar horizontal-bar"></div>
                         <div class="plus-bar vertical-bar"></div>
-                    </button>
+                    </a>
                 </div>
             </div>
         </main>

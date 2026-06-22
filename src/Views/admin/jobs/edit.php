@@ -35,7 +35,7 @@
 
                 <div class="form-label-input-container">
                     <label for="input-icon" class="input-title">Icon de spécialité</label>
-                    <input type="text" id="input-icon" name="specialty_icon" class="input" placeholder="***** À modifier *****" value="<?= htmlspecialchars($job['specialty_icon'] ?? '') ?>" disabled>
+                    <input type="text" id="input-icon" name="specialty_icon" class="input" placeholder="Lien Youtube" value="<?= htmlspecialchars($job['specialty_icon'] ?? '') ?>">
                 </div>
 
                 <div class="form-label-input-container">
@@ -55,7 +55,7 @@
 
                 <div class="form-label-input-container">
                     <label for="input-link-pro" class="input-title">Lien de l'interview du professionnel</label>
-                    <input type="text" id="input-link-pro" name="interview_pro_link" class="input" placeholder="***** À modifier *****" value="<?= htmlspecialchars($job['interview_pro_link'] ?? '') ?>" disabled>
+                    <input type="text" id="input-link-pro" name="interview_pro_link" class="input" placeholder="Lien Youtube" value="<?= htmlspecialchars($job['interview_pro_link'] ?? '') ?>">
                 </div>
 
                 <div class="form-label-input-container">
@@ -110,7 +110,7 @@
 
                 <div class="form-label-input-container">
                     <label for="input-student-video-link" class="input-title">Lien de la vidéo sur l'étudiant</label>
-                    <input type="text" id="input-student-video-link" name="student_video_link" class="input" placeholder="***** À modifier *****" value="<?= htmlspecialchars($job['student_video_link'] ?? '') ?>" disabled>
+                    <input type="text" id="input-student-video-link" name="student_video_link" class="input" placeholder="Lien Youtube" value="<?= htmlspecialchars($job['student_video_link'] ?? '') ?>">
                 </div>
 
                 <div class="form-label-input-container">
