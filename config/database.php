@@ -1,6 +1,7 @@
 <?php
 
-class Database {
+class Database
+{
     // C'est ici qu'on stocke notre connexion unique
     private static $instance = null;
 
@@ -9,21 +10,21 @@ class Database {
     private function __construct() {}
 
     // 2. La seule méthode que vous aurez le droit d'utiliser
-    public static function getInstance() {
+    public static function getInstance()
+    {
         // Si la connexion n'existe pas encore, on la crée
         if (self::$instance === null) {
+            require_once __DIR__ . '/config.php';
             try {
-                $host = '127.0.0.1';
-                $port = '8889';       // XAMPP : 3306 | MAMP : 8889
-                $dbname = 'digital_maker_lab';
-                $username = 'root';
-                $password = 'root';   // XAMPP : vide | MAMP : 'root'
-
                 // Pour se connecter
-                self::$instance = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);
-                
-                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//affiche les erreurs en cas...d'erreur
-                
+                self::$instance = new PDO(
+                    "mysql:host=" . DB_HOST . ";port=" . DB_PORT . ";dbname=" . DB_NAME . ";charset=" . DB_CHARSET,
+                    DB_USER,
+                    DB_PASSWORD
+                );
+
+                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //affiche les erreurs en cas...d'erreur
+
             } catch (PDOException $e) {
                 die("Erreur de connexion à la base de données : " . $e->getMessage());
             }
