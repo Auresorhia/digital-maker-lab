@@ -119,7 +119,7 @@ require_once __DIR__ . '/../partials/header.php';
             <a href="#" aria-label="YouTube">
                 <img src="assets/images/icons/icon-white-youtube.svg" alt="">
             </a>
-            <a href="https://www.instagram.com/digital_maker_lab?igsh=OTJsN2YzczlsZzVx" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a href="https://www.instagram.com/digital_maker_lab" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                 <img src="assets/images/icons/icon-white-instagram.svg" alt="">
             </a>
         </div>
