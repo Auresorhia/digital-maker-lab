@@ -43,7 +43,7 @@
                                     <div class="icon-interaction-with-job position-centered eye toggle-btn" 
                                         data-id="<?= $specialty['id_specialty'] ?>" 
                                         data-display="<?= $specialty['display'] ?? 0 ?>"
-                                        style="cursor: pointer;">
+                                        data-type="specialty" style="cursor: pointer;">
                                         
                                         <?php if (($specialty['display'] ?? 0) == 1): ?>
                                             <img src="/assets/images/icons/icon-eye-opened.svg" alt="Spécialité visible">
@@ -62,7 +62,7 @@
                         <?php endforeach; ?>
                         
                     <?php else: ?>
-                        <p style="color: white; text-align: center; margin-top: 20px;">Aucune spécialité trouvée en base de données.</p>
+                        <p class="empty-job-msg">Aucune spécialité trouvée en base de données.</p>
                     <?php endif; ?>
                 </div>
 

@@ -1,5 +1,3 @@
-"use strict";
-// On s'assure que le HTML est totalement chargé avant d'exécuter le script
 document.addEventListener('DOMContentLoaded', function() {
     
     const toggleButtons = document.querySelectorAll('.toggle-btn');
@@ -8,17 +6,20 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             
             const id = this.getAttribute('data-id');
+            const type = this.getAttribute('data-type'); // Récupère 'job' ou 'specialty'
             let currentDisplay = parseInt(this.getAttribute('data-display'));
             const imgElement = this.querySelector('img');
 
-            // Envoi de la requête AJAX
-            fetch(`/test_admin_specialties.php?action=toggle&id=${id}`, {
+            // On détermine le bon fichier PHP à appeler selon le type
+            const endpoint = (type === 'job') ? '/test_admin_jobs.php' : '/test_admin_specialties.php';
+
+            // Envoi de la requête AJAX vers la bonne URL
+            fetch(`${endpoint}?action=toggle&id=${id}`, {
                 method: 'POST'
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    // Mise à jour de l'affichage
                     const newDisplay = currentDisplay === 1 ? 0 : 1;
                     this.setAttribute('data-display', newDisplay);
 
