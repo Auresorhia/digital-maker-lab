@@ -1,0 +1,170 @@
+/* =====================================================
+   RELATIONS ENTRE MÉTIERS — ticket #39
+   Visualisation radiale statique
+   ===================================================== */
+
+/* ── Conteneur global ── */
+.relations-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 24px 0 48px;
+}
+
+/* ── Zone graphe ── */
+.relations-graph {
+    position: relative;
+    width: 560px;
+    height: 560px;
+    flex-shrink: 0;
+}
+
+/* ── SVG lignes de connexion ── */
+.relations-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ── Nœud central ── */
+.relations-node--center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: var(--node-color, #FF6B35);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-align: center;
+    padding: 12px;
+    box-shadow: 0 0 0 6px rgba(255, 107, 53, 0.15), 0 0 32px rgba(255, 107, 53, 0.25);
+}
+
+.relations-node--center .relations-node__name {
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+}
+
+.relations-node--center .relations-node__badge {
+    font-size: 9px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.75;
+}
+
+/* ── Nœuds satellites ── */
+.relations-node--satellite {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 2;
+
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #141414;
+    border: 2px solid var(--node-color, #444);
+    color: var(--node-color, #F3F1EA);
+    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+
+    /* Positionnement radial via CSS custom property --angle */
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--angle, 0deg))
+        translateY(-190px)
+        rotate(calc(-1 * var(--angle, 0deg)));
+
+    transition: background 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+}
+
+.relations-node--satellite:hover {
+    background: var(--node-color, #444);
+    color: #fff;
+    box-shadow: 0 0 20px rgba(255, 107, 53, 0.2);
+    /* On réapplique le transform pour intégrer scale sans perdre la position radiale */
+    transform:
+        translate(-50%, -50%)
+        rotate(var(--angle, 0deg))
+        translateY(-190px)
+        rotate(calc(-1 * var(--angle, 0deg)))
+        scale(1.08);
+}
+
+.relations-node--satellite .relations-node__name {
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+}
+
+/* ── Légende ── */
+.relations-caption {
+    font-size: 12px;
+    color: rgba(243, 241, 234, 0.35);
+    margin: 0;
+    text-align: center;
+    letter-spacing: 0.04em;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+    .relations-graph {
+        width: 340px;
+        height: 340px;
+    }
+
+    .relations-node--center {
+        width: 80px;
+        height: 80px;
+    }
+
+    .relations-node--center .relations-node__name {
+        font-size: 9px;
+    }
+
+    .relations-node--satellite {
+        width: 58px;
+        height: 58px;
+        /* Rayon réduit sur mobile */
+        transform:
+            translate(-50%, -50%)
+            rotate(var(--angle, 0deg))
+            translateY(-115px)
+            rotate(calc(-1 * var(--angle, 0deg)));
+    }
+
+    .relations-node--satellite:hover {
+        transform:
+            translate(-50%, -50%)
+            rotate(var(--angle, 0deg))
+            translateY(-115px)
+            rotate(calc(-1 * var(--angle, 0deg)))
+            scale(1.08);
+    }
+
+    .relations-node--satellite .relations-node__name {
+        font-size: 8px;
+    }
+}

@@ -4,9 +4,21 @@ require_once __DIR__ . '/../Controllers/AdminController.php';
 class Router
 {
 
-    public function start(string $url)
+    public function start(string $url = '')
     {
-        $chemin = $url;
+        // Démarrage session
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Si pas d'URL passée en paramètre, on la lit depuis le serveur
+        if ($url === '') {
+            $basePath = str_replace('/index.php', '', $_SERVER['SCRIPT_NAME']);
+            $chemin   = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+            $chemin   = '/' . trim(substr($chemin, strlen($basePath)), '/');
+        } else {
+            $chemin = $url;
+        }
 
         if ($chemin === '/') {
             // Appel du Contrôleur de la page d'accueil
@@ -14,14 +26,28 @@ class Router
             $controller = new HomeController();
             $controller->index();
         } elseif ($chemin === '/metiers') {
-            require_once '../src/Controllers/FinderController.php';
-            $controller = new FinderController();
+            require_once '../src/Models/MetierModel.php';
+            require_once '../src/Controllers/MetierController.php';
+            $controller = new MetierController();
             $controller->index();
-        } elseif (preg_match('#^/metiers/([a-z0-9-]+)$#', $chemin, $matches)) {
-            $slug = $matches[1];
-            require_once '../src/Controllers/JobSheetController.php';
-            $controller = new JobSheetController();
-            $controller->show($slug);
+
+        } elseif ($chemin === '/demo-assistant') {
+            require_once '../src/Views/front/metiers/demo-assistant.php';
+
+        } elseif (preg_match('#^/api/assistant/jobs/(\d+)$#', $chemin, $matches)) {
+            require_once __DIR__ . '/../../config/database.php';
+            require_once __DIR__ . '/../Models/AssistantIA/AssistantIAModel.php';
+            require_once __DIR__ . '/../Controllers/AssistantIA/AssistantIAController.php';
+            $controller = new \Controllers\AssistantIA\AssistantIAController(Database::getInstance());
+            $controller->getJobs((int) $matches[1]);
+
+        } elseif (preg_match('#^/api/assistant/(\d+)$#', $chemin, $matches)) {
+            require_once __DIR__ . '/../../config/database.php';
+            require_once __DIR__ . '/../Models/AssistantIA/AssistantIAModel.php';
+            require_once __DIR__ . '/../Controllers/AssistantIA/AssistantIAController.php';
+            $controller = new \Controllers\AssistantIA\AssistantIAController(Database::getInstance());
+            $controller->getApps((int) $matches[1]);
+
         } elseif ($chemin === '/api/search') {
             require_once __DIR__ . '/../Controllers/SearchController.php';
             $controller = new SearchController();

@@ -1,0 +1,249 @@
+/* =====================================================
+   METIERS PAGE — ticket #37
+   Page principale du comparateur de métiers
+   ===================================================== */
+
+:root {
+    --metiers-bg: #0B0B0B;
+    --metiers-surface: #141414;
+    --metiers-border: #262628;
+    --metiers-text: #F3F1EA;
+    --metiers-muted: rgba(243, 241, 234, 0.45);
+    --metiers-accent: #FF6B35;
+    --metiers-radius: 12px;
+}
+
+/* ── Reset de base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+.metiers-body {
+    margin: 0;
+    font-family: 'Inter', Arial, sans-serif;
+    background: var(--metiers-bg);
+    color: var(--metiers-text);
+    min-height: 100vh;
+}
+
+/* ── Header ── */
+.metiers-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(11, 11, 11, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--metiers-border);
+}
+
+.metiers-header__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.metiers-logo {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--metiers-text);
+    text-decoration: none;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+}
+
+/* ── Sélecteur de métier ── */
+.metiers-job-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding-bottom: 2px;
+}
+
+.metiers-job-nav::-webkit-scrollbar { display: none; }
+
+.metiers-job-btn {
+    display: inline-block;
+    padding: 7px 16px;
+    border: 1.5px solid var(--metiers-border);
+    border-radius: 50px;
+    color: var(--metiers-muted);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
+}
+
+.metiers-job-btn:hover {
+    border-color: var(--metiers-accent);
+    color: var(--metiers-accent);
+}
+
+.metiers-job-btn.is-active {
+    border-color: var(--metiers-accent);
+    background: var(--metiers-accent);
+    color: #fff;
+}
+
+/* ── Contenu principal ── */
+.metiers-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 24px 120px;
+}
+
+/* ── Intro ── */
+.metiers-intro {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.metiers-intro__badge {
+    display: inline-block;
+    padding: 4px 14px;
+    border: 1px solid var(--metiers-border);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--metiers-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.metiers-intro__title {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 900;
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+}
+
+.metiers-intro__sub {
+    font-size: 15px;
+    color: var(--metiers-muted);
+    margin: 0;
+}
+
+/* ── Onglets ── */
+.metiers-tabs {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid var(--metiers-border);
+    margin-bottom: 48px;
+}
+
+.metiers-tab {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--metiers-muted);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 180ms ease, border-color 180ms ease;
+    margin-bottom: -1px;
+}
+
+.metiers-tab:hover {
+    color: var(--metiers-text);
+}
+
+.metiers-tab.is-active {
+    color: var(--metiers-accent);
+    border-bottom-color: var(--metiers-accent);
+}
+
+/* ── Panneaux ── */
+.metiers-panel {
+    display: none;
+}
+
+.metiers-panel.is-active {
+    display: block;
+}
+
+/* ── Panneau Impact (onglet 2) ── */
+.metiers-impact {
+    display: flex;
+    justify-content: center;
+    padding: 48px 0;
+}
+
+.metiers-impact__prompt {
+    text-align: center;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.metiers-impact__icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--metiers-surface);
+    border: 1px solid var(--metiers-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: var(--metiers-accent);
+}
+
+.metiers-impact__title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.01em;
+}
+
+.metiers-impact__text {
+    font-size: 14px;
+    color: var(--metiers-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.metiers-impact__cta {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 50px;
+    background: var(--metiers-accent);
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.metiers-impact__cta:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .metiers-header__inner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+    }
+
+    .metiers-main {
+        padding: 32px 16px 100px;
+    }
+
+    .metiers-tab {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+}
