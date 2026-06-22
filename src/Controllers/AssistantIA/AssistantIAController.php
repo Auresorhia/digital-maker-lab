@@ -3,15 +3,15 @@
 namespace Controllers\AssistantIA;
 
 use Models\AssistantIA\AssistantIAModel;
-use PDO;
 
 class AssistantIAController
 {
     private AssistantIAModel $model;
 
-    public function __construct(PDO $db)
+    public function __construct()
     {
-        $this->model = new AssistantIAModel($db);
+        require_once __DIR__ . '/../../config/database.php';
+        $this->model = new AssistantIAModel(\Database::getInstance());
     }
 
     public function getApps(int $jobId): void
