@@ -205,6 +205,7 @@
     position: absolute;
     top: 14px;
     right: 14px;
+    z-index: 2;
     width: 34px;
     height: 34px;
     border-radius: 50%;
@@ -221,6 +222,32 @@
 
 .popup-close:hover {
     background: #fff;
+}
+
+.event-signup-view {
+    position: relative;
+}
+
+.popup-back {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 34px;
+    height: 34px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(245, 243, 255, 0.95);
+    color: #5b5bcc;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.popup-back:hover {
+    background: #ede9fe;
 }
 
 .popup-cta {
@@ -243,6 +270,84 @@
 /* ── Responsive ── */
 @media (max-width: 700px) {
     .articles-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.popup-cta {
+    border: 0;
+    cursor: pointer;
+}
+
+.popup-signup {
+    max-width: 520px;
+}
+
+.popup-signup__eyebrow {
+    font-family: 'Courier New', monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #5b5bcc;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.event-signup-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 22px;
+}
+
+.event-signup-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font-family: Arial, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.event-signup-form input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #d8d8e6;
+    border-radius: 10px;
+    padding: 0 12px;
+    font: inherit;
+    font-weight: 400;
+    color: #1a1a2e;
+    outline: none;
+}
+
+.event-signup-form input:focus {
+    border-color: #818cf8;
+    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.18);
+}
+
+.event-signup-form__submit,
+.event-signup-success {
+    grid-column: 1 / -1;
+}
+
+.event-signup-form__submit {
+    justify-self: flex-start;
+}
+
+.event-signup-success {
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #dcfce7;
+    color: #166534;
+    font-family: Arial, sans-serif;
+    font-size: 0.86rem;
+    font-weight: 700;
+}
+
+@media (max-width: 700px) {
+    .event-signup-form {
         grid-template-columns: 1fr;
     }
 }
