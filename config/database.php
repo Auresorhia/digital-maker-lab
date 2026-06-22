@@ -14,10 +14,10 @@ class Database {
         if (self::$instance === null) {
             try {
                 $host = '127.0.0.1';
-                $port = '3306';       // XAMPP : 3306 | MAMP : 8889
+                $port = '8889';       // XAMPP : 3306 | MAMP : 8889
                 $dbname = 'digital_maker_lab';
                 $username = 'root';
-                $password = '';       // XAMPP : vide | MAMP : 'root'
+                $password = 'root';   // XAMPP : vide | MAMP : 'root'
 
                 // Pour se connecter
                 self::$instance = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);

@@ -11,3 +11,6 @@ Thumbs.db
 # Logs locaux de débogage d'e-mails
 /mail-debug.log
 arborescence.txt
+
+# Fichier de routing local (PHP built-in server uniquement)
+public/router.php
