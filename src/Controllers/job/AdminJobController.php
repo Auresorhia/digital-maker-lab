@@ -179,4 +179,20 @@ class AdminJobController
             exit; 
         }
     }
+
+    /**
+     * Supprime un métier et redirige.
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        // Appel au modèle
+        $this->jobModel->delete($id);
+
+        // Redirection vers la liste
+        header('Location: /admin/jobs');
+        exit;
+    }
 }

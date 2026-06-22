@@ -133,4 +133,41 @@ class AdminSpecialtyController
             exit; 
         }
     }
+
+    /**
+     * Supprime une spécialité et redirige.
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function delete(int $id): void
+    {
+        try {
+            // On essaie de supprimer la spécialité
+            $this->specialtyModel->delete($id);
+            
+            // Si ça marche, on redirige vers la liste
+            header('Location: /admin/specialties');
+            exit;
+
+        } catch (\PDOException $e) {
+            // Le code 23000 correspond à une violation de clé étrangère dans MySQL
+            if ($e->getCode() == '23000') {
+                // On affiche un message d'erreur propre avec un bouton de retour
+                echo "
+                <div style='font-family: sans-serif; text-align: center; margin-top: 50px; color: white; background: #383838; padding: 30px; border-radius: 8px; max-width: 500px; margin-left: auto; margin-right: auto;'>
+                    <h2 style='color: #ff4757;'>Action impossible</h2>
+                    <p>Tu ne peux pas supprimer cette spécialité car <b>des métiers y sont encore liés</b>.</p>
+                    <p>Pour la supprimer, tu dois d'abord modifier ces métiers pour leur attribuer une autre spécialité, ou les supprimer.</p>
+                    <br>
+                    <a href='/admin/specialties' style='color: black; text-decoration: none; background: #E1F7DF; padding: 10px 20px; border-radius: 5px;'>Retour aux spécialités</a>
+                </div>
+                ";
+                exit;
+            }
+            
+            // Si c'est une autre erreur BDD inattendue, on la laisse s'afficher
+            throw $e;
+        }
+    }
 }
