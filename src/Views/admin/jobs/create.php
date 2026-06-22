@@ -26,7 +26,7 @@
                 <div></div>
             </div>
 
-            <form action="/admin/jobs/store" method="POST" class="form-container">
+            <form action="/test_admin_jobs.php?action=store" method="POST" class="form-container">
                 
                 <div class="form-label-input-container">
                     <label for="input-main-title" class="input-title">Titre principal</label>
@@ -138,6 +138,18 @@
                 <div class="form-label-input-container">
                     <label for="input-career-development-title" class="input-title">Titre de la section sur l'évolution de carrière</label>
                     <input type="text" id="input-career-development-title" name="career_development_title" class="input" placeholder="Quelles sont les évolutions possibles après quelques années d’expérience ?">
+                </div>
+
+                <div class="switch-container">
+                    <label for="input-visibility" class="input-title">Visible</label>
+                    <div class="switch-choices-container">
+                        <div class="switch-choices">Non</div>
+                        <label class="switch">
+                            <input type="checkbox" id="input-visibility" name="is_visible" value="1">
+                            <span class="slider"></span>
+                        </label>
+                        <div class="switch-choices">Oui</div>
+                    </div>
                 </div>
 
                 <div class="btn-container">

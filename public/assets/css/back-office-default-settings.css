@@ -43,3 +43,9 @@ nav {
     background-color: #D9D9D920;
     border-radius: 26px;
 }
+
+.empty-job-msg {
+    color: white; 
+    text-align: center; 
+    margin-top: 20px;
+}

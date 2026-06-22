@@ -25,7 +25,7 @@ class JobModel
      */
     public function findAll(): array
     {
-        $sql = "SELECT id_job, job_name, specialty_id FROM job ORDER BY created_at DESC";
+        $sql = "SELECT id_job, job_name, display, specialty_id FROM job ORDER BY created_at DESC";
         $stmt = $this->db->query($sql);
         
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -40,7 +40,7 @@ class JobModel
     public function findById(int $id): ?array
     {
         // On récupère d'abord les infos principales de la table `job`.
-        $sqlJob = "SELECT * FROM job WHERE id_job = :id";
+        $sqlJob = "SELECT id_job, job_name, display, specialty_id FROM job WHERE id_job = :id";
         $stmtJob = $this->db->prepare($sqlJob);
         $stmtJob->execute(['id' => $id]);
         $job = $stmtJob->fetch(PDO::FETCH_ASSOC);
@@ -141,27 +141,73 @@ class JobModel
     }
 
     /**
-     * Mettre à jour les données d'un métier en base de données.
+     * Met à jour un métier et tout son contenu associé (Transaction SQL).
      *
      * @param integer $id
-     * @param array $data
+     * @param array $jobData
+     * @param array $contentData
      * @return boolean
      */
-    public function update(int $id, array $data): bool
+    public function updateWithContent(int $id, array $jobData, array $contentData): bool
     {
-        $sql = "UPDATE job 
-                SET job_name = :job_name, 
-                    specialty_id = :specialty_id, 
-                    updated_at = NOW() 
-                WHERE id_job = :id";
-        
+        try {
+            $this->db->beginTransaction();
+
+            // Mise à jour de la table `job` (Nom et Display)
+            $sqlJob = "UPDATE job 
+                       SET job_name = :job_name, display = :display, updated_at = NOW() 
+                       WHERE id_job = :id";
+            
+            $stmtJob = $this->db->prepare($sqlJob);
+            $stmtJob->execute([
+                'job_name' => $jobData['job_name'],
+                'display'  => $jobData['display'],
+                'id'       => $id
+            ]);
+
+            // On supprime les anciens contenus
+            $sqlDelete = "DELETE FROM job_content WHERE job_id = :job_id";
+            $stmtDelete = $this->db->prepare($sqlDelete);
+            $stmtDelete->execute(['job_id' => $id]);
+
+            // On insère les nouveaux contenus
+            $sqlContent = "INSERT INTO job_content (job_id, section_name, content, created_at, updated_at) 
+                           VALUES (:job_id, :section_name, :content, NOW(), NOW())";
+            
+            $stmtContent = $this->db->prepare($sqlContent);
+
+            foreach ($contentData as $key => $value) {
+                // On n'insère que les champs qui ne sont pas vides
+                if ($value !== '') {
+                    $stmtContent->execute([
+                        'job_id'       => $id,
+                        'section_name' => $key,
+                        'content'      => $value
+                    ]);
+                }
+            }
+
+            // Tout s'est bien passé, on valide !
+            $this->db->commit();
+            return true;
+
+        } catch (\Exception $e) {
+            $this->db->rollBack();
+            throw $e; 
+        }
+    }
+
+    /**
+     * Inverse le statut de visibilité d'un métier (0 devient 1, 1 devient 0)
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function toggleDisplay(int $id): bool
+    {
+        $sql = "UPDATE job SET display = 1 - display, updated_at = NOW() WHERE id_job = :id";
         $stmt = $this->db->prepare($sql);
-        
-        return $stmt->execute([
-            'id'           => $id,
-            'job_name'     => $data['job_name'],
-            'specialty_id' => $data['specialty_id']
-        ]);
+        return $stmt->execute(['id' => $id]);
     }
 
     /**

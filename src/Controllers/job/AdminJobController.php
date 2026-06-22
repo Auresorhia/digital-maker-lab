@@ -58,7 +58,7 @@ class AdminJobController
                 // Le formulaire envoie 'main_title', on le met dans 'job_name'.
                 'job_name'     => $_POST['main_title'] ?? '', 
                 'specialty_id' => $_POST['specialty_id'] ?? null,
-                'display'      => 1 // Par défaut visible
+                'display'      => isset($_POST['is_visible']) ? 1 : 0
             ];
 
             // Les données de contenu pour la table `job_content`.
@@ -91,7 +91,7 @@ class AdminJobController
             // On envoie les deux tableaux au modèle.
             $this->jobModel->createWithContent($jobData, $contentData);
 
-            header('Location: /admin/jobs');
+            header('Location: /test_admin_jobs.php');
             exit;
         }
     }
@@ -125,18 +125,58 @@ class AdminJobController
         // Vérification que la requête est bien en POST.
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
-            // Préparation du tableau de données avec ce qui vient du formulaire.
-            $data = [
-                'job_name'     => $_POST['job_name'],
-                'specialty_id' => $_POST['specialty_id']
+            // Les données principales pour la table `job`.
+            $jobData = [
+                'job_name' => $_POST['main_title'] ?? '', 
+                'display'  => isset($_POST['is_visible']) ? 1 : 0
             ];
 
-            // On demande au modèle de mettre à jour la BDD.
-            $this->jobModel->update($id, $data);
+            // Les données de contenu pour la table `job_content`.
+            $contentData = [
+                'specialty_icon'           => $_POST['specialty_icon'] ?? '',
+                'explainer_title'          => $_POST['explainer_title'] ?? '',
+                'explainer_text'           => $_POST['explainer_text'] ?? '',
+                'interview_pro_title'      => $_POST['interview_pro_title'] ?? '',
+                'interview_pro_link'       => $_POST['interview_pro_link'] ?? '',
+                'qualities_title'          => $_POST['qualities_title'] ?? '',
+                'quality_1_title'          => $_POST['quality_1_title'] ?? '',
+                'quality_1_text'           => $_POST['quality_1_text'] ?? '',
+                'quality_2_title'          => $_POST['quality_2_title'] ?? '',
+                'quality_2_text'           => $_POST['quality_2_text'] ?? '',
+                'quality_3_title'          => $_POST['quality_3_title'] ?? '',
+                'quality_3_text'           => $_POST['quality_3_text'] ?? '',
+                'working_site_title'       => $_POST['working_site_title'] ?? '',
+                'working_site_text'        => $_POST['working_site_text'] ?? '',
+                'student_video_title'      => $_POST['student_video_title'] ?? '',
+                'student_video_link'       => $_POST['student_video_link'] ?? '',
+                'money_title'              => $_POST['money_title'] ?? '',
+                'money_text'               => $_POST['money_text'] ?? '',
+                'career_development_title' => $_POST['career_development_title'] ?? ''
+            ];
 
-            // Redirige l'utilisateur vers la liste des métiers.
-            header('Location: /admin/jobs');
+            // On envoie au modèle (nouvelle méthode updateWithContent).
+            $this->jobModel->updateWithContent($id, $jobData, $contentData);
+
+            // 4. Redirection
+            header('Location: /test_admin_jobs.php');
             exit;
+        }
+    }
+
+    /**
+     * Traite la requête AJAX pour inverser la visibilité
+     *
+     * @param integer $id
+     * @return void
+     */
+    public function toggle(int $id): void
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $success = $this->jobModel->toggleDisplay($id);
+            
+            header('Content-Type: application/json');
+            echo json_encode(['success' => $success]);
+            exit; 
         }
     }
 }

@@ -12,13 +12,13 @@
     <div class="main-container">
         <header>
             <nav>
-                <a href="/admin/specialties" class="tab">Spécialité</a>
-                <a href="/admin/jobs" class="tab active">Métier</a>
+                <a href="/test_admin_specialties.php" class="tab">Spécialité</a>
+                <a href="/test_admin_jobs.php" class="tab active">Métier</a>
             </nav>
         </header>
         <main>
             <div class="go-back-and-main-title-container">
-                <a href="/admin/jobs" class="go-back">
+                <a href="/test_admin_jobs.php" class="go-back">
                     <div>←</div>
                     <div>Retour vers la liste des métiers</div>
                 </a>
@@ -26,7 +26,7 @@
                 <div></div>
             </div>
 
-            <form action="/admin/jobs/<?= $job['id_job'] ?>/update" method="POST" class="form-container">
+            <form action="/test_admin_jobs.php?action=update&id=<?= $job['id_job'] ?>" method="POST" class="form-container">
                 
                 <div class="form-label-input-container">
                     <label for="input-main-title" class="input-title">Titre principal</label>
@@ -126,6 +126,18 @@
                 <div class="form-label-input-container">
                     <label for="input-career-development-title" class="input-title">Titre de la section sur l'évolution de carrière</label>
                     <input type="text" id="input-career-development-title" name="career_development_title" class="input" placeholder="Quelles sont les évolutions possibles après quelques années d’expérience ?" value="<?= htmlspecialchars($job['career_development_title'] ?? '') ?>">
+                </div>
+
+                <div class="switch-container">
+                    <label for="input-visibility" class="input-title">Visible</label>
+                    <div class="switch-choices-container">
+                        <div class="switch-choices">Non</div>
+                        <label class="switch">
+                            <input type="checkbox" id="input-visibility" name="display" value="1" <?= (isset($job['display']) && $job['display'] == 1) ? 'checked' : '' ?>>
+                            <span class="slider"></span>
+                        </label>
+                        <div class="switch-choices">Oui</div>
+                    </div>
                 </div>
 
                 <div class="btn-container">
