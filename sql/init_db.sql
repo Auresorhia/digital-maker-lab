@@ -550,42 +550,43 @@ INSERT INTO `quiz_job_answer` (`question_id`, `answer_text`, `explanation`, `is_
 (50, 'Vrai', 'L''adaptation mobile est un impératif majeur face aux exigences d''indexation et de trafic actuelles.', 0),
 (50, 'Faux', 'C''est une obligation technique absolue puisque la majorité du trafic web mondial se fait sur smartphone.', 1);
 
--- -------------------------------------------------------------------------
--- MÉTIER 6 : COMMUNITY MANAGER
--- -------------------------------------------------------------------------
-INSERT INTO `quiz_job_question` (`question_text`, `job_id`, `level`) VALUES
-('L''unique but du Community Manager est d''obtenir un maximum de "likes".', 6, 'easy'),
-('Il doit maîtriser l''art du "Copywriting" pour rédiger ses publications.', 6, 'medium'),
-('La modération des commentaires (positifs et négatifs) fait partie de son quotidien.', 6, 'easy'),
-('Le CM gère le budget d''achat d''espaces publicitaires télévisés.', 6, 'easy'),
-('Le "Newsjacking" (rebondir sur un fait d''actualité) est une technique qu''il utilise régulièrement.', 6, 'medium'),
-('Un bon Community Manager ne programme jamais ses posts à l''avance.', 6, 'easy'),
-('Analyser les statistiques de performance (reach, partages) est essentiel pour ajuster sa stratégie.', 6, 'medium'),
-('Le CM est responsable du développement technique du site web de l''entreprise.', 6, 'easy'),
-('La veille stratégique et concurrentielle occupe une place importante dans son travail.', 6, 'medium'),
-('Il est déconseillé pour un CM d''utiliser la vidéo courte, car c''est un format trop complexe.', 6, 'easy');
+-- =========================================================================
+-- MÉTIER 6 : SOCIAL MEDIA MANAGER
+-- =========================================================================
+
+INSERT INTO `quiz_job_question` (`id`, `question_text`, `job_id`, `level`) VALUES
+(51, 'L''unique but du Social Media Manager est d''obtenir un maximum de "likes".', 6, 'easy'),
+(52, 'Il doit maîtriser le copywriting pour rédiger des contenus performants.', 6, 'medium'),
+(53, 'Une partie importante de son travail consiste à analyser les performances des publications.', 6, 'medium'),
+(54, 'Le Social Media Manager définit la stratégie de présence d''une marque sur les réseaux sociaux.', 6, 'easy'),
+(55, 'Le "Newsjacking" (rebondir sur un sujet d''actualité) est une technique qu''il peut utiliser.', 6, 'medium'),
+(56, 'Un Social Media Manager publie uniquement du contenu créé à la dernière minute.', 6, 'easy'),
+(57, 'Les réseaux sociaux évoluant constamment, la veille fait partie intégrante de son métier.', 6, 'easy'),
+(58, 'Le Social Media Manager est responsable du développement technique du site internet de l''entreprise.', 6, 'easy'),
+(59, 'Il peut être amené à piloter des campagnes publicitaires sur les réseaux sociaux.', 6, 'medium'),
+(60, 'Les formats vidéo courts comme les Reels, Shorts ou TikTok sont aujourd''hui incontournables.', 6, 'easy');
 
 INSERT INTO `quiz_job_answer` (`question_id`, `answer_text`, `explanation`, `is_correct`) VALUES
-(51, 'Vrai', 'L''engagement global, l''acquisition de prospects et l''image de marque priment sur la simple métrique de mentions J''aime.', 0),
-(51, 'Faux', 'Son rôle est de fédérer une communauté, de générer du trafic qualifié, d''engager la conversation et d''améliorer la notoriété.', 1),
-(52, 'Vrai', 'L''accroche textuelle est fondamentale pour capter l''attention de l''audience.', 1),
-(52, 'Faux', 'Savoir structurer une publication pour la rendre percutante et incitative est une compétence clé du poste.', 0),
-(53, 'Vrai', 'Il gère la relation client sur les réseaux sociaux et protège l''e-réputation de la marque.', 1),
-(53, 'Faux', 'Protéger l''image de l''entreprise et désamorcer les tensions en commentaires est indispensable.', 0),
-(54, 'Vrai', 'Les campagnes publicitaires TV dépendent de budgets et de pôles de diffusion médias d''envergure différente.', 0),
-(54, 'Faux', 'Il se concentre sur les médias sociaux. Les médias traditionnels relèvent des acheteurs médias classiques.', 1),
-(55, 'Vrai', 'C''est une excellente stratégie pour générer de la viralité de manière organique.', 1),
-(55, 'Faux', 'S''approprier avec humour ou pertinence un sujet tendance booste l''exposition de sa marque.', 0),
-(56, 'Vrai', 'Planifier permet d''assurer une présence régulière et structurée via des calendriers éditoriaux.', 0),
-(56, 'Faux', 'Il utilise des outils de programmation et s''appuie sur un calendrier éditorial pour anticiper ses actions.', 1),
-(57, 'Vrai', 'La donnée permet de comprendre ce qui fonctionne et d''optimiser les futurs contenus (logique de Test & Learn).', 1),
-(57, 'Faux', 'Sans mesure fine des retours statistiques, l''optimisation de la stratégie social media reste impossible.', 0),
-(58, 'Vrai', 'L''écriture informatique et la structure applicative du site incombent aux ingénieurs ou développeurs web.', 0),
-(58, 'Faux', 'C''est le rôle de l''équipe de développement web.', 1),
-(59, 'Vrai', 'Il doit constamment surveiller les tendances (trends), les nouveaux formats et les actions de ses concurrents.', 1),
-(59, 'Faux', 'Une veille constante permet d''adopter les nouveaux formats algorithmiques avant ses concurrents.', 0),
-(60, 'Vrai', 'Les algorithmes actuels privilégient massivement les formats vidéos verticaux et courts pour accroître la portée.', 0),
-(60, 'Faux', 'Les formats vidéos courts (Reels, Shorts, TikTok) sont aujourd''hui indispensables dans une stratégie Social Media.', 1);
+(51, 'Vrai', 'Les "likes" ne sont qu''un indicateur de vanité parmi d''autres.', 0),
+(51, 'Faux', 'Son objectif est avant tout d''atteindre les objectifs de l''entreprise : notoriété, engagement, génération de leads, trafic ou conversions.', 1),
+(52, 'Vrai', 'Le Social Media Manager doit savoir rédiger des messages percutants capables de capter l''attention, susciter l''engagement et inciter à l''action.', 1),
+(52, 'Faux', 'Savoir structurer une accroche textuelle forte est une compétence clé du poste.', 0),
+(53, 'Vrai', 'Il suit des indicateurs tels que la portée, l''engagement, les clics ou les conversions afin d''optimiser sa stratégie.', 1),
+(53, 'Faux', 'L''analyse fine des indicateurs est indispensable pour piloter une stratégie Social Media efficace.', 0),
+(54, 'Vrai', 'Il choisit les plateformes pertinentes, fixe les objectifs, élabore le calendrier éditorial et pilote les actions à mettre en œuvre.', 1),
+(54, 'Faux', 'La définition et la planification de la vision stratégique globale sur les plateformes est au cœur de ses missions.', 0),
+(55, 'Vrai', 'Lorsqu''il est pertinent et cohérent avec la marque, le Newsjacking permet d''augmenter la visibilité et l''engagement de manière organique.', 1),
+(55, 'Faux', 'S''approprier un sujet tendance de manière intelligente permet de maximiser l''exposition de son entreprise.', 0),
+(56, 'Vrai', 'Travailler uniquement à la dernière minute empêcherait toute cohérence stratégique et industrielle.', 0),
+(56, 'Faux', 'Il planifie généralement ses contenus plusieurs jours ou semaines à l''avance grâce à un calendrier éditorial et des outils de programmation.', 1),
+(57, 'Vrai', 'Il surveille les nouvelles tendances, les évolutions des algorithmes, les formats émergents et les actions de la concurrence.', 1),
+(57, 'Faux', 'Ignorer les tendances algorithmiques rendrait rapidement la communication d''une marque obsolète.', 0),
+(58, 'Vrai', 'Le Social Media Manager se concentre sur les réseaux sociaux, pas sur le code informatique.', 0),
+(58, 'Faux', 'Cette mission relève des équipes de développement web. Le Social Media Manager se concentre sur la stratégie et la communication sur les réseaux sociaux.', 1),
+(59, 'Vrai', 'Selon l''entreprise, il peut gérer ou superviser des campagnes sponsorisées afin d''atteindre des objectifs de visibilité, de trafic ou de conversion.', 1),
+(59, 'Faux', 'L''achat d''espace publicitaire (Paid Ads) social média fait souvent partie du périmètre d''un Social Media Manager.', 0),
+(60, 'Vrai', 'Ces formats occupent une place centrale dans les stratégies Social Media car ils favorisent la visibilité, l''engagement et la découverte de nouvelles audiences.', 1),
+(60, 'Faux', 'Le format vidéo vertical court est aujourd''hui poussé en priorité par la majorité des algorithmes de plateformes.', 0);
 
 -- -------------------------------------------------------------------------
 -- MÉTIER 7 : VIDÉASTE
