@@ -1,4 +1,6 @@
 <?php
+namespace Controllers;
+
 class FinderController
 {
     public function index(): void

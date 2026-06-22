@@ -2,20 +2,14 @@
 namespace Controllers;
 
 use Models\SpecialtyModel;
-use PDO;
 
 class AdminSpecialtyController
 {
     private SpecialtyModel $specialtyModel;
 
-    /**
-     * On instancie le modèle en lui passant la connexion à la base de données.
-     *
-     * @param PDO $db
-     */
-    public function __construct(PDO $db)
+    public function __construct()
     {
-        $this->specialtyModel = new SpecialtyModel($db);
+        $this->specialtyModel = new SpecialtyModel(\Database::getInstance());
     }
 
     /**
