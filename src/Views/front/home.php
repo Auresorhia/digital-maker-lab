@@ -9,6 +9,7 @@ $nav_links = [
     ['label' => 'À propos',               'href' => '#about',   'active' => false],
     ['label' => 'Les métiers du digital', 'href' => '#jobs',    'active' => false],
     ['label' => 'Actualités',             'href' => '#news',    'active' => false],
+    ['label' => 'Blog',                   'href' => '/blog',    'active' => false],
 ];
 require_once __DIR__ . '/../partials/header.php';
 ?>
