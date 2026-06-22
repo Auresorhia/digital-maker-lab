@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 $articles = [
     [
         'id'          => 1,
@@ -104,16 +104,49 @@ $articles_affiches = array_slice($articles, $offset, $articles_par_page);
 <!-- ══ Popup détail événement ══ -->
 <div class="popup-overlay" id="popupOverlay" onclick="fermerPopup(event)">
     <div class="popup">
-        <button class="popup-close" onclick="fermerPopup(null, true)">&#10005;</button>
-        <img id="popupImg" src="" alt="" class="popup-img">
-        <div class="popup-body">
-            <div class="popup-meta">
-                <span>📅 <span id="popupDate"></span></span>
-                <span>📍 <span id="popupLieu"></span></span>
+        <button class="popup-close" type="button" onclick="fermerPopup(null, true)">&#10005;</button>
+        <div id="eventDetailView">
+            <img id="popupImg" src="" alt="" class="popup-img">
+            <div class="popup-body">
+                <div class="popup-meta">
+                    <span>📅 <span id="popupDate"></span></span>
+                    <span>📍 <span id="popupLieu"></span></span>
+                </div>
+                <h3 class="popup-title" id="popupTitre"></h3>
+                <p class="popup-text" id="popupDetail"></p>
+                <button type="button" class="popup-cta" onclick="ouvrirPopupInscription()">S'inscrire &agrave; l'&eacute;v&eacute;nement</button>
             </div>
-            <h3 class="popup-title" id="popupTitre"></h3>
-            <p class="popup-text" id="popupDetail"></p>
-            <a href="#" class="popup-cta">S'inscrire à l'événement</a>
+        </div>
+
+        <div class="event-signup-view" id="eventSignupView" hidden>
+            <button class="popup-back" type="button" onclick="retourPopupEvenement()" aria-label="Retour au détail de l'événement">←</button>
+            <div class="popup-body">
+                <p class="popup-signup__eyebrow">Inscription &agrave; l'&eacute;v&eacute;nement</p>
+                <h3 class="popup-title" id="signupEventTitle">TechFest 2026</h3>
+                <p class="popup-text">Complete ces informations pour confirmer ton inscription.</p>
+
+                <form class="event-signup-form" id="eventSignupForm">
+                    <label>
+                        Nom
+                        <input type="text" name="nom" required>
+                    </label>
+                    <label>
+                        Prenom
+                        <input type="text" name="prenom" required>
+                    </label>
+                    <label>
+                        Classe
+                        <input type="text" name="classe" required>
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" name="email" required>
+                    </label>
+
+                    <button type="submit" class="popup-cta event-signup-form__submit">Valider l'inscription</button>
+                    <p class="event-signup-success" id="eventSignupSuccess" hidden>Inscription confirmee, merci !</p>
+                </form>
+            </div>
         </div>
     </div>
 </div>
@@ -126,6 +159,11 @@ $articles_affiches = array_slice($articles, $offset, $articles_par_page);
         document.getElementById('popupDate').textContent = date;
         document.getElementById('popupLieu').textContent = lieu;
         document.getElementById('popupDetail').textContent = detail;
+        document.getElementById('signupEventTitle').textContent = titre;
+        document.getElementById('eventDetailView').hidden = false;
+        document.getElementById('eventSignupView').hidden = true;
+        document.getElementById('eventSignupSuccess').hidden = true;
+        document.getElementById('eventSignupForm').reset();
         document.getElementById('popupOverlay').classList.add('active');
         document.body.style.overflow = 'hidden';
     }
@@ -137,7 +175,27 @@ $articles_affiches = array_slice($articles, $offset, $articles_par_page);
         }
     }
 
+    function ouvrirPopupInscription() {
+        document.getElementById('eventDetailView').hidden = true;
+        document.getElementById('eventSignupView').hidden = false;
+        document.getElementById('eventSignupSuccess').hidden = true;
+        document.getElementById('eventSignupForm').reset();
+    }
+
+    function retourPopupEvenement() {
+        document.getElementById('eventSignupView').hidden = true;
+        document.getElementById('eventDetailView').hidden = false;
+    }
+
+    document.getElementById('eventSignupForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        event.currentTarget.reset();
+        document.getElementById('eventSignupSuccess').hidden = false;
+    });
+
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') fermerPopup(null, true);
+        if (e.key === 'Escape') {
+            fermerPopup(null, true);
+        }
     });
 </script>
