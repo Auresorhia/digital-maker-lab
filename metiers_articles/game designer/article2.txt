@@ -1,0 +1,228 @@
+<h1>Les métiers du jeu vidéo et du digital : quels parcours pour travailler dans cet univers
+?</h1>
+<p>
+Tu as grandi avec une manette entre les mains ou un clavier sous les doigts. Tu passes des
+heures à décortiquer tes univers préférés, et aujourd'hui, une question te trotte dans la tête :
+et si tu passais de l'autre côté de l'écran ?
+</p>
+<p>
+Transformer sa passion en carrière, c’est le rêve de beaucoup de joueurs. Mais l'industrie ne
+se résume pas à l'image du génie seul dans sa chambre qui invente un chef-d'œuvre.
+</p>
+<p>
+Aujourd’hui, créer une expérience interactive repose sur le travail de nombreux
+professionnels aux compétences complémentaires. C’est un secteur extrêmement riche,
+structuré et collaboratif, où chaque métier du digital joue un rôle essentiel.
+</p>
+<p>
+Alors, qui fait quoi exactement ? Et comment trouver la voie qui te correspond ? Plongeons
+ensemble dans les coulisses de la création pour découvrir les parcours et les professionnels
+qui donnent vie à tes jeux favoris.
+</p>
+<h2>1. La conception : donner une âme et des règles au jeu</h2>
+<p>
+La première grande étape de la création, c'est l'idéation et la structuration du projet. C'est ici
+que l'on imagine les règles, l'histoire, les mécaniques et la progression du joueur.
+</p>
+<h3>Le Game Designer : architecte de l'expérience joueur</h3>
+<p>
+Attention aux idées reçues : le Game Designer ne code pas le jeu et ne crée pas les décors.
+Son rôle consiste à imaginer l'expérience du joueur de bout en bout.
+</p>
+<p>
+Il réfléchit au gameplay, au niveau de difficulté, à la progression et à tout ce qui rend le jeu
+engageant et amusant.
+</p>
+<p>
+👉 <a href="#">Découvre notre article sur les idées reçues concernant le métier de Game
+Designer</a>.
+
+</p>
+<h3>Le cœur du métier</h3>
+<p>
+Une grande partie du travail consiste à rédiger et mettre à jour le <strong>Game Design
+Document (GDD)</strong>, véritable bible du projet. Ce document centralise l'ensemble des
+mécaniques, règles et interactions afin que toute l'équipe travaille dans la même direction.
+</p>
+<h3>Les outils utilisés</h3>
+<p>
+Même sans être développeur, le Game Designer doit tester ses idées directement sur des
+moteurs de jeu comme <strong>Unity</strong> ou <strong>Unreal Engine</strong> afin de
+vérifier que les mécaniques fonctionnent réellement en situation.
+</p>
+<h3>Les évolutions possibles</h3>
+<p>
+Avec l'expérience, il est possible de se spécialiser dans différents domaines.
+</p>
+<ul>
+<li><strong>Level Designer</strong> : conception des niveaux et de la progression
+spatiale.</li>
+<li><strong>Narrative Designer</strong> : création de l'histoire et des dialogues.</li>
+<li><strong>Game Director</strong> : supervision globale de la vision du jeu.</li>
+</ul>
+<p>
+👉 Envie d'en savoir plus ? Consulte notre <a href="#">Fiche métier Game Designer</a>
+pour découvrir les missions, les compétences requises et les perspectives salariales du
+métier.
+</p>
+<h2>2. L'artistique : bâtir des mondes visuels et sonores</h2>
+<p>
+Si la conception définit les règles du jeu, le pôle artistique lui donne son identité visuelle et
+sonore. C'est grâce à ces métiers que les univers prennent vie et marquent les joueurs.
+</p>
+<h3>Graphiste 2D, 3D et Concept Artist</h3>
+<p>
+
+Les graphistes et concept artists transforment les idées imaginées par les concepteurs en
+éléments visuels concrets.
+</p>
+<p>
+Leurs missions peuvent inclure :
+</p>
+<ul>
+<li>La création de personnages.</li>
+<li>La conception d'environnements.</li>
+<li>La modélisation 3D.</li>
+<li>Le texturing.</li>
+<li>L'animation.</li>
+</ul>
+<h3>Sound Designer</h3>
+<p>
+Le Sound Designer crée l'identité sonore du projet. Son travail va bien au-delà de la
+musique.
+</p>
+<p>
+Il intervient notamment sur :
+</p>
+<ul>
+<li>Les bruitages.</li>
+<li>Les ambiances sonores.</li>
+<li>Les effets spéciaux audio.</li>
+<li>L'immersion globale du joueur.</li>
+</ul>
+<p>
+Chaque son contribue à rendre l'univers crédible et vivant.
+</p>
+<!-- À activer lorsque les fiches seront disponibles -->
+<!--
+<p>
+👉<a href="#"> Découvre également les fiches métiers Graphiste 3D et Sound
+Designer.</a> (lien hellowork ou autre)
+</p>
+-->
+<h2>3. La technique : la magie sous le capot</h2>
+
+<p>
+Avoir de bonnes idées et une direction artistique forte ne suffit pas. Sans la technique, le jeu
+ne peut tout simplement pas fonctionner.
+</p>
+<h3>Développeur Jeux Vidéo</h3>
+<p>
+Le développeur transforme la vision de l'équipe en réalité interactive grâce au code.
+</p>
+<p>
+Il programme notamment :
+</p>
+<ul>
+<li>L'intelligence artificielle des personnages.</li>
+<li>La physique du jeu.</li>
+<li>Les systèmes de combat.</li>
+<li>L'inventaire.</li>
+<li>Les interfaces utilisateur.</li>
+</ul>
+<p>
+Ce métier demande de solides compétences en logique, en mathématiques et une forte
+capacité à résoudre des problèmes techniques.
+</p>
+<p>
+Les développeurs travaillent en permanence avec les Game Designers, les artistes et les
+chefs de projet afin d'assurer la cohérence du produit final.
+</p>
+<!-- À activer lorsque la fiche sera disponible -->
+<!--
+<p>
+👉 Consulte notre Fiche métier Développeur Jeux Vidéo pour découvrir les langages et
+technologies à maîtriser.
+</p>
+-->
+<h2>4. Quels parcours pour intégrer ce milieu ?</h2>
+<p>
+Maintenant que tu connais les principaux métiers du secteur, une question demeure :
+comment y accéder ?
+</p>
+
+<p>
+Aujourd'hui, la majorité des professionnels suivent une formation spécialisée après le
+baccalauréat.
+</p>
+<p>
+Selon le domaine visé (conception, art ou développement), il existe différents cursus allant
+du Bachelor au Mastère.
+</p>
+<h3>Se former au Game Design</h3>
+<p>
+Un Bachelor Game Designer permet généralement d'apprendre :
+</p>
+<ul>
+<li>La conception de gameplay.</li>
+<li>La gestion de projet.</li>
+<li>L'utilisation des moteurs de jeu.</li>
+<li>La méthodologie de production.</li>
+</ul>
+<p>
+Il est ensuite possible de poursuivre vers un Bac+5 afin de se spécialiser davantage ou
+d'accéder à des postes à responsabilités.
+</p>
+<h3>Le conseil à retenir : privilégier l'expérience terrain</h3>
+<p>
+Dans l'industrie du jeu vidéo, la théorie seule ne suffit pas.
+</p>
+<p>
+L'alternance constitue souvent un véritable accélérateur de carrière puisqu'elle permet :
+</p>
+<ul>
+<li>D'acquérir une expérience professionnelle concrète.</li>
+<li>De développer son réseau.</li>
+<li>De constituer un portfolio solide.</li>
+<li>D'être opérationnel dès l'obtention du diplôme.</li>
+</ul>
+<h2>5. Un tremplin vers d'autres horizons du digital</h2>
+<p>
+
+Choisir une formation liée au jeu vidéo ne signifie pas travailler exclusivement dans ce
+secteur.
+</p>
+<p>
+Les compétences acquises sont aujourd'hui recherchées dans de nombreux domaines du
+digital.
+</p>
+<p>
+Parmi eux :
+</p>
+<ul>
+<li>Le développement web et mobile.</li>
+<li>L'UX/UI Design.</li>
+<li>La création d'applications.</li>
+<li>La réalité virtuelle et augmentée.</li>
+<li>La gamification des services numériques.</li>
+</ul>
+<p>
+Comprendre les comportements utilisateurs, concevoir des expériences interactives ou
+développer des interfaces engageantes sont des compétences particulièrement valorisées
+sur le marché de l'emploi.
+</p>
+<p>
+Se former aux métiers du jeu vidéo, c'est aussi ouvrir la porte à de nombreux métiers du
+digital tournés vers l'avenir.
+</p>
+<h2>Prêt à lancer ta partie ?</h2>
+<p>
+L'industrie interactive est vaste, passionnante et en constante évolution.
+</p>
+<p>
+Prends le temps d'explorer les différentes spécialisations, d'identifier le domaine qui te
+correspond le mieux et commence dès aujourd'hui à développer tes premiers projets.
+</p>
+<p>
+Chaque grande carrière dans le jeu vidéo commence par une première création.
+</p>
