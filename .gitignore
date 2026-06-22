@@ -14,3 +14,10 @@ arborescence.txt
 
 # Fichier de routing local (PHP built-in server uniquement)
 public/router.php
+
+# Credentials BDD — ne jamais committer
+/config/config.php
+
+# Fichiers SQL individuels (fusionnés dans init_db.sql)
+/sql/job.sql
+/sql/specialty.sql
